@@ -1,0 +1,112 @@
+﻿@model Admin.Models.EditUserViewModel
+@using Admin.Functions
+@{
+  var imgsize = Constants.ImageFileSize / 1024;
+}
+<section class="content-header">
+  <h1>
+    Usuários
+    <small>editar usuário</small>
+  </h1>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="box box-primary">
+        @using (Html.BeginForm("EditPost", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+          @Html.AntiForgeryToken()
+          <div class="box-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group validation-summary">
+              <span class="text-danger">(*) Preencha os campos obrigatórios</span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Img))
+            {
+              <div class="form-group">
+                @Html.LabelFor(model => model.Img) <em class="text-red">(Tamanho recomendado: 150x150 / Peso máximo: @imgsize KB)</em> <a class="remover-img" href="#" title="Remover Imagem"><i class="fa fa-trash-o fa-fw"></i></a>
+                <a class="thumb" href="@string.Format("{0}/{1}/{2}", Constants.UrlDominioEstaticoUploads, "users", Model.Img)" title="Visualizar imagem original" target="_blank">
+                  <img src="@string.Format("{0}/{1}/{2}", Constants.UrlDominioEstaticoUploads, "users", Model.Img)" class="thumbnail quadrada" />
+                  <i class="fa fa-search-plus fa-fw"></i>
+                </a>
+                <a class="btn btn-sm btn-flat btn-danger image" href="#" title="Alterar">Alterar</a>
+                @Html.HiddenFor(model => model.Img)
+                <p>@Html.ValidationMessageFor(model => model.Img, "", new { @class = "text-danger" })</p>
+              </div>
+              <div class="form-group div-hidden" id="fileupload-image">
+                <span class="btn btn-sm btn-flat btn-primary fileinput-button">
+                  <i class="fa fa-camera fa-fw"></i>
+                  <span>Upload</span>
+                  @Html.EditorFor(model => model.PostedImg, new { htmlAttributes = new { @class = "form-control fileupload", @type = "file", @accept = "image/*" } })
+                </span>
+                <em class="help-block">Formatos: png e jpg</em>
+              </div>
+            }
+            else
+            {
+              <div class="form-group">
+                @Html.LabelFor(model => model.Img) <em class="text-red">(Tamanho recomendado: 150x150 / Peso máximo: @imgsize KB)</em>
+                <span class="btn btn-sm btn-primary btn-flat fileinput-button">
+                  <i class="fa fa-camera fa-fw"></i>
+                  <span>Upload</span>
+                  @Html.EditorFor(model => model.PostedImg, new { htmlAttributes = new { @class = "form-control fileupload", @type = "file", @accept = "image/*" } })
+                </span>
+                <em class="help-block">Formatos: png e jpg</em>
+                @Html.ValidationMessageFor(model => model.Img, "", new { @class = "text-danger" })
+              </div>
+            }
+            <div class="form-group">
+              @Html.LabelFor(model => model.Name, new { @class = "asterisk" })
+              @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control required", @placeholder = "Nome" } })
+              @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+              @Html.LabelFor(model => model.Email, new { @class = "asterisk" })
+              @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control required", @placeholder = "Email" } })
+              @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+              <label>Perfis</label>
+              @if (Model != null)
+              {
+                foreach (var item in Model.RolesList)
+                {
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="SelectedRoles" value="@item.Value" checked="@item.Selected">
+                      @if (item.Selected)
+                      { <small class="text-green">@item.Value</small> }
+                      else
+                      { <small class="text-muted">@item.Value</small> }
+                    </label>
+                  </div>
+                }
+              }
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Salvar" class="btn btn-success btn-flat" />
+              <a class="btn btn-danger btn-flat" href="@Url.Action("Index", "Users")" role="button" title="Voltar">Voltar</a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  setactivemenu('#a-users');
+  $('.image').on({
+    click: function () {
+      $('#fileupload-image').show();
+      return false;
+    }
+  });
+  $('.remover-img').on({
+    click: function () {
+      $(this).parent().hide();
+      $("input[name='Img']").val("");
+      return false;
+    }
+  });
+</script>

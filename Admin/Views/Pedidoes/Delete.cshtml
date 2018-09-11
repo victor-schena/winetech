@@ -1,0 +1,80 @@
+﻿@model Entities.Tables.Pedido
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Pedido</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Pessoa.RazaoSocial)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Pessoa.RazaoSocial)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.isVenda)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.isVenda)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.isPessoaFisica)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.isPessoaFisica)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DataPedido)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DataPedido)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Quantidade)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Total)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Total)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

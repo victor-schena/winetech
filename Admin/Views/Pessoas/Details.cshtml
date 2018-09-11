@@ -1,0 +1,216 @@
+﻿@model Entities.Tables.Pessoa
+
+@{
+    ViewBag.Title = "Details";
+}
+@if (Model != null)
+{
+  string caminho = string.Empty;
+  if ((Model.TipoPessoaId == 1)&&(Model.PapelPessoaId==1))
+  {
+    <h2>Detalhes Cliente Pessoa-Física</h2>
+    caminho = "IndexCF";
+  }
+  if (((Model.TipoPessoaId == 2) && (Model.PapelPessoaId == 1)))
+  {
+    <h2>Detalhes Cliente Pessoa-Juridica</h2>
+    caminho = "IndexCJ";
+  }
+  if (((Model.TipoPessoaId == 1) && (Model.PapelPessoaId == 2)))
+  {
+    <h2>Detalhes Fornecedor Pessoa-Fisica</h2>
+    caminho = "IndexFF";
+  }
+  if (((Model.TipoPessoaId == 2) && (Model.PapelPessoaId == 2)))
+  {
+    <h2>Detalhes Fornecedor Pessoa-Juridica</h2>
+    caminho = "IndexFJ";
+  }
+<div class="box box-default" style="width:auto">
+    <hr />
+    <dl class="dl-horizontal">
+      
+        @if (Model.TipoPessoaId == 1)
+        {
+        
+
+        <dt>
+            Nome Completo:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeCompleto)
+        </dd>
+
+        <dt>
+            RG:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RG)
+        </dd>
+
+        <dt>
+            CPF:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CPF)
+        </dd>
+
+        <dt>
+            Data de Nascimento:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataNascimento)
+        </dd>
+
+       
+        <dt>
+            E-mail:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Telefone:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+
+        <dt>
+            Celular:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Celular)
+        </dd>
+
+        <dt>
+            Status:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            Limite de Crédito:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LimiteCredito)
+        </dd>
+
+        <dt>
+            Tipo Pessoa:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoPessoaId)
+        </dd>
+
+        <dt>
+            Papel Pessoa:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PapelPessoaId)
+        </dd>
+
+        }
+        else
+        {
+          <dt>
+            Razao Social:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.RazaoSocial)
+          </dd>
+
+          <dt>
+            Nome Fantasia:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.NomeFantasia)
+          </dd>
+
+          <dt>
+            CNPJ:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.CNPJ)
+          </dd>
+
+          <dt>
+            E-mail
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Email)
+          </dd>
+
+          <dt>
+            Telefone:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Telefone)
+          </dd>
+
+          <dt>
+            Celular:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Celular)
+          </dd>
+
+          <dt>
+            Status:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Status)
+          </dd>
+
+          <dt>
+            Limite de Crédito:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.LimiteCredito)
+          </dd>
+
+          <dt>
+            Tipo Pessoa:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.TipoPessoa.Desc)
+          </dd>
+
+          <dt>
+            Papel Pessoa:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.PapelPessoa.Desc)
+          </dd>
+        }
+      
+    </dl>
+</div>
+<p >
+  <a href="@Url.Action("Edit", "Pessoas", new { id = Model.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+  <a href="@Url.Action(caminho, "Pessoas", new { id = Model.Id })" title="Index"><span class="label label-info">Listar</span></a>
+</p>
+}

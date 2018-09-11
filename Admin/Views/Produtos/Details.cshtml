@@ -1,0 +1,130 @@
+﻿@model Entities.Tables.Produto
+
+@{
+  ViewBag.Title = "Details";
+}
+<section class="content-header">
+  <h1>
+    Produtos
+    <small>novo produto</small>
+  </h1>
+</section>
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-body">
+      <div>
+        <h4>Produto</h4>
+        <hr />
+        <dl class="dl-horizontal">
+          <dt>
+            País:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Pais.Nome)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Safra.Ano):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Safra.Ano)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Nome):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Nome)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Descricao):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Descricao)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Uva):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Uva)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Classe):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Classe)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Teor_Alcolico):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Teor_Alcolico)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Tipo):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Tipo)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.CustoUnitario):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.CustoUnitario)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Quantidade):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+          </dd>
+
+          <dt>
+            Preco de venda:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.PrecoVenda)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.Volume):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Volume)
+          </dd>
+
+          <dt>
+            @Html.DisplayNameFor(model => model.DataValidade):
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.DataValidade)
+          </dd>
+        </dl>
+      </div>
+      </div>
+    </div>
+  </section>
+      <p>
+        <a href="@Url.Action("Edit", "Produtos", new { id = Model.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+        <a href="@Url.Action("Index", "Produtos", new { id = Model.Id })" title="Index"><span class="label label-info">Listar</span></a>
+      </p>

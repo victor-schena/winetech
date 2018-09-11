@@ -1,0 +1,48 @@
+﻿
+@using Admin.Models
+@model LoginViewModel
+@{
+  Layout = null;
+}
+<!DOCTYPE html>
+<html lang="pt-br">
+@Html.Partial("_Head")
+<body class="login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <b>Winetech</b>
+    </div>
+    <div class="login-box-body">
+      <p class="login-box-msg">Fazer login usando sua conta</p>
+      @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+      {
+        @Html.AntiForgeryToken()
+        <div class="form-group profile-div">
+          <img class="profile-img" src="@Url.Content("~/Content/img/grape.jpg")" alt="login">
+        </div>
+        <div class="form-group has-feedback">
+          @Html.TextBoxFor(m => m.Email, new { @class = "form-control required email", @placeholder = "admin@admin.com" })
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group has-feedback">
+          @Html.PasswordFor(m => m.Password, new { @class = "form-control required", @placeholder = "******" })
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="row">
+          <div class="col-xs-4">
+            <input type="submit" value="Entrar" data-value="Entrando..." class="btn btn-primary btn-block btn-flat" />
+          </div>
+          <div class="col-md-2" style="border:1px">
+            <a href="@Url.Action("ForgotPassword","Account")" value="Esqueci!" data-value="Esqueci minha senha!" class="btn btn-flat"></a>
+          </div>
+
+          @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+      }
+    </div>
+  </div>
+  @Html.Partial("_JS")
+</body>
+</html>

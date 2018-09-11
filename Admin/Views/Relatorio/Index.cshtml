@@ -1,0 +1,71 @@
+﻿@model Entities.Tables.Pedido
+@{
+  ViewBag.Title = "Index";
+}
+
+<h2 class="align center">Relatório Financeiro</h2>
+
+@using (Html.BeginForm())
+{
+  <div class="form-horizontal">
+    <div class="form-group center">
+      Relatório de faturamento mensal
+    </div>
+    <div class="form-group">
+      <div class="col-md-3">
+        @Html.Label("Inicio:")
+        @Html.EditorFor(model=>model.DataPedido, new { htmlAttributes = new { @class = "datepicker" } })
+      </div>
+      <div class="col-md-5">
+        @Html.Label("Fim:")
+        @Html.EditorFor(model => model.DataPedido, new { htmlAttributes = new { @class = "datepicker" } })
+      </div>
+    </div>
+  </div>
+  <table class="table">
+    <tr>
+      <th>
+        Nome
+      </th>
+      <th>
+        Data Pedido
+      </th>
+      <th>
+        Produtos
+      </th>
+      <th>
+        Pedidos
+      </th>
+      <th>
+        Total
+      </th>
+      <th></th>
+    </tr>
+    @*@foreach (var item in Model.Produtos)
+    {
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Pessoa.RazaoSocial)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.DataPedido)
+        </td>
+        <td>
+          @Html.ListBox("Id", new SelectList(item.Produtos, "ProdutoID", "Descricao"))
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Quantidade)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+          @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+          @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+          @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+      </tr>
+      }
+    }*@
+  </table>
+}

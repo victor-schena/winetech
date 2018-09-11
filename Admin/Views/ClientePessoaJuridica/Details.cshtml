@@ -1,0 +1,145 @@
+﻿@model Admin.Models.ClienteEnderecoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="box box-default" style="width:auto">
+    <hr />
+    <dl class="dl-horizontal">        
+          <dt>
+            Razao Social:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Pessoa.RazaoSocial)
+          </dd>
+
+          <dt>
+            Nome Fantasia:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Pessoa.NomeFantasia)
+          </dd>
+
+          <dt>
+            CNPJ:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Pessoa.CNPJ)
+          </dd>
+
+          <dt>
+            E-mail
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Pessoa.Email)
+          </dd>
+
+          <dt>
+            Telefone:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Pessoa.Telefone)
+          </dd>
+
+          <dt>
+            Celular:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Pessoa.Celular)
+          </dd>      
+    </dl>
+  <div class="box box-primary" id="divListaEnderecos" style="padding:7px">
+    <div class="box-body">
+      <div class="table">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>
+                Estado:
+              </th>
+              <th>
+                Cidade
+              </th>
+              <th>
+                Bairro:
+              </th>
+              <th>
+                CEP:
+              </th>
+              <th>
+                Rua:
+              </th>
+              <th>
+                Numero:
+              </th>
+              <th>
+                Complemento:
+              </th>
+              <th>
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+
+            @if (Model != null && Model.Enderecos != null)
+            {
+              foreach (var item in Model.Enderecos)
+              {
+                if (item != null && item.Status == true)
+                {
+                  <tr>
+                    <td>
+                      @Html.DisplayFor(modelItem => item.Estado)
+                      @Html.HiddenFor(modelItem => item.Estado)
+                    </td>
+                    <td>
+                      @Html.DisplayFor(modelItem => item.Cidade)
+                      @Html.HiddenFor(modelItem => item.Cidade)
+                    </td>
+                    <td>
+                      @Html.DisplayFor(modelItem => item.Bairro)
+                      @Html.HiddenFor(modelItem => item.Bairro)
+                    </td>
+                    <td>
+                      @Html.DisplayFor(modelItem => item.CEP)
+                      @Html.HiddenFor(modelItem => item.CEP)
+                    </td>
+                    <td>
+                      @Html.DisplayFor(modelItem => item.Rua)
+                      @Html.HiddenFor(modelItem => item.Rua)
+                    </td>
+                    <td>
+                      @Html.DisplayFor(modelItem => item.Numero)
+                      @Html.HiddenFor(modelItem => item.Numero)
+                    </td>
+                    <td>
+                      @Html.DisplayFor(modelItem => item.Complemento)
+                      @Html.HiddenFor(modelItem => item.Complemento)
+                    </td>
+                    <td>
+                      @Html.DisplayFor(modelItem => item.Status)
+                      @Html.HiddenFor(modelItem => item.Status)
+                    </td>
+                  </tr>
+                }
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+<p >
+  <a href="@Url.Action("Edit", "ClientePessoaJuridica", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+  <a href="@Url.Action("Index", "ClientePessoaJuridica", new { id = Model.Pessoa.Id })" title="Index"><span class="label label-info">Listar</span></a>
+</p>

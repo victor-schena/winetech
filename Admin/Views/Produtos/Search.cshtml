@@ -1,0 +1,153 @@
+﻿@model IEnumerable<Entities.Tables.Produto>
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p>
+  
+</p>
+@using (Html.BeginForm())
+{
+  @Html.AntiForgeryToken()
+  <div class="align-center ">
+    <p style="text-align:center">Digite o Produto</p>
+    <input type="text" style="text-align:center" name="texto" id="texto" placeholder="Digite a pesquisa" /><br/>
+    <div><button type="submit">Pesquisar</button></div> 
+  </div>
+  }
+@if (Model != null)
+{
+  <table class="table table-hover">
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.Pais.Nome)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Safra.Ano)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Nome)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Descricao)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Uva)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Classe)
+      </th>
+      <th>
+        Teor Alcolico
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Tipo)
+      </th>
+      <th>
+        Custo Unitario
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Quantidade)
+      </th>
+      <th>
+        Preco Venda
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Volume)
+      </th>
+      <th>
+        Data Validade
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Status)
+      </th>
+      <th>
+        Opções
+      </th>
+      <th>
+        Adicionar ao pedido
+      </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+      if (item.Status != false) { 
+      <tr>
+        <td>
+          @Html.DisplayFor(modelItem => item.Pais.Nome)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Safra.Ano)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Uva)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Classe)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Teor_Alcolico)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Tipo)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.CustoUnitario)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Quantidade)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.PrecoVenda)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Volume)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.DataValidade)
+        </td>
+        <td>
+          @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+          <a href="@Url.Action("Edit", "Produtos", new { id = item.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+          <a href="@Url.Action("Details", "Produtos", new { id = item.Id })" title="Detalhes do produto"><span class="label label-warning"><i class="fa fa-unlock fa-fw"></i></span></a>
+          <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Produtos", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger">DEL</span></a>
+        </td>
+        <td>
+          <a href="@Url.Action("Index", "Pedido", new { id = item.Id })" title="Adicionar ao Pedido"><span class="label label-info">Adicionar</span></a>
+        </td>
+      </tr>
+      }
+    }
+  </table>
+}
+else
+{
+<p style="text-align:center">Nenhum registro encontrado!</p>
+}
+<div class="modal fade" id="confirmation-delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Deletar Registro?</h4>
+      </div>
+      <div class="modal-body">
+        Essa ação é irreversível. Deletar?
+      </div>
+      <div class="modal-footer">
+        <form id="form-delete" method="post" novalidate="novalidate">
+          @Html.AntiForgeryToken()
+          <input type="submit" value="Sim" class="btn btn-success btn-flat" />
+          <a href="#" class="btn btn-danger btn-flat" data-dismiss="modal">Não</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

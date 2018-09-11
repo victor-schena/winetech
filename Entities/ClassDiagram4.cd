@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Entities.Tables.Safra">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAKAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tables\Safra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entities.Tables.Produto">
+    <Position X="6" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAEAAQBAAAkAAIAAQAAAAAAAAACCAIyAAEAAAQ=</HashCode>
+      <FileName>Tables\Produto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entities.Tables.Pessoa">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAAIGgCAAAAAAAAEAAACAUAIYAAAACAIAAIgAEAA=</HashCode>
+      <FileName>Tables\Pessoa.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entities.Tables.Pedido">
+    <Position X="4.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAKAAAAAAAAAAAEAAAAAAAAAAAAQAAQAAAQAAAAAAA=</HashCode>
+      <FileName>Tables\Pedido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entities.Tables.Pais">
+    <Position X="7.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Tables\Pais.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entities.Tables.Endereco">
+    <Position X="0.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIACAAAEAABAACAEAAAAAACAAAAAAAAAAAAAAAABAAo=</HashCode>
+      <FileName>Tables\Endereco.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Entities.Tables.Produto>
+<div class="modal fade" id="confirmation-add-produto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Adicionar ao pedido?</h4>
+      </div>
+      <div class="modal-body">
+        Adicionar??
+      </div>
+      <div class="modal-footer">
+        <form id="form-add-produto" method="post" novalidate="novalidate">
+          @Html.AntiForgeryToken()
+          <input type="submit" value="Sim" class="btn btn-success btn-flat" />
+          <a href="#" class="btn btn-danger btn-flat" data-dismiss="modal">Não</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

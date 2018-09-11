@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNet.Identity
+<header class="main-header">
+  <a href="@Url.Action("Index", "Home")" class="logo"><i class="fa fa-glass"></i> <b>Winetech</b></a>
+  <nav class="navbar navbar-static-top" role="navigation">
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
+      <div class="navbar-custom-menu">
+       <ul class="nav navbar-nav">
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              @*<img src="@string.Format("{0}/{1}/{2}", Admin.Functions.Constants.UrlDominioEstaticoUploads, "users", ViewBag.UserInfo.Img)" class="user-image" alt="@ViewBag.UserInfo.Name" />*@
+              <span class="hidden-xs">@User.Identity.GetUserName()</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="user-header">
+                @*<img src="@string.Format("{0}/{1}/{2}", Admin.Functions.Constants.UrlDominioEstaticoUploads, "users", ViewBag.UserInfo.Img)" class="img-circle" alt="@ViewBag.UserInfo.Name" />*@
+                <p class="text-navy text-bold text-uppercase">@ViewBag.UserInfo.Name</p>
+                <p class="text-light-blue">
+                  @User.Identity.GetUserName()
+                </p>
+              </li>
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="@Url.Action("ChangePassword", "Manage")" class="btn btn-primary btn-flat" title="Alterar Senha">Alterar Senha</a>
+                </div>
+                <div class="pull-right">
+                  <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-flat" title="Sair">Sair</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    }
+  </nav>
+</header>

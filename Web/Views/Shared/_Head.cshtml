@@ -1,0 +1,21 @@
+﻿<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="@Model.Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="@if(string.IsNullOrEmpty(Model.Robots)){<text>index</text>}else{<text>@Model.Robots</text>}">
+  <title>@Model.Title</title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="">
+  <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#000000">
+  @if (!string.IsNullOrEmpty(Model.Canonical))
+  {
+    <link rel="canonical" href="@Model.Canonical" />
+  }
+  @*
+    <link rel="stylesheet" href="@Url.Content("~/Content/styles/vendors.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/styles/main.css")">
+  *@
+</head>

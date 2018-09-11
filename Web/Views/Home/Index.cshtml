@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+  background-color:lightskyblue
+  }
+  h1 {
+    font-family:'Times New Roman', Times, serif
+  }  
+</style>
+</head>
+<body>
+
+  @model Web.Models.HomeModel
+  <h1>Oi, FRONT!</h1>
+  @foreach (var participante in Model.Participantes)
+  {
+    <h1>@participante.Nome</h1>
+    <p>@participante.Endereco</p>
+    <h3>@Model.Contador</h3>
+  }
+
+  @foreach (var participante in ViewBag.Partic)
+  {
+    <h1>@participante.Nome</h1>
+    <p>@participante.Endereco</p>
+    <h3>@Model.Contador</h3>
+  }
+
+  @foreach (var pais in Model.Paises)
+  {
+    <h1>@pais.Id</h1>
+    <p>@pais.Nome</p>
+  }
+
+</body>
+</html>
+

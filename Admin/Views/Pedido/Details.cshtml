@@ -1,0 +1,59 @@
+﻿@model Admin.Models.PedidoItemViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<section class="content-header">
+  <h1>
+    Pedidos de Venda
+    <small>Detalhes</small>
+  </h1>
+</section>
+
+<div class="box box-default">
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pessoa.NomeCompleto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pessoa.NomeCompleto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pedido.DataPedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pedido.DataPedido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+    </dl>
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Pedido.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+<p>
+<a href="@Url.Action("Edit", "Pedido", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+<a href="@Url.Action("Index", "Pedido", new { id = Model.Pessoa.Id })" title="Index"><span class="label label-info">Listar</span></a>
+</p>
