@@ -169,6 +169,9 @@ namespace Admin.Controllers
     {
       try
       {
+        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status != false), "Id", "Nome", produto.PaisId);
+        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status != false), "Id", "Ano", produto.SafraId);
+
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Produtos"))
         {
           return RedirectToAction("Index", "Home");
