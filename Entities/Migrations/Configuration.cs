@@ -10,6 +10,7 @@ namespace Entities.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled =true;
+     
         }
 
         protected override void Seed(Entities.Contexts.EntitiesDb context)

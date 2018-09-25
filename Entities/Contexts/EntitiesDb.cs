@@ -21,6 +21,9 @@ namespace Entities.Contexts
     public DbSet<Safra> Safras { get; set; }
     public DbSet<Pedido> Pedidos { get; set; }
     public DbSet<Produto> Produtos { get; set; }
+    public DbSet<Uva> Uvas { get; set; }
+    public DbSet<Classe> Classes { get; set; }
+    public DbSet<Tipo> Tipos { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
@@ -48,6 +51,17 @@ namespace Entities.Contexts
                   .WithMany(sa => sa.Produtos)
                   .HasForeignKey(sa => sa.SafraId);
 
+      modelBuilder.Entity<Produto>()
+                 .HasRequired<Classe>(pr => pr.Classe)
+                 .WithMany(sa => sa.Produtos)
+                 .HasForeignKey(sa => sa.ClasseId);
+
+      modelBuilder.Entity<Produto>()
+                 .HasRequired<Tipo>(pr => pr.Tipo)
+                 .WithMany(sa => sa.Produtos)
+                 .HasForeignKey(sa => sa.TipoId);
+
+
       //many-to-many (Produto/Pedido)
       modelBuilder.Entity<Produto>()
                    .HasMany<Pedido>(pr => pr.Pedidos)
@@ -58,6 +72,36 @@ namespace Entities.Contexts
                      up.MapRightKey("ProdutoId");
                      up.ToTable("PedidoProduto");
                    });
+
+      modelBuilder.Entity<Produto>()
+                   .HasMany<Uva>(pr => pr.Uvas)
+                   .WithMany(uv => uv.Produtos)
+                   .Map(up =>
+                   {
+                     up.MapLeftKey("ProdutoId");
+                     up.MapRightKey("UvaId");
+                     up.ToTable("ProdutoUva");
+                   });
+
+      //modelBuilder.Entity<Produto>()
+      //             .HasMany<Classe>(pr => pr.Classes)
+      //             .WithMany(cl => cl.Produtos)
+      //             .Map(up =>
+      //             {
+      //               up.MapLeftKey("ProdutoId");
+      //               up.MapRightKey("ClasseId");
+      //               up.ToTable("ProdutoClasse");
+      //             });
+
+      //modelBuilder.Entity<Produto>()
+      //            .HasMany<Tipo>(pr => pr.Tipos)
+      //            .WithMany(cl => cl.Produtos)
+      //            .Map(up =>
+      //            {
+      //              up.MapLeftKey("ProdutoId");
+      //              up.MapRightKey("TipoId");
+      //              up.ToTable("ProdutoTipo");
+      //            });
 
       base.OnModelCreating(modelBuilder);
     }

@@ -50,6 +50,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -94,15 +95,47 @@
     <Compile Include="Migrations\201705252000287_StatusToAllTables.Designer.cs">
       <DependentUpon>201705252000287_StatusToAllTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809172218487_AddImageToProductTable.cs" />
+    <Compile Include="Migrations\201809172218487_AddImageToProductTable.Designer.cs">
+      <DependentUpon>201809172218487_AddImageToProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809172245507_ChangeImageTatatypeOnProductTable.cs" />
+    <Compile Include="Migrations\201809172245507_ChangeImageTatatypeOnProductTable.Designer.cs">
+      <DependentUpon>201809172245507_ChangeImageTatatypeOnProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809172343302_AddTableUvaToDatabase.cs" />
+    <Compile Include="Migrations\201809172343302_AddTableUvaToDatabase.Designer.cs">
+      <DependentUpon>201809172343302_AddTableUvaToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809172357137_AddUvaIdColumnToProductsTable.cs" />
+    <Compile Include="Migrations\201809172357137_AddUvaIdColumnToProductsTable.Designer.cs">
+      <DependentUpon>201809172357137_AddUvaIdColumnToProductsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809221127302_CreatedTableForClasse.cs" />
+    <Compile Include="Migrations\201809221127302_CreatedTableForClasse.Designer.cs">
+      <DependentUpon>201809221127302_CreatedTableForClasse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809221220203_CreateTableForTipo.cs" />
+    <Compile Include="Migrations\201809221220203_CreateTableForTipo.Designer.cs">
+      <DependentUpon>201809221220203_CreateTableForTipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809221306351_DropManyTomanytables.cs" />
+    <Compile Include="Migrations\201809221306351_DropManyTomanytables.Designer.cs">
+      <DependentUpon>201809221306351_DropManyTomanytables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tables\Classe.cs" />
     <Compile Include="Tables\Endereco.cs" />
     <Compile Include="Tables\Pais.cs" />
     <Compile Include="Tables\Pedido.cs" />
     <Compile Include="Tables\PedidoProduto.cs" />
     <Compile Include="Tables\Pessoa.cs" />
     <Compile Include="Tables\Produto.cs" />
+    <Compile Include="Tables\ProdutoUva.cs" />
     <Compile Include="Tables\Safra.cs" />
+    <Compile Include="Tables\Tipo.cs" />
+    <Compile Include="Tables\Uva.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -131,6 +164,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705252000287_StatusToAllTables.resx">
       <DependentUpon>201705252000287_StatusToAllTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809172218487_AddImageToProductTable.resx">
+      <DependentUpon>201809172218487_AddImageToProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809172245507_ChangeImageTatatypeOnProductTable.resx">
+      <DependentUpon>201809172245507_ChangeImageTatatypeOnProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809172343302_AddTableUvaToDatabase.resx">
+      <DependentUpon>201809172343302_AddTableUvaToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809172357137_AddUvaIdColumnToProductsTable.resx">
+      <DependentUpon>201809172357137_AddUvaIdColumnToProductsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809221127302_CreatedTableForClasse.resx">
+      <DependentUpon>201809221127302_CreatedTableForClasse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809221220203_CreateTableForTipo.resx">
+      <DependentUpon>201809221220203_CreateTableForTipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809221306351_DropManyTomanytables.resx">
+      <DependentUpon>201809221306351_DropManyTomanytables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

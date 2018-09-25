@@ -124,20 +124,21 @@
                     @Html.DisplayFor(modelItem => item.Descricao)
                   </td>
                   <td>
-                    @if (item.Uva.Length > 30)
-                    {
-                      item.Uva = item.Uva.Substring(0, 30) + "...";
+                   @{
+                     foreach (var uva in item.Uvas)
+                     {
+                       Html.DisplayFor(modelItem => uva.Descricao);
+                     }
                     }
-                    @Html.DisplayFor(modelItem => item.Uva)
                   </td>
                   <td>
-                    @Html.DisplayFor(modelItem => item.Classe)
+                    @Html.DisplayFor(modelItem => item.Classe.Descricao)
                   </td>
                   <td>
                     @Html.DisplayFor(modelItem => item.Teor_Alcolico)%
                   </td>
                   <td>
-                    @Html.DisplayFor(modelItem => item.Tipo)
+                    @Html.DisplayFor(modelItem => item.Tipo.Descricao)
                   </td>
                   <td>
                     @String.Format("{0:c}", item.CustoUnitario)
