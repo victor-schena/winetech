@@ -16,7 +16,7 @@ namespace Entities.Tables
   {
     public Produto()
     {
-      this.Pedido = new Pedido();
+      //this.Pedido = new Pedido();
     }
     [Key]
     public int Id { get; set; }
@@ -73,21 +73,22 @@ namespace Entities.Tables
     public virtual Pedido Pedido { get; set; }
 
     public int UvaId { get; set; }
+    //{
+    //  get { return new List<Uva>(); }
+    //  set { Uvas = value; }
+    //}
+   
     public virtual List<Uva> Uvas
     {
-      get { return new List<Uva>(); }
-      set { Uvas = value; }
+      get
+      {
+        return new EntitiesDb().Uvas.AsNoTracking().ToList();
+      }
+      set
+      {
+        Uvas = value;
+      }
     }
-    //{
-    //  get
-    //  {
-    //    return new EntitiesDb().Uvas.ToList();
-    //  }
-    //  set
-    //  {
-    //    Uvas = value;
-    //  }
-    //}
     [NotMapped]
     public int[] selectedUvas { get; set; }
 

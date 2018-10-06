@@ -2,6 +2,7 @@
 using Admin.Models;
 using Entities.Contexts;
 using Entities.Tables;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,13 +15,17 @@ namespace Admin.Controllers
 {
   [Authorize]
   public class FornecedorPessoaJuridicaController : Controller
-    {
+  {
     private EntitiesDb db = new EntitiesDb();
     // GET: FornecedorPessoaFisica
     public ActionResult Index()
     {
       try
       {
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Index", "Fornecedor Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
         return View(db.Pessoas.ToList().Where(p => p.PapelPessoaId == 2).Where(p => p.TipoPessoaId == 2).Where(x => x.Status == true));
       }
       catch (Exception ex)
@@ -34,6 +39,10 @@ namespace Admin.Controllers
     {
       try
       {
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Fornecedor Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
         return View();
       }
       catch (Exception ex)
@@ -49,6 +58,10 @@ namespace Admin.Controllers
     {
       try
       {
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Fornecedor Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
         int IdCliente = 0;
         if (botao == "addCliente")
         {
@@ -70,6 +83,9 @@ namespace Admin.Controllers
         }
         if (botao == "addEndereco")
         {
+          ViewBag.idCliente = Cliente.Endereco.PessoaId;
+          if (!ValidaEndereco(Cliente.Endereco))
+            return View(Cliente);
           if (Cliente.Enderecos == null)
             Cliente.Enderecos = new List<Endereco>();
           Cliente.Endereco.Status = true;
@@ -117,6 +133,10 @@ namespace Admin.Controllers
     {
       try
       {
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Fornecedor Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
         if (id == null)
         {
           return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -144,6 +164,10 @@ namespace Admin.Controllers
     {
       try
       {
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Fornecedor Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
         if (botao == "addCliente")
         {
           if (!ValidaCamposPessoaJuridica(Cliente.Pessoa))
@@ -161,6 +185,9 @@ namespace Admin.Controllers
         }
         if (botao == "addEndereco")
         {
+          ViewBag.idCliente = Cliente.Endereco.PessoaId;
+          if (!ValidaEndereco(Cliente.Endereco))
+            return View(Cliente);
           if (Cliente.Enderecos == null)
             Cliente.Enderecos = new List<Endereco>();
           Cliente.Endereco.Status = true;
@@ -202,6 +229,10 @@ namespace Admin.Controllers
     {
       try
       {
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Delete", "Fornecedor Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
         if (id == null)
         {
           return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -228,6 +259,10 @@ namespace Admin.Controllers
     {
       try
       {
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Delete", "Fornecedor Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
         Pessoa pessoa = db.Pessoas.Find(id);
         pessoa.Status = false;
         db.SaveChanges();
@@ -247,6 +282,10 @@ namespace Admin.Controllers
     {
       try
       {
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Details", "Fornecedor Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
         if (id == null)
         {
           return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -287,11 +326,45 @@ namespace Admin.Controllers
         ModelState.AddModelError("Pessoa.CNPJ", "O campo CNPF é obrgatório! ");
         validacao = false;
       }
-      if (!string.IsNullOrEmpty(pessoa.CNPJ)&&!Validations.IsCnpj(pessoa.CNPJ))
+      if (!string.IsNullOrEmpty(pessoa.CNPJ) && !Validations.IsCnpj(pessoa.CNPJ))
       {
         ModelState.AddModelError("Pessoa.CNPJ", "O CNPJ informado é inválido!");
         validacao = false;
       }
+
+      return validacao;
+    }
+    public bool ValidaEndereco(Endereco endereco)
+    {
+      ModelState.Clear();
+      bool validacao = true;
+      if (string.IsNullOrEmpty(endereco.CEP))
+      {
+        ModelState.AddModelError("Endereco.CEP", "O campo CEP é Obrigatório!");
+        validacao = false;
+      }
+      if (string.IsNullOrEmpty(endereco.Estado))
+      {
+        ModelState.AddModelError("Endereco.Estado", "O campo estado é Obrigatório!");
+        validacao = false;
+      }
+      if (string.IsNullOrEmpty(endereco.Cidade))
+      {
+        ModelState.AddModelError("Endereco.Cidade", "O campo cidade é Obrigatório!");
+        validacao = false;
+      }
+      if (string.IsNullOrEmpty(endereco.Bairro))
+      {
+        ModelState.AddModelError("Endereco.Bairro", "O campo bairro é Obrigatório!");
+        validacao = false;
+      }
+      if (string.IsNullOrEmpty(endereco.Rua))
+      {
+        ModelState.AddModelError("Endereco.Rua", "O campo rua é Obrigatório!");
+        validacao = false;
+      }
+      if (string.IsNullOrEmpty(endereco.Numero) || endereco.Numero == " ")
+        endereco.Numero = "Sem número";
 
       return validacao;
     }

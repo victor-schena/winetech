@@ -109,14 +109,14 @@
                   <td>
                     @Html.DisplayFor(modelItem => item.Safra.Ano)
                   </td>
-                  <td>
+                  <td title="@item.Nome">
                     @if (item.Nome.Length > 30)
                     {
                       item.Nome = item.Nome.Substring(0, 30) + "...";
                     }
                     @Html.DisplayFor(modelItem => item.Nome)
                   </td>
-                  <td>
+                  <td title="@item.Descricao">
                     @if (item.Descricao.Length > 30)
                     {
                       item.Descricao = item.Descricao.Substring(0, 30) + "...";
@@ -216,3 +216,6 @@
     </div>
   </div>
 </section>
+<script>
+  setactivemenu('#a-produtos');
+</script>

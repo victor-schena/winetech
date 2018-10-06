@@ -131,6 +131,10 @@
     <Compile Include="Migrations\201810021111450_AddColumnProductId.Designer.cs">
       <DependentUpon>201810021111450_AddColumnProductId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810061854291_RemoveDuplicatedColumnOnProductTable.cs" />
+    <Compile Include="Migrations\201810061854291_RemoveDuplicatedColumnOnProductTable.Designer.cs">
+      <DependentUpon>201810061854291_RemoveDuplicatedColumnOnProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\Classe.cs" />
@@ -199,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810021111450_AddColumnProductId.resx">
       <DependentUpon>201810021111450_AddColumnProductId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810061854291_RemoveDuplicatedColumnOnProductTable.resx">
+      <DependentUpon>201810061854291_RemoveDuplicatedColumnOnProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

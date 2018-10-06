@@ -30,7 +30,20 @@ namespace Admin.Controllers
         {
           return RedirectToAction("Index", "Home");
         }
-        var produtos = db.Produtos.Include(uv => uv.Uvas).Include(p => p.Pais).Include(p => p.Safra).Include(cl => cl.Classe).Include(p => p.Tipo).Where(x => x.Status == true).ToList();
+        var produtos =
+          db.Produtos.Include(uv => uv.Uvas).
+          Include(p => p.Pais).
+          Include(p => p.Safra).
+          Include(cl => cl.Classe).
+          Include(p => p.Tipo).
+          Where(x => x.Status == true).
+          ToList();
+
+        foreach (var produto in produtos)
+        {
+          produto.Uvas.AddRange(db.Uvas.Where(u => u.ProdutoId == produto.Id).ToList());
+        }
+
         return View(produtos);
       }
       catch (Exception ex)
@@ -38,6 +51,10 @@ namespace Admin.Controllers
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
         throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
 
     }
@@ -109,6 +126,7 @@ namespace Admin.Controllers
         {
           return RedirectToAction("Index", "Home");
         }
+        //SalvarUvas()        
         produto.selectedUvas = UvaId;
         CarregarForm();
 
@@ -121,16 +139,15 @@ namespace Admin.Controllers
           produto.Imagem = FileManager.UploadSingleFile(img, Path.Combine(Server.MapPath("~/Uploads/Produtos")));
 
         produto.Status = true;
-
-        foreach (var uva in UvaId)
-        {
-          Uva u = new Uva { Id = uva };
-          produto.Uvas.Add(u);
-        }
-
         db.Produtos.Add(produto);
         db.SaveChanges();
 
+        foreach (var uva in UvaId)
+        {
+          Uva u = new Uva { Id = uva, ProdutoId = produto.Id };
+          db.Uvas.Attach(u);
+        }
+        db.SaveChanges();
         TempData["Success"] = "Registro Salvo.";
 
         return RedirectToAction("Index");
@@ -149,7 +166,7 @@ namespace Admin.Controllers
     {
       try
       {
-        CarregarForm();
+        CarregarForm(id);
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Produtos"))
         {
           return RedirectToAction("Index", "Home");
@@ -354,13 +371,25 @@ namespace Admin.Controllers
       base.Dispose(disposing);
     }
 
-    protected void CarregarForm()
+    protected void CarregarForm(int? ProdutoId = 0)
     {
-      ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status == true).OrderBy(x => x.Nome), "Id", "Nome");
-      ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true).OrderBy(x => x.Ano), "Id", "Ano");
-      ViewBag.ClasseId = new SelectList(db.Classes.OrderBy(c => c.Descricao), "Id", "Descricao");
-      ViewBag.TipoId = new SelectList(db.Tipos.OrderBy(c => c.Descricao), "Id", "Descricao");
-      ViewBag.UvaId = new MultiSelectList(db.Uvas.ToList(), "Id", "Descricao");
+      try
+      {
+        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Nome), "Id", "Nome");
+        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Ano), "Id", "Ano");
+        ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao");
+        ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao");
+        ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().ToList(), "Id", "Descricao");
+      }
+      catch (Exception ex)
+      {
+
+        throw;
+      }
+      finally
+      {
+        //db.Dispose();
+      }
     }
   }
 }
