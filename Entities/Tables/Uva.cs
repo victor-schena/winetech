@@ -12,6 +12,8 @@ namespace Entities.Tables
     [Display(Name = "Uva")]
     public string Descricao { get; set; }
 
+    public int? ProdutoId { get; set; }
+
     public virtual ICollection<Produto> Produtos { get; set; }
 
   }

@@ -30,7 +30,7 @@ namespace Admin.Controllers
         {
           return RedirectToAction("Index", "Home");
         }
-        var produtos = db.Produtos.Include(uv=>uv.Uvas).Include(p => p.Pais).Include(p => p.Safra).Include(cl=>cl.Classe).Include(p=>p.Tipo).Where(x => x.Status == true).ToList();
+        var produtos = db.Produtos.Include(uv => uv.Uvas).Include(p => p.Pais).Include(p => p.Safra).Include(cl => cl.Classe).Include(p => p.Tipo).Where(x => x.Status == true).ToList();
         return View(produtos);
       }
       catch (Exception ex)
@@ -75,7 +75,7 @@ namespace Admin.Controllers
     // GET: Produtos/Create
 
     public ActionResult Create()
-    { 
+    {
       try
       {
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Produtos"))
@@ -84,7 +84,6 @@ namespace Admin.Controllers
         }
         CarregarForm();
 
-       
         return View();
       }
       catch (Exception ex)
@@ -100,16 +99,17 @@ namespace Admin.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create([Bind(Include = "Id,Arquivo,Imagem,Nome,Descricao,Uva,ClasseId,Teor_Alcolico,Tipo,CustoUnitario,Quantidade,PrecoVenda,Volume,DataValidade,Status,PaisId,SafraId,UvaId,TipoId")] Produto produto)
+    public ActionResult Create([Bind(Include = "Id,Arquivo,Imagem,Nome,Descricao,Uva,ClasseId,Teor_Alcolico,Tipo,CustoUnitario,Quantidade,PrecoVenda,Volume,DataValidade,Status,PaisId,SafraId,UvaId,TipoId")] Produto produto, int[] UvaId)
     {
       //VALIDAR CAMPOS OBRIGATORIOS()
+      var img = Request.Files["Imagem"];
       try
       {
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Produtos"))
         {
           return RedirectToAction("Index", "Home");
         }
-
+        produto.selectedUvas = UvaId;
         CarregarForm();
 
         if (!ValidaCampos(produto))
@@ -117,16 +117,22 @@ namespace Admin.Controllers
           return View(produto);
         }
 
-        var img = Request.Files["Imagem"];
-        if(img!=null && img.ContentLength>0)
+        if (img != null && img.ContentLength > 0)
           produto.Imagem = FileManager.UploadSingleFile(img, Path.Combine(Server.MapPath("~/Uploads/Produtos")));
-  
+
         produto.Status = true;
+
+        foreach (var uva in UvaId)
+        {
+          Uva u = new Uva { Id = uva };
+          produto.Uvas.Add(u);
+        }
 
         db.Produtos.Add(produto);
         db.SaveChanges();
 
         TempData["Success"] = "Registro Salvo.";
+
         return RedirectToAction("Index");
       }
       catch (Exception ex)
@@ -188,7 +194,7 @@ namespace Admin.Controllers
         if (ModelState.IsValid)
         {
           var img = Request.Files["PostedImg"];
-          if (img != null && img.ContentLength>0)
+          if (img != null && img.ContentLength > 0)
             produto.Imagem = FileManager.UploadSingleFile(img, Path.Combine(Server.MapPath("~/Uploads/Produtos")));
           else
             produto.Imagem = produto.Imagem;
@@ -354,21 +360,7 @@ namespace Admin.Controllers
       ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true).OrderBy(x => x.Ano), "Id", "Ano");
       ViewBag.ClasseId = new SelectList(db.Classes.OrderBy(c => c.Descricao), "Id", "Descricao");
       ViewBag.TipoId = new SelectList(db.Tipos.OrderBy(c => c.Descricao), "Id", "Descricao");
-
-      Produto prod = new Produto();
-      List<SelectListItem> list = new List<SelectListItem>();
-      foreach (var uva in prod.Uvas)
-      {
-        var item = new SelectListItem
-        {
-          Value = uva.Id.ToString(),
-          Text = uva.Descricao,
-          Selected =false
-        };
-
-        list.Add(item);
-      }
-      ViewBag.UvaId = list;
+      ViewBag.UvaId = new MultiSelectList(db.Uvas.ToList(), "Id", "Descricao");
     }
   }
 }

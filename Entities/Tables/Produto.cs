@@ -16,7 +16,7 @@ namespace Entities.Tables
   {
     public Produto()
     {
-      this.Pedidos = new HashSet<Pedido>();
+      this.Pedido = new Pedido();
     }
     [Key]
     public int Id { get; set; }
@@ -31,21 +31,14 @@ namespace Entities.Tables
     public string Nome { get; set; }
 
     [Required(ErrorMessage = "O campo Descriçao é obrigatório.")]
-    //[StringLength(2000)]
     [Display(Name = "Descrição")]
     public string Descricao { get; set; }
 
     [Display(Name = "Uva")]
-    public string Uva { get; set; }
-
-    //[Display(Name = "Classe")]
-    //public string Classe { get; set; }
+    public Uva Uva { get; set; }
 
     [Display(Name = "Teor Alcoolico")]
     public string Teor_Alcolico { get; set; }
-
-    //[Display(Name = "Tipo")]
-    //public string Tipo { get; set; }
 
     [Required(ErrorMessage = "O campo Custo unitário é obrigatório.")]
     [Display(Name = "Custo Unitario")]
@@ -70,37 +63,41 @@ namespace Entities.Tables
     [Display(Name = "Status")]
     public bool Status { get; set; }
 
-
     public int PaisId { get; set; }
-    public /*virtual*/ Pais Pais { get; set; }
+    public Pais Pais { get; set; }
 
     public int SafraId { get; set; }
-    public /*virtual*/ Safra Safra { get; set; }
+    public Safra Safra { get; set; }
 
-    public virtual ICollection<Pedido> Pedidos { get; set; }
+    public int? PedidoId { get; set; }
+    public virtual Pedido Pedido { get; set; }
 
     public int UvaId { get; set; }
-    public virtual ICollection<Uva> Uvas
+    public virtual List<Uva> Uvas
     {
-      get
-      {
-        return new EntitiesDb().Uvas.ToArray();
-      }
-      set
-      {
-        Uvas = value;
-      }
+      get { return new List<Uva>(); }
+      set { Uvas = value; }
     }
+    //{
+    //  get
+    //  {
+    //    return new EntitiesDb().Uvas.ToList();
+    //  }
+    //  set
+    //  {
+    //    Uvas = value;
+    //  }
+    //}
     [NotMapped]
     public int[] selectedUvas { get; set; }
 
-    public int ClasseId{ get; set; }
+    public int ClasseId { get; set; }
     public virtual Classe Classe { get; set; }
 
     public int TipoId { get; set; }
 
     public virtual Tipo Tipo { get; set; }
-    
+
   }
 
   public class PresentationProduto

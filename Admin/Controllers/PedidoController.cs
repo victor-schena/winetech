@@ -134,22 +134,30 @@ namespace Admin.Controllers
         PedidoItemViewModel pedidoviewmodel = new PedidoItemViewModel();
         Produto produto = db.Produtos.Find(idProduto);
         Pessoa pessoa = db.Pessoas.Find(idPessoa);
+
         ViewBag.PessoaId = new SelectList(db.Pessoas.Where(p => p.PapelPessoaId == 1).Where(p => p.TipoPessoaId == 1).Where(x => x.Status == true).OrderBy(x => x.NomeCompleto), "Id", "NomeCompleto");
         ViewBag.ProdutoId = new SelectList(db.Produtos.Where(x => x.Status == true).OrderBy(x => x.Nome), "Id", "Nome");
+
         if (idPessoa!=null&&idProduto!=null)
-        {
-          
+        {  
           if (produto != null && produto.Quantidade >= Quantidade)
           {
             CarrinhoViewModel.AddItem(produto, (int)Quantidade);
+
             pedidoviewmodel.Pessoa = pessoa;
+
             if (pedidoviewmodel.Produtos == null)
               pedidoviewmodel.Produtos = new List<FilaCarrinho>();
+
             pedidoviewmodel.Produtos.AddRange(CarrinhoViewModel.Lines);
+
             if (pedidoviewmodel.Pedido == null)
               pedidoviewmodel.Pedido = new Pedido();
+
             pedidoviewmodel.idProduto = 0;
+
             pedidoviewmodel.Total = CarrinhoViewModel.ComputeTotalValue();
+
             return View(pedidoviewmodel);
             //return Json(String.Format("{0:c}", CarrinhoViewModel.ComputeTotalValue()), JsonRequestBehavior.AllowGet);
           }
@@ -397,7 +405,7 @@ namespace Admin.Controllers
           db.Pedidos.Add(pedido);
           db.Pedidos.Attach(pedido);
           quantidade += item.Quantidade;
-          p.Pedidos.Add(pedido);
+          //p.Pedidos.Add(pedido);
         }
         pedido.Quantidade = quantidade;
         pedido.Total = CarrinhoViewModel.ComputeTotalValue();
@@ -439,7 +447,7 @@ namespace Admin.Controllers
       db.Pedidos.Add(pe);
       db.Pedidos.Attach(pe);
 
-      p.Pedidos.Add(pe);
+      //p.Pedidos.Add(pe);
 
       db.SaveChanges();
     }
