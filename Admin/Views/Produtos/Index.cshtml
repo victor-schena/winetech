@@ -2,6 +2,8 @@
 @using Admin.App_Code;
 @using Microsoft.AspNet.Identity
 @{
+  /**/
+
   ViewBag.Title = "Index";
 }
 
@@ -9,13 +11,15 @@
   function enviarItem(Id) {
     debugger;
     $.post('/Pedido/TestePost', { id: Id, qtde: 1 }, function (data) {
-      success: alert(data);
-    }, 'json');
-    $('#myNewModal').hide();
-  }
+      success: jQuery.each(data, function (i, val) {
+        $("#" + val).text("Mine is " + val + ".");
+      }, 'json');
+      $('#myNewModal').hide();
+    };
+
   function guardarItemPedido(id, qtde) {
 
-  }
+    };
 
 </script>
 
@@ -26,13 +30,13 @@
   </h1>
 </section>
 @if (TempData["Success"] != null)
-      {
+{
   <div class="alert alert-success alert-dismissable" data-dismiss="alert" aria-label="close">
     <strong>@TempData["Success"]</strong>
   </div>
 }
 @if (TempData["Error"] != null)
-      {
+{
   <div class="alert alert-danger alert-dismissable" data-dismiss="alert" aria-label="close">
     <strong>@TempData["Error"]</strong>
   </div>
@@ -60,9 +64,7 @@
               <th>
                 Descricao:
               </th>
-              <th>
-                Espécie de Uva:
-              </th>
+
               <th>
                 Classe:
               </th>
@@ -85,85 +87,76 @@
                 Data Validade:
               </th>
               @*<th>
-                Status:
-              </th>*@
+                  Status:
+                </th>*@
               <th>
                 <i class="fa fa-gear fa-fw"></i>
               </th>
               @*<th>
-                Adicionar ao pedido:
-              </th>*@
+                  Adicionar ao pedido:
+                </th>*@
             </tr>
           </thead>
           <tbody>
             @foreach (var item in Model)
-      {
-                <tr>
-                  @*<td id="@item.Id">
-                      @Html.HiddenFor(modelItem => item.Id)
-                    </td>*@
-                  <td>
-                    @*                    @Html.ListBox("Id", new SelectList(item.Pais.Nome, "Id", "Nome"))*@
-                    @Html.DisplayFor(modelItem => item.Pais.Nome)
-                  </td>
-                  <td>
-                    @Html.DisplayFor(modelItem => item.Safra.Ano)
-                  </td>
-                  <td title="@item.Nome">
-                    @if (item.Nome.Length > 30)
-                    {
-                      item.Nome = item.Nome.Substring(0, 30) + "...";
-                    }
-                    @Html.DisplayFor(modelItem => item.Nome)
-                  </td>
-                  <td title="@item.Descricao">
-                    @if (item.Descricao.Length > 30)
-                    {
-                      item.Descricao = item.Descricao.Substring(0, 30) + "...";
-                    }
-                    @Html.DisplayFor(modelItem => item.Descricao)
-                  </td>
-                  <td>
-                   @{
-                     foreach (var uva in item.Uvas)
-                     {
-                       Html.DisplayFor(modelItem => uva.Descricao);
-                     }
-                    }
-                  </td>
-                  <td>
-                    @Html.DisplayFor(modelItem => item.Classe.Descricao)
-                  </td>
-                  <td>
-                    @Html.DisplayFor(modelItem => item.Teor_Alcolico)%
-                  </td>
-                  <td>
-                    @Html.DisplayFor(modelItem => item.Tipo.Descricao)
-                  </td>
-                  <td>
-                    @String.Format("{0:c}", item.CustoUnitario)
-                  </td>
-                  <td>
-                    @Html.DisplayFor(modelItem => item.Volume)
-                  </td>
-                  <td id="tdPrecoProduto">
-                    @String.Format("{0:c}", item.PrecoVenda)
-                  </td>
-                  <td>
-                    @String.Format("{0:dd/MM/yyyy}", item.DataValidade)
-                  </td>
-                  @*<td>
-                    @Html.DisplayFor(modelItem => item.Status)
+            {
+              <tr>
+                @*<td id="@item.Id">
+                    @Html.HiddenFor(modelItem => item.Id)
                   </td>*@
-                  <td>
-                    <a href="@Url.Action("Edit", "Produtos", new { id = item.Id })" title="Editar"><span class="label label-info">Editar</span></a>
-                    <a href="@Url.Action("Details", "Produtos", new { id = item.Id })" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
-                    <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Produtos", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger">DEL</span></a>
-                  </td>
-                  @*<td>
-                    <a class="btn-default" onclick="enviarItem(@item.Id)"><span class="label label-red">Add</span> </a>
+                <td>
+                  @*                    @Html.ListBox("Id", new SelectList(item.Pais.Nome, "Id", "Nome"))*@
+                  @Html.DisplayFor(modelItem => item.Pais.Nome)
+                </td>
+                <td>
+                  @Html.DisplayFor(modelItem => item.Safra.Ano)
+                </td>
+                <td title="@item.Nome">
+                  @if (item.Nome.Length > 30)
+                  {
+                    item.Nome = item.Nome.Substring(0, 30) + "...";
+                  }
+                  @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td title="@item.Descricao">
+                  @if (item.Descricao.Length > 30)
+                  {
+                    item.Descricao = item.Descricao.Substring(0, 30) + "...";
+                  }
+                  @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+
+                <td>
+                  @Html.DisplayFor(modelItem => item.Classe.Descricao)
+                </td>
+                <td>
+                  @Html.DisplayFor(modelItem => item.Teor_Alcolico) %
+                </td>
+                <td>
+                  @Html.DisplayFor(modelItem => item.Tipo.Descricao)
+                </td>
+                <td>
+                  @String.Format("{0:c} ", item.CustoUnitario)
+                </td>
+                <td>
+                  @Html.DisplayFor(modelItem => item.Volume)
+                </td>
+                <td id="tdPrecoProduto">
+                  @String.Format("{0:c} ", item.PrecoVenda)
+                </td>
+                <td>
+                  @String.Format("{0:dd/MM/yyyy}", item.DataValidade)
+                </td>
+
+                <td>
+                  <a href="@Url.Action("Edit", "Produtos", new { id = item.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+                  <a href="@Url.Action("Details", "Produtos", new { id = item.Id })" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
+                  <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Produtos", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger">DEL</span></a>
+                  <a class="btn-success" onclick="enviarItem(@item.Id)"><span class="label label-success">Add</span></a>
+                </td>
+                @*<td>
                   </td>*@
-                </tr>
+              </tr>
             }
           </tbody>
         </table>

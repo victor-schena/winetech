@@ -17,11 +17,7 @@ namespace Admin.Controllers
   [Authorize]
   public class ProdutosController : Controller
   {
-
     private EntitiesDb db = new EntitiesDb();
-
-    // GET: Produtos
-
     public ActionResult Index()
     {
       try
@@ -31,18 +27,14 @@ namespace Admin.Controllers
           return RedirectToAction("Index", "Home");
         }
         var produtos =
-          db.Produtos.Include(uv => uv.Uvas).
+          db.Produtos.
+          Include(uv => uv.Uvas).
           Include(p => p.Pais).
           Include(p => p.Safra).
           Include(cl => cl.Classe).
           Include(p => p.Tipo).
           Where(x => x.Status == true).
           ToList();
-
-        foreach (var produto in produtos)
-        {
-          produto.Uvas.AddRange(db.Uvas.Where(u => u.ProdutoId == produto.Id).ToList());
-        }
 
         return View(produtos);
       }
@@ -116,20 +108,17 @@ namespace Admin.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create([Bind(Include = "Id,Arquivo,Imagem,Nome,Descricao,Uva,ClasseId,Teor_Alcolico,Tipo,CustoUnitario,Quantidade,PrecoVenda,Volume,DataValidade,Status,PaisId,SafraId,UvaId,TipoId")] Produto produto, int[] UvaId)
+    public ActionResult Create([Bind(Include = "Id,Arquivo,Imagem,Nome,Descricao,Uva,ClasseId,Teor_Alcolico,Tipo,CustoUnitario,Quantidade,PrecoVenda,Volume,DataValidade,Status,PaisId,SafraId,Uvas,TipoId")] Produto produto, int[] selectedUvas)
     {
       //VALIDAR CAMPOS OBRIGATORIOS()
       var img = Request.Files["Imagem"];
       try
       {
+        CarregarForm();
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Produtos"))
         {
           return RedirectToAction("Index", "Home");
         }
-        //SalvarUvas()        
-        produto.selectedUvas = UvaId;
-        CarregarForm();
-
         if (!ValidaCampos(produto))
         {
           return View(produto);
@@ -142,14 +131,18 @@ namespace Admin.Controllers
         db.Produtos.Add(produto);
         db.SaveChanges();
 
-        foreach (var uva in UvaId)
+        db.Produtos.Add(produto);
+        db.Produtos.Attach(produto);
+
+        foreach (var UvaID in selectedUvas)
         {
-          Uva u = new Uva { Id = uva, ProdutoId = produto.Id };
-          db.Uvas.Attach(u);
+          Uva uva = new Uva { Id = UvaID };
+          db.Uvas.Attach(uva);
+          produto.Uvas.Add(uva);
         }
+
         db.SaveChanges();
         TempData["Success"] = "Registro Salvo.";
-
         return RedirectToAction("Index");
       }
       catch (Exception ex)
@@ -166,7 +159,6 @@ namespace Admin.Controllers
     {
       try
       {
-        CarregarForm(id);
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Produtos"))
         {
           return RedirectToAction("Index", "Home");
@@ -180,8 +172,7 @@ namespace Admin.Controllers
         {
           return HttpNotFound();
         }
-        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status != false), "Id", "Nome", produto.PaisId);
-        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status != false), "Id", "Ano", produto.SafraId);
+        CarregarFormFromDb(produto);
         return View(produto);
       }
       catch (Exception ex)
@@ -198,11 +189,11 @@ namespace Admin.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(Produto produto)
+    public ActionResult Edit(Produto produto, int[] selectedUvas)
     {
       try
       {
-        CarregarForm();
+        //CarregarForm();
 
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Produtos"))
         {
@@ -210,11 +201,14 @@ namespace Admin.Controllers
         }
         if (ModelState.IsValid)
         {
+          CarregarFormFromDb(produto);
+
           var img = Request.Files["PostedImg"];
           if (img != null && img.ContentLength > 0)
             produto.Imagem = FileManager.UploadSingleFile(img, Path.Combine(Server.MapPath("~/Uploads/Produtos")));
           else
             produto.Imagem = produto.Imagem;
+
           if (!ValidaCampos(produto))
           {
             return View(produto);
@@ -222,6 +216,17 @@ namespace Admin.Controllers
 
           produto.Status = true;
           db.Entry(produto).State = EntityState.Modified;
+
+          db.Produtos.Add(produto);
+          db.Produtos.Attach(produto);
+
+
+          foreach (var UvaID in selectedUvas)
+          {
+            Uva uva = new Uva { Id = UvaID };
+            db.Uvas.Attach(uva);
+            produto.Uvas.Add(uva);
+          }
           db.SaveChanges();
           TempData["Success"] = "Registro salvo com sucesso.";
           return RedirectToAction("Index");
@@ -358,10 +363,6 @@ namespace Admin.Controllers
 
       return validacao;
     }
-    protected void ProcessarImagem(string Imagem)
-    {
-
-    }
     protected override void Dispose(bool disposing)
     {
       if (disposing)
@@ -379,7 +380,27 @@ namespace Admin.Controllers
         ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Ano), "Id", "Ano");
         ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao");
         ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao");
-        ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().ToList(), "Id", "Descricao");
+        ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().OrderBy(u => u.Descricao).ToList(), "Id", "Descricao");
+      }
+      catch (Exception ex)
+      {
+
+        throw;
+      }
+      finally
+      {
+        //db.Dispose();
+      }
+    }
+    protected void CarregarFormFromDb(Produto produto)
+    {
+      try
+      {
+        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status != false), "Id", "Nome", produto.PaisId);
+        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status != false), "Id", "Ano", produto.SafraId);
+        ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", produto.ClasseId);
+        ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", produto.TipoId);
+        ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().OrderBy(u => u.Descricao), "Id", "Descricao",produto.Uvas.Select(u=>u.Id));
       }
       catch (Exception ex)
       {

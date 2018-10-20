@@ -220,6 +220,7 @@
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\SafrasController.cs" />
+    <Compile Include="Controllers\UvasController.cs" />
     <Compile Include="DataContexts\IdentityDb.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -512,6 +513,12 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\PedidoVendaPessoaFisica\Index.cshtml" />
     <Content Include="Views\ClientePessoaFisica\_Enderecos.cshtml" />
+    <Content Include="Views\Uvas\Create.cshtml" />
+    <Content Include="Views\Uvas\Delete.cshtml" />
+    <Content Include="Views\Uvas\Details.cshtml" />
+    <Content Include="Views\Uvas\Edit.cshtml" />
+    <Content Include="Views\Uvas\Index.cshtml" />
+    <Content Include="Views\Shared\_ShoppingCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

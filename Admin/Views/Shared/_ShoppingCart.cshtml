@@ -1,0 +1,38 @@
+﻿@model Admin.Models.PedidoItemViewModel
+<div class="navbar-custom-menu">
+  <ul class="nav navbar-nav">
+    <li class="dropdown user user-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        @if (Model != null && Model.Quantidade > 0)
+        {
+          <span class="hidden-xs">Cesto de compras - (@Model.Quantidade)</span>
+        }
+        else
+        {
+          <span class="hidden-xs">Cesto de compras - (0)</span>
+        }
+      </a>
+      <ul class="dropdown-menu">
+        <li class="user-header">
+          @if (Model != null && Model.Quantidade > 0)
+          {
+            foreach (var item in Model.Produtos)
+            {
+              <ul>@item.Quantidade - @item.Produto.Nome </ul>
+            }
+            <ul>Total: @Model.Total</ul>
+          }
+          else
+          {
+            <span class="hidden-xs">Você ainda não adicionou items nesse pedido. </span>
+          }
+        </li>
+        <li class="user-footer">
+          <div class="pull-left">
+            <a href="@Url.Action("", "")" class="btn btn-primary btn-flat" title="Alterar Senha">Finalizar Venda</a>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

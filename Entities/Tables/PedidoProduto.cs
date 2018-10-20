@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Entities.Tables
 {
-  public class PedidoProduto
+  public class ProdutoPedido
   {
     [Key, Column(Order = 0)]
-    public int PedidoId { get; set; }
-    [Key, Column(Order = 1)]
     public int ProdutoId { get; set; }
+    [Key, Column(Order = 1)]
+    public int PedidoId { get; set; }
   }
 }

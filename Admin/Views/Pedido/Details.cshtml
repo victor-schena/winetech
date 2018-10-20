@@ -1,7 +1,9 @@
 ﻿@model Admin.Models.PedidoItemViewModel
 
 @{
-    ViewBag.Title = "Details";
+        /**/
+
+        ViewBag.Title = "Details";
 }
 
 <section class="content-header">
@@ -12,48 +14,56 @@
 </section>
 
 <div class="box box-default">
-    <h4>Pedido</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Pessoa.NomeCompleto)
-        </dt>
+  <h4>Pedido</h4>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.Pessoa.NomeCompleto)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Pessoa.NomeCompleto)
-        </dd>
+    <dd>
+      @Html.DisplayFor(model => model.Pessoa.NomeCompleto)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Pedido.DataPedido)
-        </dt>
+    <dt>
+      @Html.DisplayNameFor(model => model.Pedido.DataPedido)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Pedido.DataPedido)
-        </dd>
+    <dd>
+      @Html.DisplayFor(model => model.Pedido.DataPedido)
+    </dd>
+    <dt>
+      Produtos:
+    </dt>
+    <dd>
+      @foreach (var item in Model.Produtos)
+      {
+        <i>@item.Quantidade - @item.Produto.Nome</i><br />
+      }
+    </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.Quantidade)
+    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantidade)
-        </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Quantidade)
+    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Quantidade)
-        </dd>
+    <dt>
+      @Html.DisplayNameFor(model => model.Total)
+    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
+    <dd>
+      @Html.DisplayFor(model => model.Total)
+    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Total)
-        </dd>
-
-    </dl>
+  </dl>
 </div>
 @*<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Pedido.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
+      @Html.ActionLink("Edit", "Edit", new { id = Model.Pedido.Id }) |
+      @Html.ActionLink("Back to List", "Index")
+  </p>*@
 <p>
-<a href="@Url.Action("Edit", "Pedido", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>
-<a href="@Url.Action("Index", "Pedido", new { id = Model.Pessoa.Id })" title="Index"><span class="label label-info">Listar</span></a>
+  <a href="@Url.Action("Edit", "Pedido", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+  <a href="@Url.Action("Index", "Pedido", new { id = Model.Pessoa.Id })" title="Index"><span class="label label-info">Listar</span></a>
 </p>

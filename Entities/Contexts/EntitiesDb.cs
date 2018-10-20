@@ -63,18 +63,31 @@ namespace Entities.Contexts
                  .WithMany(sa => sa.Produtos)
                  .HasForeignKey(sa => sa.TipoId);
 
-      //one-to-many (Produto/Pedido)
-      modelBuilder.Entity<Produto>()
-                   .HasOptional<Pedido>(pr => pr.Pedido)
-                   .WithMany(pe => pe.Produtos)
-                   .HasForeignKey(pe => pe.PedidoId);
+      ////one-to-many (Produto/Pedido)
+      //modelBuilder.Entity<Produto>()
+      //             .HasOptional<Pedido>(pr => pr.Pedido) 
+      //             .WithMany(pe => pe.Produtos)
+      //             .HasForeignKey(pe => pe.PedidoId);
 
-      //one - to - many(Produto / Safra)
       modelBuilder.Entity<Produto>()
-                  .HasRequired<Uva>(pr => pr.Uva)
-                  .WithMany(sa => sa.Produtos)
-                  .HasForeignKey(sa => sa.UvaId);
+                .HasMany<Pedido>(p => p.Pedidos)
+                .WithMany(u => u.Produtos)
+                .Map(cs =>
+                {
+                  cs.MapLeftKey("ProdutoId");
+                  cs.MapRightKey("PedidoId");
+                  cs.ToTable("PedidoProduto");
+                });
 
+      modelBuilder.Entity<Produto>()
+                .HasMany<Uva>(p => p.Uvas)
+                .WithMany(u => u.Produtos)
+                .Map(cs =>
+                {
+                  cs.MapLeftKey("ProdutoId");
+                  cs.MapRightKey("UvaId");
+                  cs.ToTable("ProdutoUva");
+                });
 
 
       base.OnModelCreating(modelBuilder);

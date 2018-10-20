@@ -16,7 +16,7 @@ namespace Entities.Tables
   {
     public Produto()
     {
-      //this.Pedido = new Pedido();
+      this.Uvas = new HashSet<Uva>().ToList();
     }
     [Key]
     public int Id { get; set; }
@@ -70,25 +70,15 @@ namespace Entities.Tables
     public Safra Safra { get; set; }
 
     public int? PedidoId { get; set; }
-    public virtual Pedido Pedido { get; set; }
-
-    public int UvaId { get; set; }
-    //{
-    //  get { return new List<Uva>(); }
-    //  set { Uvas = value; }
-    //}
-   
-    public virtual List<Uva> Uvas
+    public virtual ICollection<Pedido> Pedidos { get; set; }
+    
+    public virtual ICollection<Uva> Uvas
     {
-      get
-      {
-        return new EntitiesDb().Uvas.AsNoTracking().ToList();
-      }
-      set
-      {
-        Uvas = value;
-      }
+      get;
+      set;
     }
+    //[NotMapped]
+    //public virtual List<Uva> SelectedUvas { get; set; }
     [NotMapped]
     public int[] selectedUvas { get; set; }
 

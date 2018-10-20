@@ -8,6 +8,10 @@ namespace Admin.Models
 {
   public class PedidoItemViewModel
   {
+    public PedidoItemViewModel()
+    {
+
+    }
     public int idPessoa { get; set; }
     public Pessoa Pessoa { get; set; }
     public Pedido Pedido { get; set; }

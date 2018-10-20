@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Entities.Tables.Uva>
+
+@{
+  ViewBag.Title = "Index";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+  <h1>
+    Uvas
+    <a class="btn btn-default btn-flat" href="@Url.Action("Create", "Uvas")" role="button" title="Nova Uva">Nova Uva</a>
+  </h1>
+</section>
+@if (TempData["Success"] != null)
+{
+  <div class="alert alert-success alert-dismissable" data-dismiss="alert" aria-label="close">
+    <strong>@TempData["Success"]</strong>
+  </div>
+}
+@if (TempData["Error"] != null)
+{
+  <div class="alert alert-danger alert-dismissable" data-dismiss="alert" aria-label="close">
+    <strong>@TempData["Error"]</strong>
+  </div>
+}
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-body">
+      <div class="table">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+              </th>
+              <th style="text-align:right">
+                Ações
+              </th>
+          </thead>
+          <tbody>
+
+            @foreach (var item in Model)
+            {
+              <tr>
+                <td>
+                  @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td style="text-align:right">
+                  <a href="@Url.Action("Edit", "Uvas", new { id = item.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+                  @*<a href="@Url.Action("Details", "Uvas", new { id = item.Id })" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"> </i></span></a>*@
+                  <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Uvas", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger">DEL</span></a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="confirmation-delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Deletar Registro?</h4>
+        </div>
+        <div class="modal-body">
+          Essa ação é irreversível. Deletar?
+        </div>
+        <div class="modal-footer">
+          <form id="form-delete" method="post" novalidate="novalidate">
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Sim" class="btn btn-success btn-flat" />
+            <a href="#" class="btn btn-danger btn-flat" data-dismiss="modal">Não</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  setactivemenu('#a-uvas');
+</script>
