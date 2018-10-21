@@ -35,6 +35,7 @@ namespace Admin.Controllers
           Include(p => p.Tipo).
           Where(x => x.Status == true).
           ToList();
+        ViewBag.PedidoId = 0;
 
         return View(produtos);
       }

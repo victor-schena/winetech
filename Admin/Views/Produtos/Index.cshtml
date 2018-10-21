@@ -9,18 +9,18 @@
 
 <script>
   function enviarItem(Id) {
-    debugger;
-    $.post('/Pedido/TestePost', { id: Id, qtde: 1 }, function (data) {
-      success: jQuery.each(data, function (i, val) {
-        $("#" + val).text("Mine is " + val + ".");
+    $.post('/Pedido/Create',
+      { PessoaId: 0, ProdutoId: Id, Quantidade: 1 },
+      function (data) {
+        success:
+        for (var i = 0; i < data.length; i++) {
+          var txt = $("<ul></ul>").text(data[i].nome);
+          $('#cart-header').html(txt) //after(txt);
+          //.text(data[i].nome); //alert(data[i].nome);
+        }
+        $('#empty-cart').addClass('display', 'none');
       }, 'json');
-      $('#myNewModal').hide();
-    };
-
-  function guardarItemPedido(id, qtde) {
-
-    };
-
+  }
 </script>
 
 <section class="content-header">
@@ -28,6 +28,10 @@
     Produtos
     <a class="btn btn-default btn-flat" href="@Url.Action("Create", "Produtos")" role="button" title="Novo Produto">Novo Produto</a>
   </h1>
+  @if (ViewBag.PedidoId != null)
+  {
+    <a href="@Url.Action("Details", "Pedido",new { id = ViewBag.PedidoId })" title="Visualizar Pedido">Clique aqui para visualizar este pedido.</a>
+  }
 </section>
 @if (TempData["Success"] != null)
 {

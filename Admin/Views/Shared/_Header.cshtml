@@ -9,12 +9,12 @@
       <span class="sr-only">Toggle navigation</span>
     </a>
 
-    @if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Produtos/Index"))
+    @*@if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Produtos/Index"))
     {
       <div>
         @Html.Partial("~/Views/Shared/_ShoppingCart.cshtml", new Admin.Models.PedidoItemViewModel())
       </div>
-    }
+    }*@
 
     @if (User.Identity.IsAuthenticated)
     {

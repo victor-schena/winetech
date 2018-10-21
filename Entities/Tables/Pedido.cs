@@ -28,7 +28,7 @@ namespace Entities.Tables
 
     public decimal? Total { get; set; }
 
-    public int PessoaId { get; set; }
+    public int? PessoaId { get; set; }
     public virtual Pessoa Pessoa { get; set; }
 
     public virtual ICollection<Produto> Produtos{get;set;}
