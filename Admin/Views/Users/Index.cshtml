@@ -51,8 +51,8 @@
                       </div>
                     </td>
                     <td align="center">
-                      <a href="@Url.Action("Edit", "Users", new { id = item.Id })" title="editar"><span class="label label-info">EDIT</span></a>
-                      <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Users", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="deletar"><span class="label label-danger">DEL</span></a>
+                      <a href="@Url.Action("Edit", "Users", new { id = item.Id })" title="editar"><span class="label label-info"><i class="fa fa-pencil-square-o "></i></span></a>
+                      <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Users", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>
                       <a href="@Url.Action("Details", "Users", new { id = item.Id })" title="perfis do usuário"><span class="label label-warning"><i class="fa fa-unlock fa-fw"></i></span></a>
                     </td>
                   </tr>

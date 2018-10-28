@@ -17,7 +17,7 @@ namespace Admin.Models
     public Pedido Pedido { get; set; }
 
     public int ProdutoId { get; set; }
-    public Produto Produto { get; set; }
+    public PresentationProduto Produto { get; set; }
 
     public List<FilaCarrinho> Produtos { get; set; }
     public List<PresentationProduto> ProdutosPedido { get; set; }

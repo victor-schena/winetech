@@ -1,9 +1,44 @@
 ﻿@model Admin.Models.PedidoItemViewModel
+@using Admin.Models;
+
 
 @{
   ViewBag.Title = "Details";
 }
+<script type="text/javascript">
+  $(document).ready(function () {
 
+    function enviarItem(PedidoId, ProdutoId) {
+      $.post('/Pedido/RemoverItem',
+        { PedidoId: PedidoId, ProdutoId: ProdutoId },
+        function (data) {
+          success:
+          location.reload();
+        }, 'json');
+    }
+
+    $("#doc").blur(function () {
+      $("#Nome").val("");
+      if ($('#doc').val() == null || $('#doc').val()=="")
+        return;
+      $.post('/Pessoas/Search',
+        { doc: $("#doc").val() },
+        function (data) {
+          success:
+          if (data.TipoPessoaId == 1)
+            $('#Nome').val(data.NomeCompleto);
+          else
+            $('#Nome').val(data.NomeFantasia);
+        }, 'json').fail(function () {
+          alert("Cliente não encontrado.");
+        });
+
+    });
+  }
+  );
+
+
+</script>
 <section class="content-header">
   <h1>
     Pedidos de Venda
@@ -19,30 +54,48 @@
           <hr />
           <div class="form-horizontal">
             <div class="form-group">
-              <div class="col-md-1">
-                @Html.LabelFor(model => model.Pessoa.CPF, "CPF:", htmlAttributes: new { @class = "control-label" })
+              <div class="col-md-2">
+                @Html.Label("CPF ou CNPJ:")
               </div>
-              <div class=" col-md-2">
-                @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+              @if (Model.Pessoa != null && !string.IsNullOrEmpty(Model.Pessoa.CPF))
+              {
+                <div class=" col-md-2">
+                  @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "doc" } })
+                </div>
+              }
+              else
+              {
+                <div class=" col-md-2">
+                  @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control cpf", @id = "doc" } })
+                </div>
+              }
+              <div class="col-md-2">
+                @Html.Label("Nome ou Razão social:")
               </div>
-              <div class="col-md-1">
-                @Html.LabelFor(model => model.Pessoa.NomeCompleto, "Nome:", htmlAttributes: new { @class = "control-label" })
-              </div>
-              <div class="col-md-5">
-                @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-              </div>
+              @if (Model.Pessoa != null && !string.IsNullOrEmpty(Model.Pessoa.NomeCompleto))
+              {
+                <div class="col-md-5">
+                  @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Nome" } })
+                </div>
+              }
+              else
+              {
+                <div class="col-md-5">
+                  @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Nome" } })
+                </div>
+              }
             </div>
             <br />
           </div>
           <hr />
-          
+
         </div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-lg-12">
-      <div class="box box-success">
+      <div class="box box-info">
         <div class="box box-body">
           <div class="form-horizontal">
             <h4>Dados do pedido</h4>
@@ -60,7 +113,7 @@
               <div class="col-md-2">
                 <div class="input-group">
                   <span class="input input-group-addon">R$</span>
-                  @Html.EditorFor(model => model.Pedido.Total, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                  @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 </div>
               </div>
             </div>
@@ -91,7 +144,7 @@
                 {
                   <tr>
                     <td>
-                      <a href="@Url.Action("Edit", "Produtos", new { id = item.Produto.Id })" title="Editar"><span class="label label-danger">Remover</span></a>
+                      <a class="btn btn-danger" onclick="enviarItem(@Model.PedidoId,@item.ID)" title="Remover">Remover</a>
                     </td>
                     <td title="@item.Produto.Nome">
                       @if (item.Produto.Nome.Length > 130)
@@ -101,17 +154,14 @@
                       @Html.DisplayFor(modelItem => item.Produto.Nome)
                     </td>
                     <td title="@item.Produto.Descricao">
-                      @*@if (item.Produto.Descricao.Length > 130)
-                {
-                  item.Produto.Descricao = item.Produto.Descricao.Substring(0, 130) + "...";
-                }*@
                       @Html.DisplayFor(modelItem => item.Produto.Descricao)
                     </td>
                     <td id="tdPrecoProduto">
                       @String.Format("{0:c} ", item.Produto.PrecoVenda)
                     </td>
                     <td>
-                      @item.Produto.Quantidade
+                      @Html.EditorFor(model => item.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1" } })
+                      @*@item.Produto.Quantidade*@
                     </td>
                   </tr>
                 }
@@ -123,11 +173,8 @@
     </div>
   </div>
 </section>
-@*<p>
-      @Html.ActionLink("Edit", "Edit", new { id = Model.Pedido.Id }) |
-      @Html.ActionLink("Back to List", "Index")
-  </p>*@
 <p>
-  <a href="@Url.Action("Edit", "Pedido", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>
-  <a href="@Url.Action("Index", "Pedido", new { id = Model.Pessoa.Id })" title="Index"><span class="label label-info">Listar</span></a>
+  @*<a href="@Url.Action("Edit", "Pedido", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>*@
+  <a href="@Url.Action("Index", "Produtos", new { id = Model.PedidoId })" title="Index"><span class="label label-info">Continuar Venda</span></a>
+  <a href="@Url.Action("FinalizarPedido", "Pedido",new { id = Model.PedidoId })" title="Index"><span class="label label-info">Finalizar</span></a>
 </p>

@@ -18,7 +18,7 @@ namespace Admin.Controllers
   public class ProdutosController : Controller
   {
     private EntitiesDb db = new EntitiesDb();
-    public ActionResult Index()
+    public ActionResult Index(int? id)
     {
       try
       {
@@ -35,7 +35,10 @@ namespace Admin.Controllers
           Include(p => p.Tipo).
           Where(x => x.Status == true).
           ToList();
-        ViewBag.PedidoId = 0;
+        if (id > 0)
+          ViewBag.PedidoId = id;
+        else
+          ViewBag.PedidoId = 0;
 
         return View(produtos);
       }
@@ -215,19 +218,21 @@ namespace Admin.Controllers
             return View(produto);
           }
 
+          //get the id of the current recipe
           produto.Status = true;
-          db.Entry(produto).State = EntityState.Modified;
-
-          db.Produtos.Add(produto);
-          db.Produtos.Attach(produto);
-
-
-          foreach (var UvaID in selectedUvas)
+          int id = produto.Id;
+          //load recipe with ingredients from the database
+          var recipeItem = db.Produtos.Include(r => r.Uvas).Single(r => r.Id == id);
+          //apply the values that have changed
+          db.Entry(recipeItem).CurrentValues.SetValues(produto);
+          //clear the ingredients to let the framework know they have to be processed
+          recipeItem.Uvas.Clear();
+          //now reload the ingredients again, but from the list of selected ones as per model provided by the view
+          foreach (int ingId in selectedUvas)
           {
-            Uva uva = new Uva { Id = UvaID };
-            db.Uvas.Attach(uva);
-            produto.Uvas.Add(uva);
+            recipeItem.Uvas.Add(db.Uvas.Find(ingId));
           }
+          //finally, save changes as usual
           db.SaveChanges();
           TempData["Success"] = "Registro salvo com sucesso.";
           return RedirectToAction("Index");
@@ -243,6 +248,35 @@ namespace Admin.Controllers
         throw ex;
       }
 
+    }
+    private void UpdateProdutoUvas(int[] selectedUvas, Produto produto)
+    {
+      if (selectedUvas == null)
+      {
+        produto.Uvas = new List<Uva>();
+        return;
+      }
+
+      var selectedUvasHS = new HashSet<int>(selectedUvas);
+      var produtoUvas = new HashSet<int>
+          (produto.Uvas.Select(u => u.Id));
+      foreach (var uva in db.Uvas)
+      {
+        if (selectedUvasHS.Contains(uva.Id))
+        {
+          if (!produtoUvas.Contains(uva.Id))
+          {
+            produto.Uvas.Add(uva);
+          }
+        }
+        else
+        {
+          if (produtoUvas.Contains(uva.Id))
+          {
+            produto.Uvas.Remove(uva);
+          }
+        }
+      }
     }
 
     // GET: Produtos/Delete/5
@@ -288,6 +322,7 @@ namespace Admin.Controllers
         }
         Produto produto = db.Produtos.Find(id);
         produto.Status = false;
+        db.Entry(produto).State = EntityState.Modified;
         db.SaveChanges();
         TempData["Success"] = "Registro excluido com sucesso.";
         return RedirectToAction("Index");
@@ -401,7 +436,7 @@ namespace Admin.Controllers
         ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status != false), "Id", "Ano", produto.SafraId);
         ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", produto.ClasseId);
         ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", produto.TipoId);
-        ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().OrderBy(u => u.Descricao), "Id", "Descricao",produto.Uvas.Select(u=>u.Id));
+        ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().OrderBy(u => u.Descricao), "Id", "Descricao", produto.Uvas.Select(u => u.Id));
       }
       catch (Exception ex)
       {

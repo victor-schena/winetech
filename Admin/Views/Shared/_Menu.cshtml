@@ -9,7 +9,7 @@
   @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
   {
     <li>
-      <a id="a-users" href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i> Usuários</a>
+      <a id="a-users" title="Usuários" href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i> Usuários</a>
     </li>
   }
   @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Roles"))
