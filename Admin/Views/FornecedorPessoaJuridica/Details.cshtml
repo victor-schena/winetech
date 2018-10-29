@@ -1,67 +1,67 @@
 ﻿@model Admin.Models.ClienteEnderecoViewModel
 
 @{
-    ViewBag.Title = "Details";
+  ViewBag.Title = "Details";
 }
 <div class="box box-default" style="width:auto">
-    <hr />
-    <dl class="dl-horizontal">
-          <dt>
-            Razao Social:
-          </dt>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      Razao Social:
+    </dt>
 
-          <dd>
-            @Html.DisplayFor(model => model.Pessoa.RazaoSocial)
-          </dd>
+    <dd>
+      @Html.DisplayFor(model => model.Pessoa.RazaoSocial)
+    </dd>
 
-          <dt>
-            Nome Fantasia:
-          </dt>
+    <dt>
+      Nome Fantasia:
+    </dt>
 
-          <dd>
-            @Html.DisplayFor(model => model.Pessoa.NomeFantasia)
-          </dd>
+    <dd>
+      @Html.DisplayFor(model => model.Pessoa.NomeFantasia)
+    </dd>
 
-          <dt>
-            CNPJ:
-          </dt>
+    <dt>
+      CNPJ:
+    </dt>
 
-          <dd>
-            @Html.DisplayFor(model => model.Pessoa.CNPJ)
-          </dd>
+    <dd>
+      @Html.DisplayFor(model => model.Pessoa.CNPJ)
+    </dd>
 
-          <dt>
-            E-mail
-          </dt>
+    <dt>
+      E-mail
+    </dt>
 
-          <dd>
-            @Html.DisplayFor(model => model.Pessoa.Email)
-          </dd>
+    <dd>
+      @Html.DisplayFor(model => model.Pessoa.Email)
+    </dd>
 
-          <dt>
-            Telefone:
-          </dt>
+    <dt>
+      Telefone:
+    </dt>
 
-          <dd>
-            @Html.DisplayFor(model => model.Pessoa.Telefone)
-          </dd>
+    <dd>
+      @Html.DisplayFor(model => model.Pessoa.Telefone)
+    </dd>
 
-          <dt>
-            Celular:
-          </dt>
+    <dt>
+      Celular:
+    </dt>
 
-          <dd>
-            @Html.DisplayFor(model => model.Pessoa.Celular)
-          </dd>
+    <dd>
+      @Html.DisplayFor(model => model.Pessoa.Celular)
+    </dd>
 
-          <dt>
-            Status:
-          </dt>
+    <dt>
+      Status:
+    </dt>
 
-          <dd>
-            @Html.DisplayFor(model => model.Pessoa.Status)
-          </dd>
-    </dl>
+    <dd>
+      @Html.DisplayFor(model => model.Pessoa.Status)
+    </dd>
+  </dl>
   <div class="box box-primary" id="divListaEnderecos" style="padding:7px">
     <div class="box-body">
       <div class="table">
@@ -145,8 +145,7 @@
     </div>
   </div>
 </div>
-<p >
-  <a href="@Url.Action("Edit", "FornecedorPessoaFisica", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>
-  <a href="@Url.Action("Index", "FornecedorPessoaFisica", new { id = Model.Pessoa.Id })" title="Index"><span class="label label-info">Listar</span></a>
+<p>
+  <a href="@Url.Action("Edit", "FornecedorPessoaJuridica", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+  <a href="@Url.Action("Index", "FornecedorPessoaJuridica", new { id = Model.Pessoa.Id })" title="Index"><span class="label label-info">Listar</span></a>
 </p>
-}

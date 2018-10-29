@@ -28,7 +28,7 @@
     <a id="a-pessoas" href="@Url.Action("Index", "Pessoas")"><i class="fa fa-user"></i><span class="pull-right container"><i class="fa fa-angle-left pull-right"></i></span> Clientes</a>
     <ul class="treeview-menu">
       <li>
-        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "ClientePessoaFisica"))
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Cliente Pessoa Fisica"))
         {
           <a id="a-clientepessoafisica" href="@Url.Action("Index", "ClientePessoaFisica")"><i class="fa fa-user"></i> Cliente Pessoa Fisica</a>
         }
@@ -38,7 +38,7 @@
         }
       </li>
       <li>
-        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "ClientePessoaJuridica"))
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Cliente Pessoa Juridica"))
         {
           <a id="a-clientepessoajuridica" href="@Url.Action("Index", "ClientePessoaJuridica")"><i class="fa fa-handshake-o"></i> Cliente Pessoa Juridica</a>
         }
@@ -53,7 +53,7 @@
     <a id="a-pessoas" href="@Url.Action("Index", "Pessoas")"><i class="fa fa-user"></i><span class="pull-right container"><i class="fa fa-angle-left pull-right"></i></span> Fornecedor</a>
     <ul class="treeview-menu">
       <li>
-        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "FornecedorPessoaFisica"))
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Fornecedor Pessoa Fisica"))
         {
           <a id="a-fornecedorpessoafisica" href="@Url.Action("Index", "FornecedorPessoaFisica")"><i class="fa fa-user"></i> Fornecedor Pessoa Física</a>
         }
@@ -63,7 +63,7 @@
         }
       </li>
       <li>
-        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "FornecedorPessoaJuridica"))
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Fornecedor Pessoa Juridica"))
         {
           <a id="a-fornecedorpessoajuridica" href="@Url.Action("Index","FornecedorPessoaJuridica")"><i class="fa fa-handshake-o"></i> Fornecedor Pessoa Juridica</a>
         }

@@ -32,12 +32,6 @@ namespace Entities.Tables
     public virtual Pessoa Pessoa { get; set; }
 
     public virtual ICollection<Produto> Produtos{get;set;}
-      //get { return new Entities.Contexts.EntitiesDb().Produtos.Where(x=>x.Status==true).ToList(); }
-      //set { Produtos = new List<Produto>(); }
-
-    //public Pedido()
-    //{
-
-    //}
+    
   }
 }

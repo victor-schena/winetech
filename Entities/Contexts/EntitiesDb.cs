@@ -21,6 +21,9 @@ namespace Entities.Contexts
     public DbSet<Safra> Safras { get; set; }
     public DbSet<Pedido> Pedidos { get; set; }
     public DbSet<Produto> Produtos { get; set; }
+    public DbSet<Uva> Uvas { get; set; }
+    public DbSet<Classe> Classes { get; set; }
+    public DbSet<Tipo> Tipos { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
@@ -48,16 +51,31 @@ namespace Entities.Contexts
                   .WithMany(sa => sa.Produtos)
                   .HasForeignKey(sa => sa.SafraId);
 
-      //many-to-many (Produto/Pedido)
+      //one-to-many
       modelBuilder.Entity<Produto>()
-                   .HasMany<Pedido>(pr => pr.Pedidos)
+                 .HasRequired<Classe>(pr => pr.Classe)
+                 .WithMany(sa => sa.Produtos)
+                 .HasForeignKey(sa => sa.ClasseId);
+
+      //one-to-many
+      modelBuilder.Entity<Produto>()
+                 .HasRequired<Tipo>(pr => pr.Tipo)
+                 .WithMany(sa => sa.Produtos)
+                 .HasForeignKey(sa => sa.TipoId);
+
+      //one-to-many (Produto/Pedido)
+      modelBuilder.Entity<Produto>()
+                   .HasOptional<Pedido>(pr => pr.Pedido)
                    .WithMany(pe => pe.Produtos)
-                   .Map(up =>
-                   {
-                     up.MapLeftKey("PedidoId");
-                     up.MapRightKey("ProdutoId");
-                     up.ToTable("PedidoProduto");
-                   });
+                   .HasForeignKey(pe => pe.PedidoId);
+
+      //one - to - many(Produto / Safra)
+      modelBuilder.Entity<Produto>()
+                  .HasRequired<Uva>(pr => pr.Uva)
+                  .WithMany(sa => sa.Produtos)
+                  .HasForeignKey(sa => sa.UvaId);
+
+
 
       base.OnModelCreating(modelBuilder);
     }

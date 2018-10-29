@@ -155,7 +155,7 @@
                         @using (Html.BeginForm("Edit", "Pedido", new { botao = "deletarEndereco", idProduto = item.Produto.Id }))
                         {
                           @Html.AntiForgeryToken()
-                          <input type="submit" value="Deletar" class="btn btn-delete" @*href="@Url.Action("Edit", "ClientePessoaFisica", new { id = item.Id,botao="deletarEndereco" })"*@ @*data-toggle="modal" data-target="#confirmation-delete-modal"*@ title="deletar">
+                          <input type="submit" value="Deletar" class="btn btn-delete" @*href="@Url.Action("Edit", "Cliente Pessoa Fisica", new { id = item.Id,botao="deletarEndereco" })"*@ @*data-toggle="modal" data-target="#confirmation-delete-modal"*@ title="deletar">
                         }
                       </td>
                     </tr>

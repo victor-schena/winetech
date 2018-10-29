@@ -32,22 +32,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.1.1.2\lib\netstandard1.3\Microsoft.AspNetCore.Http.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Swashbuckle.AspNetCore, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Swashbuckle.AspNetCore.3.0.0\lib\net451\Swashbuckle.AspNetCore.dll</HintPath>
+    <Reference Include="Microsoft.AspNetCore.Mvc, Version=1.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.1.1.3\lib\netstandard1.6\Microsoft.AspNetCore.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -81,10 +87,6 @@
     <Compile Include="Migrations\201704231423004_DeleteTableParticipante.Designer.cs">
       <DependentUpon>201704231423004_DeleteTableParticipante.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705232146595_FixTableProduto1.cs" />
-    <Compile Include="Migrations\201705232146595_FixTableProduto1.Designer.cs">
-      <DependentUpon>201705232146595_FixTableProduto1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201705232233239_Produtos.cs" />
     <Compile Include="Migrations\201705232233239_Produtos.Designer.cs">
       <DependentUpon>201705232233239_Produtos.cs</DependentUpon>
@@ -93,39 +95,64 @@
     <Compile Include="Migrations\201705252000287_StatusToAllTables.Designer.cs">
       <DependentUpon>201705252000287_StatusToAllTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809172218487_AddImageToProductTable.cs" />
+    <Compile Include="Migrations\201809172218487_AddImageToProductTable.Designer.cs">
+      <DependentUpon>201809172218487_AddImageToProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809172245507_ChangeImageTatatypeOnProductTable.cs" />
+    <Compile Include="Migrations\201809172245507_ChangeImageTatatypeOnProductTable.Designer.cs">
+      <DependentUpon>201809172245507_ChangeImageTatatypeOnProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809172343302_AddTableUvaToDatabase.cs" />
+    <Compile Include="Migrations\201809172343302_AddTableUvaToDatabase.Designer.cs">
+      <DependentUpon>201809172343302_AddTableUvaToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809172357137_AddUvaIdColumnToProductsTable.cs" />
+    <Compile Include="Migrations\201809172357137_AddUvaIdColumnToProductsTable.Designer.cs">
+      <DependentUpon>201809172357137_AddUvaIdColumnToProductsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809221127302_CreatedTableForClasse.cs" />
+    <Compile Include="Migrations\201809221127302_CreatedTableForClasse.Designer.cs">
+      <DependentUpon>201809221127302_CreatedTableForClasse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809221220203_CreateTableForTipo.cs" />
+    <Compile Include="Migrations\201809221220203_CreateTableForTipo.Designer.cs">
+      <DependentUpon>201809221220203_CreateTableForTipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809221306351_DropManyTomanytables.cs" />
+    <Compile Include="Migrations\201809221306351_DropManyTomanytables.Designer.cs">
+      <DependentUpon>201809221306351_DropManyTomanytables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810012252029_CrucialDbChanges.cs" />
+    <Compile Include="Migrations\201810012252029_CrucialDbChanges.Designer.cs">
+      <DependentUpon>201810012252029_CrucialDbChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810021111450_AddColumnProductId.cs" />
+    <Compile Include="Migrations\201810021111450_AddColumnProductId.Designer.cs">
+      <DependentUpon>201810021111450_AddColumnProductId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810061854291_RemoveDuplicatedColumnOnProductTable.cs" />
+    <Compile Include="Migrations\201810061854291_RemoveDuplicatedColumnOnProductTable.Designer.cs">
+      <DependentUpon>201810061854291_RemoveDuplicatedColumnOnProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tables\Classe.cs" />
     <Compile Include="Tables\Endereco.cs" />
     <Compile Include="Tables\Pais.cs" />
-    <Compile Include="Tables\Participante.cs" />
     <Compile Include="Tables\Pedido.cs" />
     <Compile Include="Tables\PedidoProduto.cs" />
     <Compile Include="Tables\Pessoa.cs" />
     <Compile Include="Tables\Produto.cs" />
+    <Compile Include="Tables\ProdutoUva.cs" />
     <Compile Include="Tables\Safra.cs" />
+    <Compile Include="Tables\Tipo.cs" />
+    <Compile Include="Tables\Uva.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="bin\Debug\Entities.dll.config" />
-    <None Include="bin\Debug\Entities.dll.lastcodeanalysissucceeded" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
-    <None Include="ClassDiagram3.cd" />
-    <None Include="ClassDiagram4.cd" />
-    <Fakes Include="Fakes\Microsoft.AspNetCore.Http.fakes" />
-    <Fakes Include="Fakes\Microsoft.AspNetCore.Mvc.fakes" />
-    <Fakes Include="Fakes\System.Web.Mvc.fakes" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\Entities.csproj.CopyComplete" />
-    <None Include="obj\Debug\Entities.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\Entities.csproj.GenerateResource.cache" />
-    <None Include="obj\Debug\Entities.csprojAssemblyReference.cache" />
-    <None Include="obj\Release\Entities.csproj.CoreCompileInputs.cache" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -144,40 +171,42 @@
     <EmbeddedResource Include="Migrations\201704231423004_DeleteTableParticipante.resx">
       <DependentUpon>201704231423004_DeleteTableParticipante.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705232146595_FixTableProduto1.resx">
-      <DependentUpon>201705232146595_FixTableProduto1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705232233239_Produtos.resx">
       <DependentUpon>201705232233239_Produtos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705252000287_StatusToAllTables.resx">
       <DependentUpon>201705252000287_StatusToAllTables.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="obj\Debug\Entities.Migrations.AddTablePais.resources" />
-    <EmbeddedResource Include="obj\Debug\Entities.Migrations.DeleteTableParticipante.resources" />
-    <EmbeddedResource Include="obj\Debug\Entities.Migrations.FixDatabase.resources" />
-    <EmbeddedResource Include="obj\Debug\Entities.Migrations.FixTableProduto.resources" />
-    <EmbeddedResource Include="obj\Debug\Entities.Migrations.InitialCreate.resources" />
-    <EmbeddedResource Include="obj\Debug\Entities.Migrations.Produtos.resources" />
-    <EmbeddedResource Include="obj\Debug\Entities.Migrations.StatusToAllTables.resources" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\Entities.dll" />
-    <Content Include="bin\Debug\Entities.dll.CodeAnalysisLog.xml" />
-    <Content Include="bin\Debug\Entities.pdb" />
-    <Content Include="bin\Debug\EntityFramework.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\Debug\EntityFramework.xml" />
-    <Content Include="bin\Debug\Microsoft.QualityTools.Testing.Fakes.dll" />
-    <Content Include="bin\Debug\pt-BR\Microsoft.QualityTools.Testing.Fakes.resources.dll" />
-    <Content Include="obj\Debug\Entities.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\Entities.dll" />
-    <Content Include="obj\Debug\Entities.pdb" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Release\" />
-    <Folder Include="obj\Debug\TempPE\" />
+    <EmbeddedResource Include="Migrations\201809172218487_AddImageToProductTable.resx">
+      <DependentUpon>201809172218487_AddImageToProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809172245507_ChangeImageTatatypeOnProductTable.resx">
+      <DependentUpon>201809172245507_ChangeImageTatatypeOnProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809172343302_AddTableUvaToDatabase.resx">
+      <DependentUpon>201809172343302_AddTableUvaToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809172357137_AddUvaIdColumnToProductsTable.resx">
+      <DependentUpon>201809172357137_AddUvaIdColumnToProductsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809221127302_CreatedTableForClasse.resx">
+      <DependentUpon>201809221127302_CreatedTableForClasse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809221220203_CreateTableForTipo.resx">
+      <DependentUpon>201809221220203_CreateTableForTipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809221306351_DropManyTomanytables.resx">
+      <DependentUpon>201809221306351_DropManyTomanytables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810012252029_CrucialDbChanges.resx">
+      <DependentUpon>201810012252029_CrucialDbChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810021111450_AddColumnProductId.resx">
+      <DependentUpon>201810021111450_AddColumnProductId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810061854291_RemoveDuplicatedColumnOnProductTable.resx">
+      <DependentUpon>201810061854291_RemoveDuplicatedColumnOnProductTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

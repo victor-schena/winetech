@@ -1,7 +1,10 @@
 ﻿@model Entities.Tables.Produto
-
+@using Admin.Functions
 @{
-  ViewBag.Title = "Edit";
+        /**/
+
+        ViewBag.Title = "Edit";
+        var imgsize = Constants.ImageFileSize / 1024;
 }
 
 <section class="content-header">
@@ -14,7 +17,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="box box-primary">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Edit", "Produtos", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
           @Html.AntiForgeryToken()
 
@@ -22,6 +25,39 @@
             <h4><b>Produto</b></h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @if (!string.IsNullOrEmpty(Model.Imagem))
+            {
+              <div class="form-group">
+                @Html.LabelFor(model => model.Imagem) <em class="text-red">(Tamanho recomendado: 150x150 / Peso máximo: @imgsize KB)</em> <a class="remover-img" href="#" title="Remover Imagem"><i class="fa fa-trash-o fa-fw"></i></a>
+                <a class="thumb" href="@string.Format("{0}/{1}/{2}", Constants.UrlDominioEstaticoUploads, "Produtos", Model.Imagem)" title="Visualizar imagem original" target="_blank">
+                  <img src="@string.Format("{0}/{1}/{2}", Constants.UrlDominioEstaticoUploads, "Produtos", Model.Imagem)" class="thumbnail quadrada" />
+                  <i class="fa fa-search-plus fa-fw"></i>
+                </a>
+                <a class="btn btn-sm btn-flat btn-danger image" href="#" title="Alterar">Alterar</a>
+                @Html.HiddenFor(model => model.Imagem)
+                <p>@Html.ValidationMessageFor(model => model.Imagem, "", new { @class = "text-danger" })</p>
+              </div>
+              <div class="form-group div-hidden" id="fileupload-image">
+                <span class="btn btn-sm btn-flat btn-primary fileinput-button">
+                  <i class="fa fa-camera fa-fw"></i>
+                  <span>Upload</span>
+                  @Html.EditorFor(model => model.PostedImg, new { htmlAttributes = new { @class = "form-control fileupload", @type = "file", @accept = "image/*" } })
+                </span>
+                <em class="help-block">Formatos: png e jpg</em>
+              </div>
+            }
+            else
+            {<div class="form-group">
+                @Html.LabelFor(model => model.Imagem) <em class="text-red">(Tamanho recomendado: 150x150 / Peso máximo: @imgsize KB)</em>
+                <span class="btn btn-sm btn-primary btn-flat fileinput-button">
+                  <i class="fa fa-camera fa-fw"></i>
+                  <span>Upload</span>
+                  @Html.EditorFor(model => model.PostedImg, new { htmlAttributes = new { @class = "form-control fileupload", @type = "file", @accept = "image/*" } })
+                </span>
+                <em class="help-block">Formatos: png e jpg</em>
+                @Html.ValidationMessageFor(model => model.Imagem, "", new { @class = "text-danger" })
+              </div>
+            }
             <div class="form-group">
               @Html.LabelFor(model => model.Nome, "Nome:", htmlAttributes: new { @class = "control-label col-md-2" })
               @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
@@ -34,12 +70,12 @@
             </div>
             <div class="form-group">
               @Html.LabelFor(model => model.Uva, "Uva:", htmlAttributes: new { @class = "control-label col-md-2" })
-              @Html.EditorFor(model => model.Uva, new { htmlAttributes = new { @class = "form-control" } })
+              @Html.DropDownList("UvaId", null, htmlAttributes: new { @class = "form-control", @multiple = true })
               @Html.ValidationMessageFor(model => model.Uva, "", new { @class = "text-danger" })
             </div>
-            @Html.LabelFor(model => model.Classe, "Classe:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="form-group">
-              @Html.EditorFor(model => model.Classe, new { htmlAttributes = new { @class = "form-control" } })
+              @Html.LabelFor(model => model.Classe, "Classe:", htmlAttributes: new { @class = "control-label col-md-2" })
+              @Html.DropDownList("ClasseId", null, new { htmlAttributes = new { @class = "form-control col-md-4" } })
               @Html.ValidationMessageFor(model => model.Classe, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
@@ -49,7 +85,7 @@
             </div>
             <div class="form-group">
               @Html.LabelFor(model => model.Tipo, "Tipo:", htmlAttributes: new { @class = "control-label col-md-2" })
-              @Html.EditorFor(model => model.Tipo, new { htmlAttributes = new { @class = "form-control" } })
+              @Html.DropDownList("TipoId", null, new { htmlAttributes = new { @class = "form-control" } })
               @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
@@ -76,7 +112,7 @@
             </div>
             <div class="form-group">
               @Html.LabelFor(model => model.DataValidade, "Data de Validade:", htmlAttributes: new { @class = "control-label col-md-2" })
-              @Html.EditorFor(model => model.DataValidade, new { htmlAttributes = new { @class = "form-control"} })
+              @Html.EditorFor(model => model.DataValidade, new { htmlAttributes = new { @class = "form-control data" } })
               @Html.ValidationMessageFor(model => model.DataValidade, "", new { @class = "text-danger" })
 
               @*@Html.LabelFor(model => model.Status, "Status:", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -115,6 +151,22 @@
     </div>
   </div>
 </section>
+<script>
+  setactivemenu('#a-produtos');
+  $('.image').on({
+    click: function () {
+      $('#fileupload-image').show();
+      return false;
+    }
+  });
+  $('.remover-img').on({
+    click: function () {
+      $(this).parent().hide();
+      $("input[name='Img']").val("");
+      return false;
+    }
+  });
+</script>
 
 @section Scripts {
   @Scripts.Render("~/bundles/jqueryval")

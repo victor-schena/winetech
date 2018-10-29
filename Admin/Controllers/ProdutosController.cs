@@ -10,6 +10,7 @@ using Entities.Contexts;
 using Entities.Tables;
 using Admin.Functions;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace Admin.Controllers
 {
@@ -20,23 +21,40 @@ namespace Admin.Controllers
     private EntitiesDb db = new EntitiesDb();
 
     // GET: Produtos
-    
+
     public ActionResult Index()
     {
       try
       {
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Index", "Produtos"))
         {
-          return RedirectToAction("Index","Home");
+          return RedirectToAction("Index", "Home");
         }
-          var produtos = db.Produtos.Include(p => p.Pais).Include(p => p.Safra).Where(x => x.Status == true);
-        return View(produtos.ToList());
+        var produtos =
+          db.Produtos.Include(uv => uv.Uvas).
+          Include(p => p.Pais).
+          Include(p => p.Safra).
+          Include(cl => cl.Classe).
+          Include(p => p.Tipo).
+          Where(x => x.Status == true).
+          ToList();
+
+        foreach (var produto in produtos)
+        {
+          produto.Uvas.AddRange(db.Uvas.Where(u => u.ProdutoId == produto.Id).ToList());
+        }
+
+        return View(produtos);
       }
       catch (Exception ex)
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
         throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
 
     }
@@ -55,7 +73,7 @@ namespace Admin.Controllers
         {
           return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
-        Produto produto = db.Produtos.Include(p=>p.Pais).Include(s=>s.Safra).Where(x=>x.Id==id).First();
+        Produto produto = db.Produtos.Include(p => p.Pais).Include(s => s.Safra).Where(x => x.Id == id).First();
         if (produto == null)
         {
           return HttpNotFound();
@@ -81,8 +99,8 @@ namespace Admin.Controllers
         {
           return RedirectToAction("Index", "Home");
         }
-        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status == true).OrderBy(x=>x.Nome), "Id", "Nome");
-        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true), "Id", "Ano");
+        CarregarForm();
+
         return View();
       }
       catch (Exception ex)
@@ -98,27 +116,41 @@ namespace Admin.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create([Bind(Include = "Id,Nome,Descricao,Uva,Classe,Teor_Alcolico,Tipo,CustoUnitario,Quantidade,PrecoVenda,Volume,DataValidade,Status,PaisId,SafraId")] Produto produto)
+    public ActionResult Create([Bind(Include = "Id,Arquivo,Imagem,Nome,Descricao,Uva,ClasseId,Teor_Alcolico,Tipo,CustoUnitario,Quantidade,PrecoVenda,Volume,DataValidade,Status,PaisId,SafraId,UvaId,TipoId")] Produto produto, int[] UvaId)
     {
       //VALIDAR CAMPOS OBRIGATORIOS()
+      var img = Request.Files["Imagem"];
       try
       {
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Produtos"))
         {
           return RedirectToAction("Index", "Home");
         }
-        ViewBag.PaisId = new SelectList(db.Paises, "Id", "Nome", produto.PaisId);
-        ViewBag.SafraId = new SelectList(db.Safras, "Id", "Ano", produto.SafraId);
+        //SalvarUvas()        
+        produto.selectedUvas = UvaId;
+        CarregarForm();
+
         if (!ValidaCampos(produto))
-          {
-            return View(produto);
-          }
-          produto.Status = true;
-          db.Produtos.Add(produto);
-          db.SaveChanges();
-          TempData["Success"] = "Registro Salvo.";
-          return RedirectToAction("Index");
-        
+        {
+          return View(produto);
+        }
+
+        if (img != null && img.ContentLength > 0)
+          produto.Imagem = FileManager.UploadSingleFile(img, Path.Combine(Server.MapPath("~/Uploads/Produtos")));
+
+        produto.Status = true;
+        db.Produtos.Add(produto);
+        db.SaveChanges();
+
+        foreach (var uva in UvaId)
+        {
+          Uva u = new Uva { Id = uva, ProdutoId = produto.Id };
+          db.Uvas.Attach(u);
+        }
+        db.SaveChanges();
+        TempData["Success"] = "Registro Salvo.";
+
+        return RedirectToAction("Index");
       }
       catch (Exception ex)
       {
@@ -134,6 +166,7 @@ namespace Admin.Controllers
     {
       try
       {
+        CarregarForm(id);
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Produtos"))
         {
           return RedirectToAction("Index", "Home");
@@ -147,8 +180,8 @@ namespace Admin.Controllers
         {
           return HttpNotFound();
         }
-        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status != false), "Id", "Nome",produto.PaisId);
-        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status != false), "Id", "Ano",produto.SafraId);
+        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status != false), "Id", "Nome", produto.PaisId);
+        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status != false), "Id", "Ano", produto.SafraId);
         return View(produto);
       }
       catch (Exception ex)
@@ -169,8 +202,7 @@ namespace Admin.Controllers
     {
       try
       {
-        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status != false), "Id", "Nome", produto.PaisId);
-        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status != false), "Id", "Ano", produto.SafraId);
+        CarregarForm();
 
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Produtos"))
         {
@@ -178,10 +210,16 @@ namespace Admin.Controllers
         }
         if (ModelState.IsValid)
         {
+          var img = Request.Files["PostedImg"];
+          if (img != null && img.ContentLength > 0)
+            produto.Imagem = FileManager.UploadSingleFile(img, Path.Combine(Server.MapPath("~/Uploads/Produtos")));
+          else
+            produto.Imagem = produto.Imagem;
           if (!ValidaCampos(produto))
           {
             return View(produto);
           }
+
           produto.Status = true;
           db.Entry(produto).State = EntityState.Modified;
           db.SaveChanges();
@@ -288,15 +326,15 @@ namespace Admin.Controllers
       bool validacao = true;
       if (string.IsNullOrEmpty(produto.Nome))
       {
-        ModelState.AddModelError("Nome","O campo nome é obrigatório!");
+        ModelState.AddModelError("Nome", "O campo nome é obrigatório!");
         validacao = false;
       }
-      if (produto.CustoUnitario<=0)
+      if (produto.CustoUnitario <= 0)
       {
         ModelState.AddModelError("CustoUnitario", "O campo Preço de Venda é obrigatório!");
         validacao = false;
       }
-      if (produto.PrecoVenda<=0)
+      if (produto.PrecoVenda <= 0)
       {
         ModelState.AddModelError("PrecoVenda", "O campo Preço de Venda é obrigatório!");
         validacao = false;
@@ -306,12 +344,12 @@ namespace Admin.Controllers
         ModelState.AddModelError("Quantidade", "O campo quantidade deve ser maior que zero!");
         validacao = false;
       }
-      if (produto.DataValidade.Equals(DateTime.MinValue)||string.IsNullOrEmpty(produto.DataValidade.ToString()))
+      if (produto.DataValidade.Equals(DateTime.MinValue) || string.IsNullOrEmpty(produto.DataValidade.ToString()))
       {
         ModelState.AddModelError("DataValidade", "O campo Data de Validade é obrigatório!");
         validacao = false;
       }
-      if (produto.DataValidade<DateTime.Now.Date)
+      if (produto.DataValidade < DateTime.Now.Date)
       {
         ModelState.AddModelError("DataValidade", "A data de validade não pode ser menor que a data atual!");
         validacao = false;
@@ -319,6 +357,10 @@ namespace Admin.Controllers
 
 
       return validacao;
+    }
+    protected void ProcessarImagem(string Imagem)
+    {
+
     }
     protected override void Dispose(bool disposing)
     {
@@ -329,5 +371,25 @@ namespace Admin.Controllers
       base.Dispose(disposing);
     }
 
+    protected void CarregarForm(int? ProdutoId = 0)
+    {
+      try
+      {
+        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Nome), "Id", "Nome");
+        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Ano), "Id", "Ano");
+        ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao");
+        ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao");
+        ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().ToList(), "Id", "Descricao");
+      }
+      catch (Exception ex)
+      {
+
+        throw;
+      }
+      finally
+      {
+        //db.Dispose();
+      }
+    }
   }
 }

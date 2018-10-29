@@ -9,7 +9,7 @@
   </h1>
 </section>
 <script>
-  
+
 </script>
 <section class="content">
   @if (ViewBag.idCliente == null)
@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="box box-primary">
-          @using (Html.BeginForm("Create", "ClientePessoaFisica",new { botao = "addCliente" },FormMethod.Post))
+          @using (Html.BeginForm("Create", "ClientePessoaFisica", new { botao = "addCliente" }, FormMethod.Post))
           {
             <div class="box-body">
               @Html.AntiForgeryToken()
@@ -30,7 +30,7 @@
               </div>
               <div class="form-group" id="divRG">
                 @Html.LabelFor(model => model.Pessoa.RG, "RG:", htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Pessoa.RG, new { htmlAttributes = new { @class = "form-control", @maxlength ="10"} })
+                @Html.EditorFor(model => model.Pessoa.RG, new { htmlAttributes = new { @class = "form-control", @maxlength = "10" } })
                 @Html.ValidationMessageFor(model => model.Pessoa.RG, "", new { @class = "text-danger" })
               </div>
               <div class="form-group" id="divCPF">
@@ -38,7 +38,7 @@
                 @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control cpf" } })
                 @Html.ValidationMessageFor(model => model.Pessoa.CPF, "", new { @class = "text-danger" })
               </div>
-              <div class="form-group" >
+              <div class="form-group">
                 @Html.LabelFor(model => model.Pessoa.DataNascimento, "Data de Nascimento:", htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Pessoa.DataNascimento, new { htmlAttributes = new { @class = "form-control datas" } })
                 @Html.ValidationMessageFor(model => model.Pessoa.DataNascimento, "", new { @class = "text-danger" })
@@ -60,8 +60,8 @@
               </div>
               <div class="form-group">
                 <div class="inline" value="Cancelar">
-                <input type="submit" value="Próximo Passo" class="btn btn-default" />
-                <a class="btn btn-default btn-flat" href="@Url.Action("Index", "ClientePessoaFisica")" role="button" title="Cancelar o Cadastro">Cancelar</a>
+                  <input type="submit" value="Próximo Passo" class="btn btn-default" />
+                  <a class="btn btn-default btn-flat" href="@Url.Action("Index", "ClientePessoaFisica")" role="button" title="Cancelar o Cadastro">Cancelar</a>
                 </div>
               </div>
             </div>
@@ -71,42 +71,49 @@
     </div>
   }
   @if (ViewBag.idCliente > 0)
-      {
+  {
     <div class="row">
       <div class="col-lg-12">
         <div class="box box-primary">
           @using (Html.BeginForm("Create", "ClientePessoaFisica", new { botao = "addEndereco" }))
-        {
+          {
             @Html.AntiForgeryToken()
             <div class="box-body">
               @Html.HiddenFor(model => model.Endereco.PessoaId, new { Value = ViewBag.idCliente })
               <div class="form-group">
                 @Html.LabelFor(model => model.Endereco.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Endereco.CEP, new { htmlAttributes = new { @class = "form-control", id = "cep" } })
+                @Html.ValidationMessageFor(model => model.Endereco.CEP, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
                 @Html.LabelFor(model => model.Endereco.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Endereco.Estado, new { htmlAttributes = new { @class = "form-control", id = "uf" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
                 @Html.LabelFor(model => model.Endereco.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Endereco.Cidade, new { htmlAttributes = new { @class = "form-control", id = "cidade" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
                 @Html.LabelFor(model => model.Endereco.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control", id = "bairro" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
                 @Html.LabelFor(model => model.Endereco.Rua, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Endereco.Rua, new { htmlAttributes = new { @class = "form-control", id = "rua" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Rua, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
                 @Html.LabelFor(model => model.Endereco.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Endereco.Numero, new { htmlAttributes = new { @class = "form-control", id = "numero" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Numero, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
                 @Html.LabelFor(model => model.Endereco.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.Endereco.Complemento, new { htmlAttributes = new { @class = "form-control", id = "complemento" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Complemento, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
                 <div class="inline">
@@ -116,7 +123,7 @@
                     Finalizar Cadastro!
                   </div>
                 </div>
-                
+
               </div>
             </div>
             @*</div>*@
@@ -200,11 +207,11 @@
                       </td>
                       <td>
                         @*<a href="@Url.Action("Edit", "Enderecoes", new { id = item.Id })" title="Editar"><span class="label label-info">Editar</span></a>
-                        <a href="@Url.Action("Details", "Enderecoes", new { id = item.Id })" title="Detalhes do produto"><span class="label label-warning"><i class="fa fa-unlock fa-fw"></i></span></a>*@
+                          <a href="@Url.Action("Details", "Enderecoes", new { id = item.Id })" title="Detalhes do produto"><span class="label label-warning"><i class="fa fa-unlock fa-fw"></i></span></a>*@
                         @using (Html.BeginForm("Create", "ClientePessoaFisica", new { botao = "deletarEndereco", idEndereco = item.Id }))
                         {
                           @Html.AntiForgeryToken()
-                          <input type="submit" value="Deletar" class="btn btn-delete" @*href="@Url.Action("Edit", "ClientePessoaFisica", new { id = item.Id,botao="deletarEndereco" })"*@ @*data-toggle="modal" data-target="#confirmation-delete-modal"*@ title="deletar">
+                          <input type="submit" value="Deletar" class="btn btn-delete" @*href="@Url.Action("Edit", "Cliente Pessoa Fisica", new { id = item.Id,botao="deletarEndereco" })"*@ @*data-toggle="modal" data-target="#confirmation-delete-modal"*@ title="deletar">
                         }
                       </td>
                     </tr>
