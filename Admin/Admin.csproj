@@ -535,6 +535,9 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="obj\Debug\build.force" />
+    <Content Include="obj\Debug\Tsc.out" />
+    <Content Include="obj\Release\Admin.csprojAssemblyReference.cache" />
     <None Include="Properties\PublishProfiles\Victor.pubxml" />
     <Content Include="obj\Debug\Admin.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\Admin.dll" />

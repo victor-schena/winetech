@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201704231423004_DeleteTableParticipante.Designer.cs">
       <DependentUpon>201704231423004_DeleteTableParticipante.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705232146595_FixTableProduto1.cs" />
+    <Compile Include="Migrations\201705232146595_FixTableProduto1.Designer.cs">
+      <DependentUpon>201705232146595_FixTableProduto1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201705232233239_Produtos.cs" />
     <Compile Include="Migrations\201705232233239_Produtos.Designer.cs">
       <DependentUpon>201705232233239_Produtos.cs</DependentUpon>
@@ -96,6 +100,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\Endereco.cs" />
     <Compile Include="Tables\Pais.cs" />
+    <Compile Include="Tables\Participante.cs" />
     <Compile Include="Tables\Pedido.cs" />
     <Compile Include="Tables\PedidoProduto.cs" />
     <Compile Include="Tables\Pessoa.cs" />
@@ -119,6 +124,7 @@
     <None Include="obj\Debug\Entities.csproj.CopyComplete" />
     <None Include="obj\Debug\Entities.csproj.CoreCompileInputs.cache" />
     <None Include="obj\Debug\Entities.csproj.GenerateResource.cache" />
+    <None Include="obj\Debug\Entities.csprojAssemblyReference.cache" />
     <None Include="obj\Release\Entities.csproj.CoreCompileInputs.cache" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -137,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704231423004_DeleteTableParticipante.resx">
       <DependentUpon>201704231423004_DeleteTableParticipante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705232146595_FixTableProduto1.resx">
+      <DependentUpon>201705232146595_FixTableProduto1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705232233239_Produtos.resx">
       <DependentUpon>201705232233239_Produtos.cs</DependentUpon>
@@ -160,6 +169,8 @@
     <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
     <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
     <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\Microsoft.QualityTools.Testing.Fakes.dll" />
+    <Content Include="bin\Debug\pt-BR\Microsoft.QualityTools.Testing.Fakes.resources.dll" />
     <Content Include="obj\Debug\Entities.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\Entities.dll" />
     <Content Include="obj\Debug\Entities.pdb" />
