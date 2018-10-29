@@ -208,15 +208,19 @@
     <Compile Include="Attributes\RestrictAttribute.cs" />
     <Compile Include="Classes\PessoaFisica.cs" />
     <Compile Include="Classes\PessoaJuridica.cs" />
+    <Compile Include="Controllers\CarrinhoController.cs" />
     <Compile Include="Controllers\ClientePessoaFisicaController.cs" />
     <Compile Include="Controllers\ClientePessoaJuridicaController.cs" />
     <Compile Include="Controllers\EnderecoesController.cs" />
     <Compile Include="Controllers\FornecedorPessoaFisicaController.cs" />
     <Compile Include="Controllers\FornecedorPessoaJuridicaController.cs" />
     <Compile Include="Controllers\PaisController.cs" />
+    <Compile Include="Controllers\ParticipantesController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\PedidoesController.cs" />
     <Compile Include="Controllers\PedidoVendaController.cs" />
     <Compile Include="Controllers\PedidoVendaPessoaFisicaController.cs" />
+    <Compile Include="Controllers\PessoasController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\SafrasController.cs" />
@@ -264,6 +268,18 @@
     <Compile Include="Models\ClienteEnderecoViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PedidoItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\PagingInfo.cs" />
+    <Compile Include="Models\ViewModels\ProductsListViewModel.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Relatorio\Relat.aspx.cs">
+      <DependentUpon>Relat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Relatorio\Relat.aspx.designer.cs">
+      <DependentUpon>Relat.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -292,6 +308,77 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\initial-credentials-config.sql" />
+    <Content Include="bin\Admin.dll" />
+    <Content Include="bin\Admin.pdb" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\Entities.dll" />
+    <Content Include="bin\Entities.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
+    <Content Include="bin\Microsoft.AspNetCore.Http.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.dll" />
+    <Content Include="bin\Microsoft.Owin.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.xml" />
+    <Content Include="bin\Microsoft.Owin.xml" />
+    <Content Include="bin\Microsoft.Threading.Tasks.dll" />
+    <Content Include="bin\Microsoft.Threading.Tasks.Extensions.Desktop.dll" />
+    <Content Include="bin\Microsoft.Threading.Tasks.Extensions.Desktop.xml" />
+    <Content Include="bin\Microsoft.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\Microsoft.Threading.Tasks.Extensions.xml" />
+    <Content Include="bin\Microsoft.Threading.Tasks.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\Owin.dll" />
+    <Content Include="bin\SendGrid.dll" />
+    <Content Include="bin\SendGrid.pdb" />
+    <Content Include="bin\SendGrid.SmtpApi.dll" />
+    <Content Include="bin\SendGrid.xml" />
+    <Content Include="bin\SendGridMail.dll" />
+    <Content Include="bin\System.Diagnostics.Tracing.dll" />
+    <Content Include="bin\System.Runtime.dll" />
+    <Content Include="bin\System.Runtime.InteropServices.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebActivator.dll" />
+    <Content Include="bin\WebActivator.pdb" />
+    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -440,8 +527,28 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="obj\Debug\Admin.csproj.CopyComplete" />
+    <Content Include="obj\Debug\Admin.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\Admin.csproj.GenerateResource.cache" />
+    <Content Include="obj\Debug\Admin.csprojAssemblyReference.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Release\Admin.csproj.CoreCompileInputs.cache" />
+    <Content Include="bin\Admin.dll.config" />
+    <Content Include="bin\Entities.dll.config" />
     <None Include="Properties\PublishProfiles\Victor.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="obj\Debug\Admin.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\Admin.dll" />
+    <Content Include="obj\Debug\Admin.pdb" />
+    <Content Include="Relatorio\ChartPic_000001.png" />
+    <Content Include="Relatorio\ChartPic_000002.png" />
+    <Content Include="Relatorio\ChartPic_000003.png" />
+    <Content Include="Relatorio\ChartPic_000004.png" />
+    <Content Include="Relatorio\ChartPic_000005.png" />
+    <Content Include="Relatorio\ChartPic_000006.png" />
+    <Content Include="Relatorio\ChartPic_000007.png" />
+    <Content Include="Relatorio\ChartPic_000008.png" />
+    <Content Include="Relatorio\Relat.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -512,8 +619,39 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\PedidoVendaPessoaFisica\Index.cshtml" />
     <Content Include="Views\ClientePessoaFisica\_Enderecos.cshtml" />
+    <Content Include="Views\Pais1\Create.cshtml" />
+    <Content Include="Views\Pais1\Delete.cshtml" />
+    <Content Include="Views\Pais1\Details.cshtml" />
+    <Content Include="Views\Pais1\Edit.cshtml" />
+    <Content Include="Views\Pais1\Index.cshtml" />
+    <Content Include="Views\Participantes\Create.cshtml" />
+    <Content Include="Views\Participantes\Delete.cshtml" />
+    <Content Include="Views\Participantes\Details.cshtml" />
+    <Content Include="Views\Participantes\Edit.cshtml" />
+    <Content Include="Views\Participantes\Index.cshtml" />
+    <Content Include="Views\Pedidoes\Create.cshtml" />
+    <Content Include="Views\Pedidoes\Delete.cshtml" />
+    <Content Include="Views\Pedidoes\Details.cshtml" />
+    <Content Include="Views\Pedidoes\Edit.cshtml" />
+    <Content Include="Views\Pedidoes\Index.cshtml" />
+    <Content Include="Views\Pessoas\Create.cshtml" />
+    <Content Include="Views\Pessoas\Delete.cshtml" />
+    <Content Include="Views\Pessoas\Details.cshtml" />
+    <Content Include="Views\Pessoas\Edit.cshtml" />
+    <Content Include="Views\Pessoas\EditCF.cshtml" />
+    <Content Include="Views\Pessoas\EditCJ.cshtml" />
+    <Content Include="Views\Pessoas\Index.cshtml" />
+    <Content Include="Views\Pessoas\IndexFF.cshtml" />
+    <Content Include="Views\Pessoas\IndexFJ.cshtml" />
+    <Content Include="Views\Pessoas\Search.cshtml" />
+    <Content Include="Views\Safra\Create.cshtml" />
+    <Content Include="Views\Safra\Delete.cshtml" />
+    <Content Include="Views\Safra\Details.cshtml" />
+    <Content Include="Views\Safra\Edit.cshtml" />
+    <Content Include="Views\Safra\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Carrinho\" />
     <Folder Include="Views\PedidoVenda\" />
@@ -666,6 +804,14 @@
     <EmbeddedResource Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.resx">
       <DependentUpon>201705251940294_AlterTablesAddColumnStatusToAll.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="obj\Debug\Admin.Migrations.AlterTablesAddColumnStatusToAll.resources" />
+    <EmbeddedResource Include="obj\Debug\Admin.Migrations.CreateCredentials.resources" />
+    <EmbeddedResource Include="obj\Debug\Admin.Migrations.FixCredentials.resources" />
+    <EmbeddedResource Include="obj\Debug\Admin.Migrations.FixProduto.resources" />
+    <EmbeddedResource Include="obj\Debug\Admin.Migrations.FixProdutosTable.resources" />
+    <EmbeddedResource Include="obj\Debug\Admin.Migrations.FixUserProfile.resources" />
+    <EmbeddedResource Include="obj\Debug\Admin.Migrations.InitialCreate.resources" />
+    <EmbeddedResource Include="obj\Debug\Admin.Migrations.Produtos.resources" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
