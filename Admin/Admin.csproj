@@ -202,14 +202,12 @@
     <Compile Include="bDS.Designer.cs" />
     <Compile Include="Classes\PessoaFisica.cs" />
     <Compile Include="Classes\PessoaJuridica.cs" />
-    <Compile Include="Controllers\CarrinhoController.cs" />
     <Compile Include="Controllers\ClientePessoaFisicaController.cs" />
     <Compile Include="Controllers\ClientePessoaJuridicaController.cs" />
     <Compile Include="Controllers\EnderecoesController.cs" />
     <Compile Include="Controllers\FornecedorPessoaFisicaController.cs" />
     <Compile Include="Controllers\FornecedorPessoaJuridicaController.cs" />
     <Compile Include="Controllers\PaisController.cs" />
-    <Compile Include="Controllers\ParticipantesController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\PedidoesController.cs" />
     <Compile Include="Controllers\PedidoVendaController.cs" />
