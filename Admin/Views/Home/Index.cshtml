@@ -11,6 +11,21 @@
   </h1>
 </section>
 
+<script language=javascript>
+    function janelaSecundaria(URL) {
+        var popup = window.open("/Relatorio/Relat.aspx", "Relatorio", "width=1300, height=800, toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no")
+        popup.addEventListener("DOMContentLoaded", function () {
+            var pu_width = popup.outerWidth;
+            var pu_height = popup.outerHeight;
+            popup.onresize = function () {
+                popup.resizeTo(pu_width, pu_height);
+                popup.focus();
+            }
+        });
+    }
+
+</script>
+
 <section class="content">
   <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -67,15 +82,15 @@
 @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
 {
     <div class="col-md-3 col-sm-6 col-xs-12">
-      <a href="@Url.Action("Index", "Relatorio")">
-        <div class="info-box">
-          <span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Relatório Financeiro</span>
-            <span class="info-box-number">Gerenciar</span>
-          </div>
-        </div>
-      </a>
+        <a href="javascript:janelaSecundaria()">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Relatório Financeiro</span>
+                    <span class="info-box-number">Gerenciar</span>
+                </div>
+            </div>
+        </a>
     </div>
 }
    @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
