@@ -56,7 +56,7 @@ namespace Admin {
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
+        protected global::System.Web.UI.Page Chart1;
         
         /// <summary>
         /// Controle Sql2.
@@ -74,7 +74,7 @@ namespace Admin {
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart3;
+        protected global::System.Web.UI.Page Chart3;
         
         /// <summary>
         /// Controle Chart2.
@@ -83,7 +83,7 @@ namespace Admin {
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart2;
+        protected global::System.Web.UI.Page Chart2;
         
         /// <summary>
         /// Controle Chart4.
@@ -92,6 +92,6 @@ namespace Admin {
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart4;
+        protected global::System.Web.UI.Page Chart4;
     }
 }
