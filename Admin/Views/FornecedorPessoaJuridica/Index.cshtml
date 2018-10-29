@@ -106,9 +106,9 @@
                           @Html.DisplayFor(modelItem => item.PapelPessoa.Desc)
                         </td>*@
                         <td>
-                          <a href="@Url.Action("Edit", "FornecedorPessoaJuridica", new { id = item.Id,viewName="IndexFJ" })" title="Editar"><span class="label label-info">Editar</span></a>
+                          <a href="@Url.Action("Edit", "FornecedorPessoaJuridica", new { id = item.Id,viewName="IndexFJ" })" title="Editar"><span class="label label-info"><i class="fa fa-pencil-square-o "></i></span></a>
                           <a href="@Url.Action("Details", "FornecedorPessoaJuridica", new { id = item.Id })" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
-                          <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "FornecedorPessoaJuridica", new { id = item.Id,viewName="IndexFJ" })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger">DEL</span></a>
+                          <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "FornecedorPessoaJuridica", new { id = item.Id,viewName="IndexFJ" })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>
                         </td>
                       </tr>
                     }

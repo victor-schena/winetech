@@ -135,16 +135,44 @@
     <Compile Include="Migrations\201810061854291_RemoveDuplicatedColumnOnProductTable.Designer.cs">
       <DependentUpon>201810061854291_RemoveDuplicatedColumnOnProductTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810082257073_RemovedProductIdFromGrapeTable.cs" />
+    <Compile Include="Migrations\201810082257073_RemovedProductIdFromGrapeTable.Designer.cs">
+      <DependentUpon>201810082257073_RemovedProductIdFromGrapeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810082345149_ManyToManyRelationshipProductGrape.cs" />
+    <Compile Include="Migrations\201810082345149_ManyToManyRelationshipProductGrape.Designer.cs">
+      <DependentUpon>201810082345149_ManyToManyRelationshipProductGrape.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810192236220_ManyToManyProductOrder.cs" />
+    <Compile Include="Migrations\201810192236220_ManyToManyProductOrder.Designer.cs">
+      <DependentUpon>201810192236220_ManyToManyProductOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810222256092_RemoveForeignKeyToPersonTable.cs" />
+    <Compile Include="Migrations\201810222256092_RemoveForeignKeyToPersonTable.Designer.cs">
+      <DependentUpon>201810222256092_RemoveForeignKeyToPersonTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810222335523_ChangedManyToManyRelantionship.cs" />
+    <Compile Include="Migrations\201810222335523_ChangedManyToManyRelantionship.Designer.cs">
+      <DependentUpon>201810222335523_ChangedManyToManyRelantionship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810271204554_CreateTableForStockHistoryControl.cs" />
+    <Compile Include="Migrations\201810271204554_CreateTableForStockHistoryControl.Designer.cs">
+      <DependentUpon>201810271204554_CreateTableForStockHistoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810272356527_InvertFieldsOnProductOrderTable.cs" />
+    <Compile Include="Migrations\201810272356527_InvertFieldsOnProductOrderTable.Designer.cs">
+      <DependentUpon>201810272356527_InvertFieldsOnProductOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\Classe.cs" />
     <Compile Include="Tables\Endereco.cs" />
+    <Compile Include="Tables\HistoricoEstoque.cs" />
     <Compile Include="Tables\Pais.cs" />
     <Compile Include="Tables\Pedido.cs" />
     <Compile Include="Tables\PedidoProduto.cs" />
     <Compile Include="Tables\Pessoa.cs" />
     <Compile Include="Tables\Produto.cs" />
-    <Compile Include="Tables\ProdutoUva.cs" />
     <Compile Include="Tables\Safra.cs" />
     <Compile Include="Tables\Tipo.cs" />
     <Compile Include="Tables\Uva.cs" />
@@ -206,6 +234,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810061854291_RemoveDuplicatedColumnOnProductTable.resx">
       <DependentUpon>201810061854291_RemoveDuplicatedColumnOnProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810082257073_RemovedProductIdFromGrapeTable.resx">
+      <DependentUpon>201810082257073_RemovedProductIdFromGrapeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810082345149_ManyToManyRelationshipProductGrape.resx">
+      <DependentUpon>201810082345149_ManyToManyRelationshipProductGrape.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810192236220_ManyToManyProductOrder.resx">
+      <DependentUpon>201810192236220_ManyToManyProductOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810222256092_RemoveForeignKeyToPersonTable.resx">
+      <DependentUpon>201810222256092_RemoveForeignKeyToPersonTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810222335523_ChangedManyToManyRelantionship.resx">
+      <DependentUpon>201810222335523_ChangedManyToManyRelantionship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810271204554_CreateTableForStockHistoryControl.resx">
+      <DependentUpon>201810271204554_CreateTableForStockHistoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810272356527_InvertFieldsOnProductOrderTable.resx">
+      <DependentUpon>201810272356527_InvertFieldsOnProductOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

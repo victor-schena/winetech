@@ -113,11 +113,11 @@
                           @Html.DisplayFor(modelItem => item.PapelPessoa.Desc)
                         </td>*@
                         <td style="align-items:center">
-                          <a href="@Url.Action("Edit", "ClientePessoaFisica", new { id = item.Id, viewName = "IndexCF" })" title="Editar"><span class="label label-info">Editar</span></a>
+                          <a href="@Url.Action("Edit", "ClientePessoaFisica", new { id = item.Id, viewName = "IndexCF" })" title="Editar"><span class="label label-info"><i class="fa fa-pencil-square-o "></i></span></a>
                           <br />
                           <a href="@Url.Action("Details", "ClientePessoaFisica", new { id = item.Id })" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
                           <br />
-                          <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "ClientePessoaFisica", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger">DEL</span></a>
+                          <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "ClientePessoaFisica", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>
                         </td>
                       </tr>
                       }

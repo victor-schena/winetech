@@ -2,7 +2,9 @@
 @using Admin.App_Code;
 @using Microsoft.AspNet.Identity
 @{
-  ViewBag.Title = "Index";
+        /**/
+
+        ViewBag.Title = "Index";
 }
 
 <section class="content-header">
@@ -12,13 +14,13 @@
   </h1>
 </section>
 @if (TempData["Success"] != null)
-      {
+{
   <div class="alert alert-success alert-dismissable" data-dismiss="alert" aria-label="close">
     <strong>@TempData["Success"]</strong>
   </div>
 }
 @if (TempData["Error"] != null)
-      {
+{
   <div class="alert alert-danger alert-dismissable" data-dismiss="alert" aria-label="close">
     <strong>@TempData["Error"]</strong>
   </div>
@@ -34,8 +36,8 @@
                 @Html.DisplayNameFor(model => model.Ano)
               </th>
               @*<th style="text-align:center" width="15%">
-                @Html.DisplayNameFor(model => model.Status)
-              </th>*@
+                  @Html.DisplayNameFor(model => model.Status)
+                </th>*@
               <th style="text-align:center" width="10%">
                 <i class="fa fa-gear fa-fw"></i>
               </th>
@@ -51,39 +53,39 @@
                     @Html.DisplayFor(modelItem => item.Ano)
                   </td>
                   @*<td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                  </td>*@
+                      @Html.DisplayFor(modelItem => item.Status)
+                    </td>*@
                   <td style="text-align:right">
                     @*<a href="@Url.Action("Edit", "Safras", new { id = item.Id })" title="Editar"><span class="label label-info">Editar</span></a>
-              <a href="@Url.Action("Details", "Safras", new { id = item.Id })" title="Detalhes da safra"><span class="label label-warning"><i class="fa fa-unlock fa-fw"></i></span></a>*@
+                      <a href="@Url.Action("Details", "Safras", new { id = item.Id })" title="Detalhes da safra"><span class="label label-warning"><i class="fa fa-unlock fa-fw"></i></span></a>*@
                     <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Safras", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger">DEL</span></a>
                   </td>
                 </tr>
               }
             }
           </tbody>
-          </table>
-        </div>
+        </table>
       </div>
     </div>
-  </section>
-          <div class="modal fade" id="confirmation-delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <h4 class="modal-title" id="myModalLabel">Deletar Registro?</h4>
-                </div>
-                <div class="modal-body">
-                  Essa ação é irreversível. Deletar?
-                </div>
-                <div class="modal-footer">
-                  <form id="form-delete" method="post" novalidate="novalidate">
-                    @Html.AntiForgeryToken()
-                    <input type="submit" value="Sim" class="btn btn-success btn-flat" />
-                    <a href="#" class="btn btn-danger btn-flat" data-dismiss="modal">Não</a>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+  </div>
+</section>
+<div class="modal fade" id="confirmation-delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Deletar Registro?</h4>
+      </div>
+      <div class="modal-body">
+        Essa ação é irreversível. Deletar?
+      </div>
+      <div class="modal-footer">
+        <form id="form-delete" method="post" novalidate="novalidate">
+          @Html.AntiForgeryToken()
+          <input type="submit" value="Sim" class="btn btn-success btn-flat" />
+          <a href="#" class="btn btn-danger btn-flat" data-dismiss="modal">Não</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

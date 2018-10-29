@@ -8,12 +8,15 @@ using System.Threading.Tasks;
 
 namespace Entities.Tables
 {
-  [Table("ProdutoPedido")]
-  public class ProdutoPedido
+  [Table("HistoricoEstoque")]
+  public class HistoricoEstoque
   {
-    [Key, Column(Order = 0)]
+    [Key]
+    public int Id { get; set; }
+    public int Ajuste { get; set; }
+    public int Quantidade { get; set; }
     public int ProdutoId { get; set; }
-    [Key, Column(Order = 1)]
-    public int PedidoId { get; set; }
+    public virtual Produto Produto { get; set; }
+    public DateTime CriadoEm { get; set; }
   }
 }

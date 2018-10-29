@@ -1,14 +1,25 @@
-﻿@using Microsoft.AspNet.Identity
+﻿
+@using Microsoft.AspNet.Identity
+
+
 <header class="main-header">
   <a href="@Url.Action("Index", "Home")" class="logo"><i class="fa fa-glass"></i> <b>Winetech</b></a>
   <nav class="navbar navbar-static-top" role="navigation">
     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
       <span class="sr-only">Toggle navigation</span>
     </a>
+
+    @*@if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("/Produtos/Index"))
+    {
+      <div>
+        @Html.Partial("~/Views/Shared/_ShoppingCart.cshtml", new Admin.Models.PedidoItemViewModel())
+      </div>
+    }*@
+
     @if (User.Identity.IsAuthenticated)
     {
       <div class="navbar-custom-menu">
-       <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               @*<img src="@string.Format("{0}/{1}/{2}", Admin.Functions.Constants.UrlDominioEstaticoUploads, "users", ViewBag.UserInfo.Img)" class="user-image" alt="@ViewBag.UserInfo.Name" />*@

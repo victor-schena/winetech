@@ -16,20 +16,20 @@ namespace Admin.Controllers
   public class PessoasController : Controller
   {
     private EntitiesDb db = new EntitiesDb();
-  
+
     // GET: Pessoas
-    protected  override void OnActionExecuting(ActionExecutingContext filterContext)
+    protected override void OnActionExecuting(ActionExecutingContext filterContext)
     {
       base.OnActionExecuting(filterContext);
-      
+
     }
-      public ActionResult Index()
-    { 
+    public ActionResult Index()
+    {
       return View(db.Pessoas.ToList());
     }
     public ActionResult IndexCJ()
     {
-      return View(db.Pessoas.ToList().Where(p => p.PapelPessoaId == 1).Where(p=>p.TipoPessoaId==2));
+      return View(db.Pessoas.ToList().Where(p => p.PapelPessoaId == 1).Where(p => p.TipoPessoaId == 2));
     }
     public ActionResult IndexFF()
     {
@@ -40,7 +40,7 @@ namespace Admin.Controllers
       return View(db.Pessoas.ToList().Where(p => p.PapelPessoaId == 2).Where(p => p.TipoPessoaId == 2));
     }
     // GET: Pessoas/Details/5
-    
+
     public ActionResult Details(int? id)
     {
       if (id == null)
@@ -56,7 +56,7 @@ namespace Admin.Controllers
     }
 
     // GET: Pessoas/Create
-    
+
     public ActionResult Create()
     {
       return View();
@@ -67,7 +67,7 @@ namespace Admin.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create([Bind(Include = "Id,RazaoSocial,NomeFantasia,NomeCompleto,RG,CPF,DataNascimento,CNPJ,Email,Telefone,Celular,Status,LimiteCredito,TipoPessoaId,PapelPessoaId")] Pessoa pessoa,string viewName)
+    public ActionResult Create([Bind(Include = "Id,RazaoSocial,NomeFantasia,NomeCompleto,RG,CPF,DataNascimento,CNPJ,Email,Telefone,Celular,Status,LimiteCredito,TipoPessoaId,PapelPessoaId")] Pessoa pessoa, string viewName)
     {
       if (ModelState.IsValid)
       {
@@ -78,7 +78,7 @@ namespace Admin.Controllers
     }
 
     // GET: Pessoas/Edit/5
-    
+
     public ActionResult Edit(int? id)
     {
       if (id == null)
@@ -127,9 +127,9 @@ namespace Admin.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit([Bind(Include = "Id,RazaoSocial,NomeFantasia,NomeCompleto,RG,CPF,DataNascimento,CNPJ,Email,Telefone,Celular,Status,LimiteCredito,TipoPessoaId,PapelPessoaId")] Pessoa pessoa,string viewName)
-     {
-     if (ModelState.IsValid)
+    public ActionResult Edit([Bind(Include = "Id,RazaoSocial,NomeFantasia,NomeCompleto,RG,CPF,DataNascimento,CNPJ,Email,Telefone,Celular,Status,LimiteCredito,TipoPessoaId,PapelPessoaId")] Pessoa pessoa, string viewName)
+    {
+      if (ModelState.IsValid)
       {
         db.Entry(pessoa).State = EntityState.Modified;
         db.SaveChanges();
@@ -181,13 +181,38 @@ namespace Admin.Controllers
     // POST: Pessoas/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public ActionResult DeleteConfirmed(int id,string viewName)
+    public ActionResult DeleteConfirmed(int id, string viewName)
     {
       Pessoa pessoa = db.Pessoas.Find(id);
       pessoa.Status = false;
       db.SaveChanges();
       return RedirectToAction(viewName);
-      
+
+    }
+
+    public ActionResult Search(string doc)
+    {
+
+      try
+      {
+        var list = db.Pessoas.Where(p => p.CPF.Contains(doc) || p.CNPJ.Contains(doc))
+          //.Select(p => 
+          //new Pessoa
+          //{
+          //  Id = p.Id,
+          //  NomeCompleto = p.NomeCompleto,
+          //  NomeFantasia = p.NomeFantasia,
+          //  CPF = p.CPF,
+          //  CNPJ = p.CNPJ
+          //})
+          .FirstOrDefault();
+        return Json(list);
+      }
+      catch (Exception ex)
+      {
+
+        throw ex;
+      }
     }
     protected override void Dispose(bool disposing)
     {

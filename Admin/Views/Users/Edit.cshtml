@@ -22,7 +22,7 @@
             <div class="form-group validation-summary">
               <span class="text-danger">(*) Preencha os campos obrigatórios</span>
             </div>
-            @if (!string.IsNullOrEmpty(Model.Img))
+            @*@if (!string.IsNullOrEmpty(Model.Img))
             {
               <div class="form-group">
                 @Html.LabelFor(model => model.Img) <em class="text-red">(Tamanho recomendado: 150x150 / Peso máximo: @imgsize KB)</em> <a class="remover-img" href="#" title="Remover Imagem"><i class="fa fa-trash-o fa-fw"></i></a>
@@ -55,7 +55,7 @@
                 <em class="help-block">Formatos: png e jpg</em>
                 @Html.ValidationMessageFor(model => model.Img, "", new { @class = "text-danger" })
               </div>
-            }
+            }*@
             <div class="form-group">
               @Html.LabelFor(model => model.Name, new { @class = "asterisk" })
               @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control required", @placeholder = "Nome" } })

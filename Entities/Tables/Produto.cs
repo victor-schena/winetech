@@ -16,7 +16,7 @@ namespace Entities.Tables
   {
     public Produto()
     {
-      //this.Pedido = new Pedido();
+      this.Uvas = new HashSet<Uva>().ToList();
     }
     [Key]
     public int Id { get; set; }
@@ -55,9 +55,13 @@ namespace Entities.Tables
     [Required(ErrorMessage = "O campo Preco de venda é obrigatório.")]
     public decimal PrecoVenda { get; set; }
 
-    [DataType(DataType.Date)]
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+    //[DataType(DataType.Date)]
+    //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+    //[Display(Name = "Data de Validade")]
+
     [Display(Name = "Data de Validade")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+    [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
     public DateTime? DataValidade { get; set; }
 
     [Display(Name = "Status")]
@@ -70,24 +74,12 @@ namespace Entities.Tables
     public Safra Safra { get; set; }
 
     public int? PedidoId { get; set; }
-    public virtual Pedido Pedido { get; set; }
-
-    public int UvaId { get; set; }
-    //{
-    //  get { return new List<Uva>(); }
-    //  set { Uvas = value; }
-    //}
-   
-    public virtual List<Uva> Uvas
+    public virtual ICollection<Pedido> Pedidos { get; set; }
+    
+    public virtual ICollection<Uva> Uvas
     {
-      get
-      {
-        return new EntitiesDb().Uvas.AsNoTracking().ToList();
-      }
-      set
-      {
-        Uvas = value;
-      }
+      get;
+      set;
     }
     [NotMapped]
     public int[] selectedUvas { get; set; }
@@ -99,11 +91,14 @@ namespace Entities.Tables
 
     public virtual Tipo Tipo { get; set; }
 
+    public int HistoricoEstoqueId { get; set; }
+    public virtual ICollection<HistoricoEstoque> HistoricoEstoque { get; set; }
   }
 
   public class PresentationProduto
   {
-    public int Id;
-    public string Nome;
+    public int Id { get; set; }
+    public string Nome { get; set; }
+    public int Quantidade { get; set; }
   }
 }

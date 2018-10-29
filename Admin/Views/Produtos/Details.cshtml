@@ -6,7 +6,7 @@
 <section class="content-header">
   <h1>
     Produtos
-    <small>novo produto</small>
+    <small>detalhes do produto</small>
   </h1>
 </section>
 <section class="content">
@@ -44,16 +44,19 @@
             @Html.DisplayNameFor(model => model.Descricao):
           </dt>
 
-          <dd>
+          <dd class="glyphicon-align-center">
             @Html.DisplayFor(model => model.Descricao)
           </dd>
 
           <dt>
-            @Html.DisplayNameFor(model => model.Uva):
+            @Html.DisplayNameFor(model => model.Uvas):
           </dt>
-
           <dd>
-            @Html.DisplayFor(model => model.Uva)
+
+            @foreach (var item in @Model.Uvas)
+            {
+              @item.Descricao <br />
+            }
           </dd>
 
           <dt>
@@ -61,7 +64,7 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.Classe)
+            @Html.DisplayFor(model => model.Classe.Descricao)
           </dd>
 
           <dt>
@@ -69,7 +72,7 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.Teor_Alcolico)
+            @Html.DisplayFor(model => model.Teor_Alcolico) %
           </dd>
 
           <dt>
@@ -77,7 +80,7 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.Tipo)
+            @Html.DisplayFor(model => model.Tipo.Descricao)
           </dd>
 
           <dt>
@@ -93,14 +96,21 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.Quantidade)
+            @if (Model.Quantidade == 1)
+            {
+              @Model.Quantidade <small>Unidade</small> 
+            }
+            else
+            {
+              @Model.Quantidade <small>Unidades</small> 
+            }
           </dd>
 
           <dt>
             Preco de venda:
           </dt>
 
-          <dd>
+          <dd>R$ 
             @Html.DisplayFor(model => model.PrecoVenda)
           </dd>
 
@@ -117,14 +127,14 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.DataValidade)
+            @String.Format("{0:dd/MM/yyyy}",Model.DataValidade)
           </dd>
         </dl>
       </div>
-      </div>
     </div>
-  </section>
-      <p>
-        <a href="@Url.Action("Edit", "Produtos", new { id = Model.Id })" title="Editar"><span class="label label-info">Editar</span></a>
-        <a href="@Url.Action("Index", "Produtos", new { id = Model.Id })" title="Index"><span class="label label-info">Listar</span></a>
-      </p>
+  </div>
+</section>
+<p>
+  <a href="@Url.Action("Edit", "Produtos", new { id = Model.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+  <a href="@Url.Action("Index", "Produtos", new { id = Model.Id })" title="Index"><span class="label label-info">Listar</span></a>
+</p>

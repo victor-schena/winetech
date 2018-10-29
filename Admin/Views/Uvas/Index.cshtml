@@ -1,15 +1,14 @@
-﻿@model IEnumerable<Entities.Tables.Pedido>
+﻿@model IEnumerable<Entities.Tables.Uva>
 
 @{
   ViewBag.Title = "Index";
+  Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 
 <section class="content-header">
   <h1>
-    Pedido de Venda
-    <a class="btn btn-default btn-flat" href="@Url.Action("Create", "Pedido")" role="button" title="Novo Pedido">Novo Pedido</a>
+    Uvas
+    <a class="btn btn-default btn-flat" href="@Url.Action("Create", "Uvas")" role="button" title="Nova Uva">Nova Uva</a>
   </h1>
 </section>
 @if (TempData["Success"] != null)
@@ -32,54 +31,24 @@
           <thead>
             <tr>
               <th>
-                Data Pedido
+                @Html.DisplayNameFor(model => model.Descricao)
               </th>
-              <th>
-                Cliente
-              </th>
-              <th>
-                @Html.DisplayNameFor(model => model.Quantidade)
-              </th>
-              <th>
-                @Html.DisplayNameFor(model => model.Total)
-              </th>
-              <th>
+              <th style="text-align:right">
                 Ações
               </th>
-            </tr>
           </thead>
           <tbody>
 
             @foreach (var item in Model)
             {
-
               <tr>
                 <td>
-                  @String.Format("{0:dd/MM/yyyy}", item.DataPedido)
+                  @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
-                <td>
-                  @if (item.Pessoa != null && !string.IsNullOrEmpty(item.Pessoa.NomeCompleto))
-                  {
-                    @Html.DisplayFor(modelItem => item.Pessoa.NomeCompleto)
-                  }
-                  else
-                  {
-                    @Html.Label("Desconhecido")
-                  }
-                </td>
-                <td>
-                  @Html.DisplayFor(modelItem => item.Quantidade)
-                </td>
-                <td>
-                  R$ @Html.DisplayFor(modelItem => item.Total)
-                </td>
-                <td>
-                  <a href="@Url.Action("Edit", "Pedido", new { id = item.Id })" title="Editar"><span class="label label-info"><i class="fa fa-pencil-square-o "></i></span></a>
-
-                  <a href="@Url.Action("Details", "Pedido", new { id = item.Id})" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
-
-                  <a href="@Url.Action("Delete", "Pedido", new { id = item.Id})" title="Deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>
-
+                <td style="text-align:right">
+                  <a href="@Url.Action("Edit", "Uvas", new { id = item.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+                  @*<a href="@Url.Action("Details", "Uvas", new { id = item.Id })" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"> </i></span></a>*@
+                  <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Uvas", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger">DEL</span></a>
                 </td>
               </tr>
             }
@@ -88,7 +57,6 @@
       </div>
     </div>
   </div>
-
   <div class="modal fade" id="confirmation-delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -110,3 +78,6 @@
     </div>
   </div>
 </section>
+<script>
+  setactivemenu('#a-uvas');
+</script>

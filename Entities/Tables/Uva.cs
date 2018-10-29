@@ -7,14 +7,15 @@ namespace Entities.Tables
   [Table("Uva")]
   public class Uva
   {
+    public Uva()
+    {
+      this.Produtos = new HashSet<Produto>();
+    }
     [Key]
     public int Id { get; set; }
     [Display(Name = "Uva")]
     public string Descricao { get; set; }
 
-    public int? ProdutoId { get; set; }
-
-    public virtual ICollection<Produto> Produtos { get; set; }
-
+    public ICollection<Produto> Produtos { get; set; }
   }
 }

@@ -8,86 +8,52 @@
   $(document).ready(function zerar() {
     //$('#idPessoa').val("");
     //$('#idProduto').selectedValue("");
-    $("#idProduto")[0].selectedIndex=0;
+    $("#idProduto")[0].selectedIndex = 0;
   });
 
-    function enviarClienteItem() {
-      $.post('/Pedido/Create', { IdCliente: $('#Pessoa_Id').val(), idProduto: $('#Produto').val(), qtde: $('#Produto_Quantidade').val() },
-        function (data) {
-          alert("Cool");
-          //$.post('/Pedido/PegarFilaCarrinho', { acionar: 1 },
-          //  function (data) {
-          //    var tr;
-          //    $('dataTables_empty').hide();
-          //    for (var i = 0; i < data.length; i++) {
-          //      tr = $('<tr/>');
-          //      tr.append("<td>" + data[i].Produto.Id + "</td>");
-          //      tr.append("<td>" + data[i].Produto.Nome + "</td>");
-          //      tr.append("<td>" + data[i].Quantidade + "</td>");
-          //      tr.append("<td>" + data[i].Produto.PrecoVenda + "</td>");
-          //      $('table').append(tr);
-          //    }
-          //  }, 'json');
-          //$("#total").val(data);
-          //$("#PessoaId").prop('disabled', true);
-          //$('#Produto_Quantidade').val(1);
-          //$("#total").prop('readonly', true);
-        }
+  function enviarClienteItem() {
+    $.post('/Pedido/Create', { IdCliente: $('#Pessoa_Id').val(), idProduto: $('#Produto').val(), qtde: $('#Produto_Quantidade').val() },
+      function (data) {
+        alert("Cool");
+        //$.post('/Pedido/PegarFilaCarrinho', { acionar: 1 },
+        //  function (data) {
+        //    var tr;
+        //    $('dataTables_empty').hide();
+        //    for (var i = 0; i < data.length; i++) {
+        //      tr = $('<tr/>');
+        //      tr.append("<td>" + data[i].Produto.Id + "</td>");
+        //      tr.append("<td>" + data[i].Produto.Nome + "</td>");
+        //      tr.append("<td>" + data[i].Quantidade + "</td>");
+        //      tr.append("<td>" + data[i].Produto.PrecoVenda + "</td>");
+        //      $('table').append(tr);
+        //    }
+        //  }, 'json');
+        //$("#total").val(data);
+        //$("#PessoaId").prop('disabled', true);
+        //$('#Produto_Quantidade').val(1);
+        //$("#total").prop('readonly', true);
+      }
       , 'json');
-    }
-    function finalizarPedido(){
-      //alert();
-      $.post('/Pedido/FinalizarPedido', { idCliente: $('#idPessoa').val() },
-           function (data) {
-             $("#idProduto")[0].selectedIndex = 0;
-             finalizarCadastro("Pedido");
-           }
-           , 'json');
-    }
+  }
+  function finalizarPedido() {
+    //alert();
+    $.post('/Pedido/FinalizarPedido', { idCliente: $('#idPessoa').val() },
+      function (data) {
+        $("#idProduto")[0].selectedIndex = 0;
+        finalizarCadastro("Pedido");
+      }
+      , 'json');
+  }
+  function removerItem(id) {
+    $("#idProduto")[0].selectedIndex = 0;
+    $.post('/Pedido/RemoverItem', { idProduto: id },
+      function (data) {
+        $("#idProduto")[0].selectedIndex = 0;
+        location.reload();
+      }
+      , 'json');
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function removerItem(id){
-      $("#idProduto")[0].selectedIndex = 0;
-      $.post('/Pedido/RemoverItem', { idProduto: id },
-            function (data){
-              $("#idProduto")[0].selectedIndex=0;
-              location.reload();
-            }
-            , 'json');
-    }
-  
 </script>
 <section class="content-header">
   <h1>
@@ -112,7 +78,7 @@
               </div>
               <div class="col-md-4">
                 @*@Html.DropDownList("PessoaId", null, htmlAttributes: new { @class = "form-control" })*@
-                @Html.DropDownListFor(model => model.idPessoa, (SelectList)ViewBag.PessoaId,"Selecione")
+                @Html.DropDownListFor(model => model.idPessoa, (SelectList)ViewBag.PessoaId, "Selecione")
                 @Html.ValidationMessageFor(model => model.Pessoa.Id, "", new { @class = "text-danger" })
               </div>
             </div>
@@ -123,7 +89,8 @@
                 @Html.Label("Quantidade:", htmlAttributes: new { @class = "control-label col-md-2" })
               </div>
               <div class="col-md-4">
-                @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control", id = "Produto_Quantidade", @*min = "1",*@ type = "number" })
+                @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control", id = "Produto_Quantidade", @*min = "1",*@type = "number"
+              })
                 @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
               </div>
             </div>
@@ -134,7 +101,7 @@
                 @Html.Label("Produto:", htmlAttributes: new { @class = "control-label col-md-2" })
               </div>
               <div class="col-md-4">
-                @Html.DropDownListFor(model => model.idProduto, (SelectList)ViewBag.ProdutoId,"Selecione")
+                @Html.DropDownListFor(model => model.idProduto, (SelectList)ViewBag.ProdutoId, "Selecione")
                 @Html.ValidationMessageFor(model => model.idProduto, "", new { @class = "text-danger" })
               </div>
             </div>
@@ -144,7 +111,7 @@
                 @Html.Label("Total:", htmlAttributes: new { @class = "control-label col-md-2" })
               </div>
               <div class="col-md-3">
-                @Html.TextBoxFor(model => model.Total , new { @class = "form-control", id = "total", @*@readonly = "readonly"*@ })
+                @Html.TextBoxFor(model => model.Total , new { @class = "form-control", id = "total", @*@readonly = "readonly"*@})
                 @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
               </div>
             </div>
@@ -152,7 +119,7 @@
             <div class="form-group">
               <input type="image" class="btn btn-default" value="Adicionar Produto" />
               @*<a class="btn btn-default" onclick="enviarClienteItem();">Adicionar Produto</a>
-              <a onclick="finalizarPedido();" class="btn btn-default">Finalizar Pedido</a>*@
+                <a onclick="finalizarPedido();" class="btn btn-default">Finalizar Pedido</a>*@
             </div>
           </div>
         }
@@ -181,9 +148,9 @@
               </thead>
 
               @if (Model != null)
-      {
-        foreach (var item in Model.Produtos)
-        {
+              {
+                foreach (var item in Model.Produtos)
+                {
                   <tbody>
                     <tr>
                       <td class="text-center">
@@ -196,10 +163,10 @@
                         @Html.DisplayFor(modelItem => item.Quantidade)
                       </td>
                       <td class="text-center">
-                       R$ @Html.DisplayFor(modelItem => item.Produto.PrecoVenda)
+                        R$ @Html.DisplayFor(modelItem => item.Produto.PrecoVenda)
                       </td>
                       <td class="text-center">
-                        <div class="btn btn-default btn-flat"onclick="removerItem(@item.Produto.Id);">
+                        <div class="btn btn-default btn-flat" onclick="removerItem(@item.Produto.Id);">
                           Deletar
                         </div>
                       </td>

@@ -1,0 +1,22 @@
+﻿@model Admin.Models.PedidoItemViewModel
+<div class="navbar-custom-menu">
+  <ul class="nav navbar-nav">
+    <li class="dropdown user user-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <span id="total-items" class="hidden-xs">Cesto de compras - (0)</span>
+      </a>
+      <ul class="dropdown-menu">
+        <li id="cart-header" class="user-header">
+          <ul class="cart-item"></ul>
+          <ul id="valor-total">Total:R$</ul>
+          <span id="empty-cart" class="hidden-xs">Você ainda não adicionou items nesse pedido. </span>
+        </li>
+        <li class="user-footer">
+          <div class="pull-left">
+            <a href="@Url.Action("", "")" class="btn btn-primary btn-flat" title="Alterar Senha">Finalizar Venda</a>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
