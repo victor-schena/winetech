@@ -206,6 +206,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\RestrictAttribute.cs" />
+    <Compile Include="bDS1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Classes\PessoaFisica.cs" />
     <Compile Include="Classes\PessoaJuridica.cs" />
     <Compile Include="Controllers\ClientePessoaFisicaController.cs" />
@@ -266,6 +271,16 @@
     <Compile Include="Models\ClienteEnderecoViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PedidoItemViewModel.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Relatorio\Relat.aspx.cs">
+      <DependentUpon>Relat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Relatorio\Relat.aspx.designer.cs">
+      <DependentUpon>Relat.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -294,6 +309,49 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\initial-credentials-config.sql" />
+    <Content Include="bin\Admin.dll" />
+    <Content Include="bin\Admin.pdb" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Entities.dll" />
+    <Content Include="bin\Entities.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Http.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.dll" />
+    <Content Include="bin\Microsoft.Owin.dll" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
+    <Content Include="bin\Microsoft.Threading.Tasks.dll" />
+    <Content Include="bin\Microsoft.Threading.Tasks.Extensions.Desktop.dll" />
+    <Content Include="bin\Microsoft.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Owin.dll" />
+    <Content Include="bin\SendGrid.dll" />
+    <Content Include="bin\SendGrid.SmtpApi.dll" />
+    <Content Include="bin\SendGridMail.dll" />
+    <Content Include="bin\Swashbuckle.AspNetCore.dll" />
+    <Content Include="bin\System.Diagnostics.Tracing.dll" />
+    <Content Include="bin\System.Runtime.dll" />
+    <Content Include="bin\System.Runtime.InteropServices.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\WebActivator.dll" />
+    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -442,8 +500,32 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="obj\Release\Admin.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Release\Admin.csprojAssemblyReference.cache" />
+    <Content Include="bDS.xsc">
+      <DependentUpon>bDS.xsd</DependentUpon>
+    </Content>
+    <None Include="bDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>bDS1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="bDS.xss">
+      <DependentUpon>bDS.xsd</DependentUpon>
+    </Content>
+    <Content Include="bin\Admin.dll.config" />
+    <Content Include="bin\Entities.dll.config" />
     <None Include="Properties\PublishProfiles\Victor.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Relatorio\ChartPic_000001.png" />
+    <Content Include="Relatorio\ChartPic_000002.png" />
+    <Content Include="Relatorio\ChartPic_000003.png" />
+    <Content Include="Relatorio\ChartPic_000004.png" />
+    <Content Include="Relatorio\ChartPic_000005.png" />
+    <Content Include="Relatorio\ChartPic_000006.png" />
+    <Content Include="Relatorio\ChartPic_000007.png" />
+    <Content Include="Relatorio\ChartPic_000008.png" />
+    <Content Include="Relatorio\Relat.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />

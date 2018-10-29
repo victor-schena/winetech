@@ -10,7 +10,8 @@
 namespace Admin {
     
     
-    public partial class Relat {
+    public partial class Relat : : System.Web.UI.Page
+    {
         
         /// <summary>
         /// Controle form1.
