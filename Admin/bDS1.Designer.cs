@@ -3589,7 +3589,7 @@ namespace Admin.bDSTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::Admin.Properties.Settings.Default.baseprojec;
+
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3918,7 +3918,7 @@ namespace Admin.bDSTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::Admin.Properties.Settings.Default.baseprojec;
+    
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4246,7 +4246,7 @@ namespace Admin.bDSTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::Admin.Properties.Settings.Default.baseprojec;
+
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4690,7 +4690,7 @@ namespace Admin.bDSTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::Admin.Properties.Settings.Default.baseprojec;
+
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5082,7 +5082,7 @@ namespace Admin.bDSTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::Admin.Properties.Settings.Default.baseprojec;
+         
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -10,7 +10,7 @@
 namespace Admin {
     
     
-    public partial class Relat : : System.Web.UI.Page
+    public partial class Relat : System.Web.UI.Page
     {
         
         /// <summary>
