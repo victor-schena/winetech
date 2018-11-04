@@ -1,0 +1,93 @@
+﻿@model Entities.Tables.Producao
+
+@{
+  ViewBag.Title = "Details";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content-header">
+  <h1>
+    Produção
+    <small>detalhes da produção</small>
+  </h1>
+</section>
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-body">
+      <div>
+        <h4>Producao</h4>
+        <hr />
+        <dl class="dl-horizontal">
+          <dt>
+            Classe:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Classe.Descricao)
+          </dd>
+
+          <dt>
+            Tipo:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Tipo.Descricao)
+          </dd>
+
+          <dt>
+            Uva:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Uva.Descricao)
+          </dd>
+
+          <dt>
+            Data de Fabricação:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.DataCriacao)
+          </dd>
+
+
+          <dt>
+            Volume:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Volume)
+          </dd>
+
+          <dt>
+            Preço/Kg Uva:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.KgUva)
+          </dd>
+
+          <dt>
+            Preço/Kg Açucar:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.KgAcucar)
+          </dd>
+
+          <dt>
+            Preço garrafa:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Vasilhame)
+          </dd>
+
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+<p>
+  <a href="@Url.Action("Edit", "Producao", new { id = Model.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+  <a href="@Url.Action("Index", "Producao")" title="Index"><span class="label label-info">Listar</span></a>
+</p>

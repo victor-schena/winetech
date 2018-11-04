@@ -14,7 +14,7 @@ namespace Entities.Contexts
       : base("DefaultConnection")
     {
     }
-
+    public DbSet<Producao> Producao { get; set; }
     public DbSet<Pessoa> Pessoas { get; set; }
     public DbSet<Pais> Paises { get; set; }
     public DbSet<Endereco> Enderecos { get; set; }
@@ -89,6 +89,21 @@ namespace Entities.Contexts
                   cs.ToTable("ProdutoUva");
                 });
 
+      //
+      modelBuilder.Entity<Producao>()
+                .HasRequired<Tipo>(pr => pr.Tipo)
+                .WithMany(sa => sa.Producoes)
+                .HasForeignKey(sa => sa.TipoId);
+      //
+      modelBuilder.Entity<Producao>()
+                 .HasRequired<Classe>(pr => pr.Classe)
+                 .WithMany(sa => sa.Producoes)
+                 .HasForeignKey(sa => sa.ClasseId);
+
+      modelBuilder.Entity<Producao>()
+                .HasRequired<Uva>(pr => pr.Uva)
+                .WithMany(sa => sa.Producoes)
+                .HasForeignKey(sa => sa.ClasseId);
 
       base.OnModelCreating(modelBuilder);
     }

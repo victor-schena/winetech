@@ -218,6 +218,7 @@
     <Compile Include="Controllers\PedidoVendaController.cs" />
     <Compile Include="Controllers\PedidoVendaPessoaFisicaController.cs" />
     <Compile Include="Controllers\PessoasController.cs" />
+    <Compile Include="Controllers\ProducaoController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\SafrasController.cs" />
@@ -520,6 +521,11 @@
     <Content Include="Views\Uvas\Edit.cshtml" />
     <Content Include="Views\Uvas\Index.cshtml" />
     <Content Include="Views\Shared\_ShoppingCart.cshtml" />
+    <Content Include="Views\Producao\Create.cshtml" />
+    <Content Include="Views\Producao\Delete.cshtml" />
+    <Content Include="Views\Producao\Details.cshtml" />
+    <Content Include="Views\Producao\Edit.cshtml" />
+    <Content Include="Views\Producao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

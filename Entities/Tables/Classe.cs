@@ -13,8 +13,9 @@ namespace Entities.Tables
   {
     [Key]
     public int Id { get; set; }
-    [Display(Name ="Classe")]
+    [Display(Name = "Classe")]
     public string Descricao { get; set; }
     public virtual ICollection<Produto> Produtos { get; set; }
+    public virtual ICollection<Producao> Producoes { get; set; }
   }
 }
