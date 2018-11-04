@@ -18,5 +18,7 @@ namespace Entities.Tables
     public int ProdutoId { get; set; }
     public virtual Produto Produto { get; set; }
     public DateTime CriadoEm { get; set; }
+    public int? PedidoId { get; set; }
+    public virtual Pedido Pedido{ get; set; }
   }
 }

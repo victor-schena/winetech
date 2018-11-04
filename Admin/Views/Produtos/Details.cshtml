@@ -1,7 +1,8 @@
 ﻿@model Entities.Tables.Produto
-
+@using Admin.Functions
 @{
   ViewBag.Title = "Details";
+  var imgsize = Constants.ImageFileSize / 1024;
 }
 <section class="content-header">
   <h1>
@@ -15,7 +16,19 @@
       <div>
         <h4>Produto</h4>
         <hr />
+        @if (!string.IsNullOrEmpty(Model.Imagem))
+        {
+          <div class="form-group">
+            <a class="thumb" href="@string.Format("{0}/{1}/{2}", Constants.UrlDominioEstaticoUploads, "Produtos", Model.Imagem)" title="Visualizar imagem original" target="_blank">
+              <img src="@string.Format("{0}/{1}/{2}", Constants.UrlDominioEstaticoUploads, "Produtos", Model.Imagem)" class="thumbnail quadrada" />
+              <i class="fa fa-search-plus fa-fw"></i>
+            </a>
+            @Html.HiddenFor(model => model.Imagem)
+            <p>@Html.ValidationMessageFor(model => model.Imagem, "", new { @class = "text-danger" })</p>
+          </div>
+        }
         <dl class="dl-horizontal">
+
           <dt>
             País:
           </dt>
@@ -98,11 +111,11 @@
           <dd>
             @if (Model.Quantidade == 1)
             {
-              @Model.Quantidade <small>Unidade</small> 
+              @Model.Quantidade <small>Unidade</small>
             }
             else
             {
-              @Model.Quantidade <small>Unidades</small> 
+              @Model.Quantidade <small>Unidades</small>
             }
           </dd>
 
@@ -110,7 +123,8 @@
             Preco de venda:
           </dt>
 
-          <dd>R$ 
+          <dd>
+            R$
             @Html.DisplayFor(model => model.PrecoVenda)
           </dd>
 
@@ -127,7 +141,7 @@
           </dt>
 
           <dd>
-            @String.Format("{0:dd/MM/yyyy}",Model.DataValidade)
+            @String.Format("{0:dd/MM/yyyy}", Model.DataValidade)
           </dd>
         </dl>
       </div>
@@ -136,5 +150,5 @@
 </section>
 <p>
   <a href="@Url.Action("Edit", "Produtos", new { id = Model.Id })" title="Editar"><span class="label label-info">Editar</span></a>
-  <a href="@Url.Action("Index", "Produtos", new { id = Model.Id })" title="Index"><span class="label label-info">Listar</span></a>
+  <a href="@Url.Action("Index", "Produtos")" title="Index"><span class="label label-info">Listar</span></a>
 </p>

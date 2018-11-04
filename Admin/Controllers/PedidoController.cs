@@ -24,7 +24,7 @@ namespace Admin.Controllers
     {
       try
       {
-        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Index", "Pedidos"))
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Index", "Pedido"))
         {
           return RedirectToAction("Index", "Home");
         }
@@ -43,26 +43,20 @@ namespace Admin.Controllers
     {
       try
       {
-        Pedido pedido = db.Pedidos.Find(id);
-
-        var result = (from p in db.Pedidos
-                      from pr in p.Produtos
-                      join he in db.HistoricoEstoque on pr.Id equals he.ProdutoId
-                      join ppr in db.Produtos on pr.Id equals ppr.Id
-                      where p.Id == id
-                      select  new FilaCarrinho
-                      {
-                        ID = pr.Id,
-                        Produto = pr,
-                        Quantidade = he.Quantidade - he.Ajuste
-                      }).ToList();
+        Pedido pedido = db.Pedidos.Include("Produtos").Include("Pessoa").Include("HistoricoEstoque").Where(p => p.Id == id).FirstOrDefault();
 
         PedidoItemViewModel pedidoViewModel = new PedidoItemViewModel();
         if (pedido.Pessoa == null)
           pedidoViewModel.Pessoa = new Pessoa();
         else
           pedidoViewModel.Pessoa = pedido.Pessoa;
-        pedidoViewModel.Produtos = result;
+        pedidoViewModel.Produtos = pedido.Produtos.Select(p => new FilaCarrinho { ID = p.Id, Produto = p }).ToList();
+
+        foreach (var item in pedidoViewModel.Produtos)
+        {
+          var historicoEstoque = db.HistoricoEstoque.Where(he => he.ProdutoId == item.ID && he.PedidoId == pedido.Id).FirstOrDefault();
+          item.Quantidade = historicoEstoque.Quantidade - historicoEstoque.Ajuste;
+        }
         pedidoViewModel.PessoaId = pedido.PessoaId;
         pedidoViewModel.PedidoId = (int)id;
         pedidoViewModel.Pedido = pedido;
@@ -112,7 +106,7 @@ namespace Admin.Controllers
           var pedido = db.Pedidos.Find(PedidoId);
 
           pedido.DataPedido = DateTime.Now;
-          pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i=>i.Quantidade);
+          pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i => i.Quantidade);
           pedido.Total = CarrinhoViewModel.ComputeTotalValue();
 
           pedido = db.Pedidos.Include(r => r.Produtos).Single(r => r.Id == PedidoId);
@@ -121,6 +115,14 @@ namespace Admin.Controllers
 
           foreach (FilaCarrinho item in CarrinhoViewModel.Lines)
           {
+            HistoricoEstoque he = new HistoricoEstoque();
+            he.ProdutoId = item.Produto.Id;
+            he.CriadoEm = DateTime.Now;
+            he.Quantidade = item.Produto.Quantidade;
+            he.Ajuste = item.Produto.Quantidade - item.Quantidade;
+            he.PedidoId = pedido.Id;
+            db.HistoricoEstoque.Add(he);
+            produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
             pedido.Produtos.Add(db.Produtos.Find(item.Produto.Id));
           }
 
@@ -137,7 +139,7 @@ namespace Admin.Controllers
           pedido.DataPedido = DateTime.Now;
           pedido.isVenda = true;
           pedido.isPessoaFisica = true;
-          pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i=>i.Quantidade);
+          pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i => i.Quantidade);
           pedido.Total = CarrinhoViewModel.ComputeTotalValue();
 
           db.Pedidos.Add(pedido);
@@ -148,6 +150,14 @@ namespace Admin.Controllers
           foreach (var item in CarrinhoViewModel.Lines)
           {
             produto = item.Produto;
+            HistoricoEstoque he = new HistoricoEstoque();
+            he.ProdutoId = item.Produto.Id;
+            he.CriadoEm = DateTime.Now;
+            he.Quantidade = item.Produto.Quantidade;
+            he.Ajuste = item.Produto.Quantidade - item.Quantidade;
+            he.PedidoId = pedido.Id;
+            db.HistoricoEstoque.Add(he);
+            produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
             db.Produtos.Attach(produto);
             pedido.Produtos.Add(produto);
           }
@@ -342,19 +352,23 @@ namespace Admin.Controllers
       }
 
     }
-    public ActionResult FinalizarPedido(int id)
+    public ActionResult FinalizarPedido(PedidoItemViewModel model, FormCollection form)
     {
       Produto produto = new Produto();
       try
       {
-        var pedido = db.Pedidos.Find(id);
+        var pedido = db.Pedidos.Find(model.PedidoId);
+        if (model.Pessoa.CPF != null)
+          pedido.Pessoa = db.Pessoas.Where(p => p.CPF == model.Pessoa.CPF || p.CNPJ == model.Pessoa.CPF).FirstOrDefault();
         pedido.DataPedido = DateTime.Now;
-        pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i=>i.Quantidade);
+        pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i => i.Quantidade);
         pedido.Total = CarrinhoViewModel.ComputeTotalValue();
+        pedido.isEmitido = true;
 
-        var recipeItem = db.Pedidos.Include(r => r.Produtos).Single(r => r.Id == id);
-        db.Entry(recipeItem).CurrentValues.SetValues(pedido);
-        recipeItem.Produtos.Clear();
+        var pedidodb = db.Pedidos.Include(r => r.Produtos).Single(r => r.Id == model.PedidoId);
+        db.Entry(pedidodb).CurrentValues.SetValues(pedido);
+        pedidodb.Produtos.Clear();
+        pedidodb.HistoricoEstoque.Clear();
 
         foreach (FilaCarrinho item in CarrinhoViewModel.Lines)
         {
@@ -363,11 +377,13 @@ namespace Admin.Controllers
           he.ProdutoId = item.Produto.Id;
           he.CriadoEm = DateTime.Now;
           he.Quantidade = item.Produto.Quantidade;
-          he.Ajuste =  item.Produto.Quantidade - item.Quantidade;
+          he.Ajuste = item.Produto.Quantidade - item.Quantidade;
+          he.PedidoId = pedido.Id;
           db.HistoricoEstoque.Add(he);
           produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
           pedido.Produtos.Add(produto);
         }
+
         db.SaveChanges();
         db.Dispose();
         CarrinhoViewModel.Clear();

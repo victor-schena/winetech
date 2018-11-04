@@ -64,8 +64,6 @@ namespace Admin.Controllers
     {
       try
       {
-        int IdCliente = 0;
-
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Cliente Pessoa Fisica"))
         {
           return RedirectToAction("Index", "Home");
@@ -256,18 +254,11 @@ namespace Admin.Controllers
       }
 
     }
-    [HttpPost]
-    public JsonResult EditEndereco(int Id)
-    {
-      var db = new EntitiesDb();
-      var endereco = db.Enderecos.AsNoTracking().Where(x => x.Id == Id).FirstOrDefault();
-      return Json(endereco, JsonRequestBehavior.AllowGet);
-    }
     public ActionResult Delete(int? id)
     {
       try
       {
-        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Delete", "ClientePessoaFisica"))
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Delete", "Cliente Pessoa Fisica"))
         {
           return RedirectToAction("Index", "Home");
         }

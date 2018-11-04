@@ -223,7 +223,7 @@ namespace Admin.Controllers
         // Send an email with this link
         string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
         var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-        await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+        await UserManager.SendEmailAsync(user.Id, "Alteração de senha", "Por favor,altere a sua senha clicando <a href=\"" + callbackUrl + "\">aqui.</a>");
         return RedirectToAction("ForgotPasswordConfirmation", "Account");
       }
 
@@ -237,63 +237,63 @@ namespace Admin.Controllers
       return View();
     }
 
-    //[AllowAnonymous]
-    //public ActionResult ResetPassword(string code)
-    //{
-    //  return code == null ? View("Error") : View();
-    //}
+    [AllowAnonymous]
+    public ActionResult ResetPassword(string code)
+    {
+      return code == null ? View("Error") : View();
+    }
 
-    //[HttpPost]
-    //[AllowAnonymous]
-    //[ValidateAntiForgeryToken]
-    //public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-    //{
-    //  if (!ModelState.IsValid)
-    //  {
-    //    return View(model);
-    //  }
-    //  var user = await UserManager.FindByNameAsync(model.Email);
-    //  if (user == null)
-    //  {
-    //    // Don't reveal that the user does not exist
-    //    return RedirectToAction("ResetPasswordConfirmation", "Account");
-    //  }
-    //  var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-    //  if (result.Succeeded)
-    //  {
-    //    return RedirectToAction("ResetPasswordConfirmation", "Account");
-    //  }
-    //  AddErrors(result);
-    //  return View();
-    //}
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(model);
+      }
+      var user = await UserManager.FindByNameAsync(model.Email);
+      if (user == null)
+      {
+        // Don't reveal that the user does not exist
+        return RedirectToAction("ResetPasswordConfirmation", "Account");
+      }
+      var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+      if (result.Succeeded)
+      {
+        return RedirectToAction("ResetPasswordConfirmation", "Account");
+      }
+      AddErrors(result);
+      return View();
+    }
 
-    //[AllowAnonymous]
-    //public ActionResult ResetPasswordConfirmation()
-    //{
-    //  return View();
-    //}
+    [AllowAnonymous]
+    public ActionResult ResetPasswordConfirmation()
+    {
+      return View();
+    }
 
-    //[HttpPost]
-    //[AllowAnonymous]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult ExternalLogin(string provider, string returnUrl)
-    //{
-    //  // Request a redirect to the external login provider
-    //  return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
-    //}
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public ActionResult ExternalLogin(string provider, string returnUrl)
+    {
+      // Request a redirect to the external login provider
+      return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+    }
 
-    //[AllowAnonymous]
-    //public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
-    //{
-    //  var userId = await SignInManager.GetVerifiedUserIdAsync();
-    //  if (userId == null)
-    //  {
-    //    return View("Error");
-    //  }
-    //  var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
-    //  var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-    //  return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
-    //}
+    [AllowAnonymous]
+    public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
+    {
+      var userId = await SignInManager.GetVerifiedUserIdAsync();
+      if (userId == null)
+      {
+        return View("Error");
+      }
+      var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
+      var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
+      return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+    }
 
     //[HttpPost]
     //[AllowAnonymous]

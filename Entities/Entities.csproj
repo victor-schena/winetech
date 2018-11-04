@@ -163,6 +163,14 @@
     <Compile Include="Migrations\201810272356527_InvertFieldsOnProductOrderTable.Designer.cs">
       <DependentUpon>201810272356527_InvertFieldsOnProductOrderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810282012079_AddOrderIdToStockQuantityTable.cs" />
+    <Compile Include="Migrations\201810282012079_AddOrderIdToStockQuantityTable.Designer.cs">
+      <DependentUpon>201810282012079_AddOrderIdToStockQuantityTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811041311350_CreateFlagForIssuedOrders.cs" />
+    <Compile Include="Migrations\201811041311350_CreateFlagForIssuedOrders.Designer.cs">
+      <DependentUpon>201811041311350_CreateFlagForIssuedOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\Classe.cs" />
@@ -255,6 +263,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810272356527_InvertFieldsOnProductOrderTable.resx">
       <DependentUpon>201810272356527_InvertFieldsOnProductOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810282012079_AddOrderIdToStockQuantityTable.resx">
+      <DependentUpon>201810282012079_AddOrderIdToStockQuantityTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811041311350_CreateFlagForIssuedOrders.resx">
+      <DependentUpon>201811041311350_CreateFlagForIssuedOrders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

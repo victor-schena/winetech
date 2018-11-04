@@ -28,91 +28,36 @@ namespace Admin
     public async Task SendAsync(IdentityMessage message)
     {
       // Plug in your email service here to send an email.
-      await configSendGridasync(message);
+      await sendMail(message);
       //await Execute();
       //return Task.FromResult(0);
     }
-    static async Task Execute()
+   
+    public Task sendMail(IdentityMessage message)
     {
-      var apiKey = Environment.GetEnvironmentVariable("sendGridApiKey");
-      var client = new SendGridClient(apiKey);
-      var from = new EmailAddress("winetechsmtp@gmail.com", "Vinhos Schemberg");
-      var subject = "Sending with SendGrid is Fun";
-      var to = new EmailAddress("victorschena5@gmail.com", "Victor");
-      var plainTextContent = "and easy to do anywhere, even with C#";
-      var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
-      var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-      var response = await client.SendEmailAsync(msg);
+      MailMessage mail = new MailMessage();
+      mail.From = new System.Net.Mail.MailAddress("apps@xxxx.com");
+
+      // The important part -- configuring the SMTP client
+      SmtpClient smtp = new SmtpClient();
+      smtp.Port = 587;   // [1] You can try with 465 also, I always used 587 and got success
+      smtp.EnableSsl = true;
+      smtp.DeliveryMethod = SmtpDeliveryMethod.Network; // [2] Added this
+      smtp.UseDefaultCredentials = false; // [3] Changed this
+      smtp.Credentials = new NetworkCredential("wine.hurt@gmail.com", "Senha@12");  // [4] Added this. Note, first parameter is NOT string.
+      smtp.Host = "smtp.gmail.com";
+
+      //recipient address
+      mail.To.Add(new MailAddress(message.Destination));
+
+      //Formatted mail body
+      mail.IsBodyHtml = true;
+     
+
+      mail.Body = message.Body;
+      smtp.Send(mail);
+      return Task.FromResult(0);
     }
-    private async Task configSendGridasync(IdentityMessage message)
-    {
-      try
-      {
-        var client = new SendGridClient("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");
-        var from = new EmailAddress("winetechsmtp@gmail.com", "Winetech");
-        var subject = message.Subject;
-        var to = new EmailAddress(message.Destination, message.Destination);
-        var plainTextContent = message.Body;
-        var htmlContent = message.Body;
-        var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-        var response = await client.SendEmailAsync(msg);
-        //var myMessage = new SendGrid.SendGridMessage();
-        //myMessage.AddTo(message.Destination);
-        //myMessage.From = new System.Net.Mail.MailAddress("winetechsmtp@gmail.com", "Vinhos Schemberg");
-        //myMessage.Subject = message.Subject;
-        //myMessage.Text = message.Body;
-        //myMessage.Html = message.Body;
-        //var credentials = new NetworkCredential(
-        //          ConfigurationManager.AppSettings["mailAccount"],
-        //           ConfigurationManager.AppSettings["mailPassword"]
-        //           );
-        //// Create a Web transport for sending email.
-        //var transportWeb = new Web(credentials);
-        //// Send the email.
-        //if (transportWeb != null)
-        //{
-        //  await transportWeb.DeliverAsync(myMessage);
-        //}
-        //else
-        //{
-        //  Trace.TraceError("Failed to create Web transport.");
-        //  await Task.FromResult(0);
-        //}
-      }
-      catch (Exception ex)
-      {
-
-        throw ex;
-      }
-      
-    }
-    //public Task sendMail(IdentityMessage message)
-    //{
-    //  //#region formatter
-    //  //string text = string.Format("Please click on this link to {0}: {1}", message.Subject, message.Body);
-    //  //string html = "Please confirm your account by clicking this link: <a href=\"" + message.Body + "\">link</a><br/>";
-
-    //  //html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + message.Body);
-    //  //#endregion
-
-    //  MailMessage msg = new MailMessage();
-    //  msg.From = new MailAddress("winetechsmtp@gmail.com");
-    //  msg.To.Add(new MailAddress(message.Destination));
-    //  msg.Subject = message.Subject;
-    //  msg.Body = message.Body;
-    //  //msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
-    //  //msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
-
-    //  SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(465));
-    // //SmtpClient smtpClient = new SmtpClient();
-
-    //  System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("winetechsmtp@gmail.com", "Senha@12");
-    //  smtpClient.Credentials = credentials;
-    //  smtpClient.EnableSsl = true;
-    //  smtpClient.UseDefaultCredentials = false;
-    //  smtpClient.Send(msg);
-    //  return Task.FromResult(0);
-    //}
   }
 
   public class SmsService : IIdentityMessageService

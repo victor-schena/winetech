@@ -55,10 +55,6 @@ namespace Entities.Tables
     [Required(ErrorMessage = "O campo Preco de venda é obrigatório.")]
     public decimal PrecoVenda { get; set; }
 
-    //[DataType(DataType.Date)]
-    //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    //[Display(Name = "Data de Validade")]
-
     [Display(Name = "Data de Validade")]
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
     [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]

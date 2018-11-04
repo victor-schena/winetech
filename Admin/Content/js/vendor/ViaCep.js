@@ -4,7 +4,7 @@
     // Limpa valores do formulário de cep.
     $("#cep").val("");
     $("#rua").val("");
-    $("#bairro").val("");
+    $("#bairro").val("").prop("readonly", true);
     $("#cidade").val("");
     $("#uf").val("");
     $("#ibge").val("");

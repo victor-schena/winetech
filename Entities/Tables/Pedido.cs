@@ -29,6 +29,8 @@ namespace Entities.Tables
 
     public bool? isPessoaFisica { get; set; }
 
+    public bool? isEmitido { get; set;}
+
     public DateTime DataPedido { get; set; }
 
     public int Quantidade { get; set; }
@@ -39,6 +41,9 @@ namespace Entities.Tables
     public virtual Pessoa Pessoa { get; set; }
 
     public virtual ICollection<Produto> Produtos { get; set; }
+
+    public int? HistoricoEstoqueId { get; set; }
+    public virtual ICollection<HistoricoEstoque> HistoricoEstoque { get; set; }
 
   }
 }

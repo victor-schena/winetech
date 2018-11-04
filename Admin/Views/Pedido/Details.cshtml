@@ -3,6 +3,8 @@
 
 
 @{
+  /**/
+
   ViewBag.Title = "Details";
 }
 <script type="text/javascript">
@@ -19,14 +21,16 @@
 
     $("#doc").blur(function () {
       $("#Nome").val("");
-      if ($('#doc').val() == null || $('#doc').val()=="")
+      if ($('#doc').val() == null || $('#doc').val() == "")
         return;
       $.post('/Pessoas/Search',
         { doc: $("#doc").val() },
         function (data) {
           success:
-          if (data.TipoPessoaId == 1)
+          if (data.TipoPessoaId == 1) {
+            $('#PessoaId').val(data.Id);
             $('#Nome').val(data.NomeCompleto);
+          }
           else
             $('#Nome').val(data.NomeFantasia);
         }, 'json').fail(function () {
@@ -46,135 +50,195 @@
   </h1>
 </section>
 <section class="content">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="box box-primary">
-        <div class="box box-body">
-          <h4>Dados do cliente</h4>
-          <hr />
-          <div class="form-horizontal">
-            <div class="form-group">
-              <div class="col-md-2">
-                @Html.Label("CPF ou CNPJ:")
+  @using (Html.BeginForm("FinalizarPedido", "Pedido", FormMethod.Post, new { enctype = "multipart/form-data" }))
+  {
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="box box-primary">
+          <div class="box box-body">
+            <h4>Dados do cliente</h4>
+            <hr />
+            <div class="form-horizontal">
+              <div class="form-group">
+                @Html.HiddenFor(model => model.PessoaId, new { htmlAttributes = new { @id = "PessoaId" } })
+                @Html.HiddenFor(model => model.PedidoId)
+                @if (Model.Pessoa.Id == 0)
+                {
+                  <div class="col-md-2">
+                    @Html.Label("CPF ou CNPJ:")
+                  </div>
+                  <div class=" col-md-2">
+                    @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control", @id = "doc" } })
+                  </div>
+                  <div class="col-md-2">
+                    @Html.Label("Nome ou Razão social:")
+                  </div>
+                  <div class="col-md-5">
+                    @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @id = "Nome" } })
+                  </div>
+                }
+                @if (Model.Pessoa != null && Model.Pessoa.TipoPessoaId == 1 && !string.IsNullOrEmpty(Model.Pessoa.CPF) && !string.IsNullOrEmpty(Model.Pessoa.NomeCompleto))
+                {
+                  <div class="col-md-2">
+                    @Html.Label("CPF ou CNPJ:")
+                  </div>
+                  <div class=" col-md-2">
+                    @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "doc" } })
+                  </div>
+                  <div class="col-md-2">
+                    @Html.Label("Nome ou Razão social:")
+                  </div>
+                  <div class="col-md-5">
+                    @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Nome" } })
+                  </div>
+                }
+                @if (Model.Pessoa != null && Model.Pessoa.TipoPessoaId == 2 && !string.IsNullOrEmpty(Model.Pessoa.CNPJ) && !string.IsNullOrEmpty(Model.Pessoa.NomeFantasia))
+                {
+                  <div class="col-md-2">
+                    @Html.Label("CPF ou CNPJ:")
+                  </div>
+                  <div class=" col-md-2">
+                    @Html.EditorFor(model => model.Pessoa.CNPJ, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "doc" } })
+                  </div>
+                  <div class="col-md-2">
+                    @Html.Label("Nome ou Razão social:")
+                  </div>
+                  <div class="col-md-5">
+                    @Html.EditorFor(model => model.Pessoa.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Nome" } })
+                  </div>
+                }
+                @*@if (Model.Pessoa != null && Model.Pessoa.TipoPessoaId == 1 && string.IsNullOrEmpty(Model.Pessoa.CPF) && string.IsNullOrEmpty(Model.Pessoa.NomeCompleto))
+                  {
+                    <div class="col-md-2">
+                      @Html.Label("CPF ou CNPJ:")
+                    </div>
+                    <div class=" col-md-2">
+                      @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control", @id = "doc" } })
+                    </div>
+                    <div class="col-md-2">
+                      @Html.Label("Nome ou Razão social:")
+                    </div>
+                    <div class="col-md-5">
+                      @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @id = "Nome" } })
+                    </div>
+                  }*@
+                @*@if (Model.Pessoa != null && Model.Pessoa.TipoPessoaId == 2 && string.IsNullOrEmpty(Model.Pessoa.CNPJ) && string.IsNullOrEmpty(Model.Pessoa.NomeFantasia))
+                  {
+                    <div class="col-md-2">
+                      @Html.Label("CPF ou CNPJ:")
+                    </div>
+                    <div class=" col-md-2">
+                      @Html.EditorFor(model => model.Pessoa.CNPJ, new { htmlAttributes = new { @class = "form-control",  @id = "doc" } })
+                    </div>
+                    <div class="col-md-2">
+                      @Html.Label("Nome ou Razão social:")
+                    </div>
+                    <div class="col-md-5">
+                      @Html.EditorFor(model => model.Pessoa.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @id = "Nome" } })
+                    </div>
+                  }*@
               </div>
-              @if (Model.Pessoa != null && !string.IsNullOrEmpty(Model.Pessoa.CPF))
-              {
-                <div class=" col-md-2">
-                  @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "doc" } })
-                </div>
-              }
-              else
-              {
-                <div class=" col-md-2">
-                  @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control cpf", @id = "doc" } })
-                </div>
-              }
-              <div class="col-md-2">
-                @Html.Label("Nome ou Razão social:")
-              </div>
-              @if (Model.Pessoa != null && !string.IsNullOrEmpty(Model.Pessoa.NomeCompleto))
-              {
-                <div class="col-md-5">
-                  @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Nome" } })
-                </div>
-              }
-              else
-              {
-                <div class="col-md-5">
-                  @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Nome" } })
-                </div>
-              }
+              <br />
             </div>
-            <br />
+            <hr />
+
           </div>
-          <hr />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="box box-info">
+
+          <div class="box box-body">
+            <div class="form-horizontal">
+              <h4>Dados do pedido</h4>
+              <hr />
+              <div class="form-group">
+                <div class="col-md-2">
+                  @Html.LabelFor(model => model.Pedido.DataPedido, "Data do pedido:", htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-2">
+                  @Html.EditorFor(model => model.Pedido.DataPedido, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+                <div class="col-md-2">
+                  @Html.LabelFor(model => model.Pedido.Total, "Total: ", htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <span class="input input-group-addon">R$</span>
+                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="table">
+              <table class="table table-striped table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>
+                      Remover:
+                    </th>
+                    <th>
+                      Nome:
+                    </th>
+                    <th>
+                      Descrição:
+                    </th>
+                    <th>
+                      Preço Unitário:
+                    </th>
+                    <th>
+                      Quantidade:
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach (var item in Model.Produtos)
+                  {
+                    <tr>
+                      @Html.HiddenFor(model => item.Produto.Id)
+                      <td>
+                        <a class="btn btn-danger" onclick="enviarItem(@Model.PedidoId,@item.ID)" title="Remover">Remover</a>
+                      </td>
+                      <td title="@item.Produto.Nome">
+                        @if (item.Produto.Nome.Length > 130)
+                        {
+                          item.Produto.Nome = item.Produto.Nome.Substring(0, 130) + "...";
+                        }
+                        @Html.DisplayFor(modelItem => item.Produto.Nome)
+                      </td>
+                      <td title="@item.Produto.Descricao">
+                        @Html.DisplayFor(modelItem => item.Produto.Descricao)
+                      </td>
+                      <td id="tdPrecoProduto">
+                        @String.Format("{0:c} ", item.Produto.PrecoVenda)
+                      </td>
+                      <td>
+                        @Html.EditorFor(model => item.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1" } })
+                        @*@item.Produto.Quantidade*@
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
 
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="box box-info">
-        <div class="box box-body">
-          <div class="form-horizontal">
-            <h4>Dados do pedido</h4>
-            <hr />
-            <div class="form-group">
-              <div class="col-md-2">
-                @Html.LabelFor(model => model.Pedido.DataPedido, "Data do pedido:", htmlAttributes: new { @class = "control-label" })
-              </div>
-              <div class="col-md-2">
-                @Html.EditorFor(model => model.Pedido.DataPedido, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-              </div>
-              <div class="col-md-2">
-                @Html.LabelFor(model => model.Pedido.Total, "Total: ", htmlAttributes: new { @class = "control-label" })
-              </div>
-              <div class="col-md-2">
-                <div class="input-group">
-                  <span class="input input-group-addon">R$</span>
-                  @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="table">
-            <table class="table table-striped table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th>
-                    Remover:
-                  </th>
-                  <th>
-                    Nome:
-                  </th>
-                  <th>
-                    Descrição:
-                  </th>
-                  <th>
-                    Preço Unitário:
-                  </th>
-                  <th>
-                    Quantidade:
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach (var item in Model.Produtos)
-                {
-                  <tr>
-                    <td>
-                      <a class="btn btn-danger" onclick="enviarItem(@Model.PedidoId,@item.ID)" title="Remover">Remover</a>
-                    </td>
-                    <td title="@item.Produto.Nome">
-                      @if (item.Produto.Nome.Length > 130)
-                      {
-                        item.Produto.Nome = item.Produto.Nome.Substring(0, 130) + "...";
-                      }
-                      @Html.DisplayFor(modelItem => item.Produto.Nome)
-                    </td>
-                    <td title="@item.Produto.Descricao">
-                      @Html.DisplayFor(modelItem => item.Produto.Descricao)
-                    </td>
-                    <td id="tdPrecoProduto">
-                      @String.Format("{0:c} ", item.Produto.PrecoVenda)
-                    </td>
-                    <td>
-                      @Html.EditorFor(model => item.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1" } })
-                      @*@item.Produto.Quantidade*@
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <p>
+      @if (Model.Pedido.isEmitido != null && Model.Pedido.isEmitido == false)
+      {
+        <a href="@Url.Action("Index", "Produtos", new { id = Model.PedidoId })" title="Index" class="btn btn-warning"> Continuar Venda</a>
+        <input type="submit" value="Finalizar" class="btn btn-success">
+      }
+      else
+      {
+        <a href="@Url.Action("Index", "Produtos", new { id = Model.PedidoId })" title="Index" class="btn btn-warning"> Continuar Venda</a>
+        <input type="submit" value="Finalizar" class="btn btn-success">
+      }
+    </p>
+  }
 </section>
-<p>
-  @*<a href="@Url.Action("Edit", "Pedido", new { id = Model.Pessoa.Id })" title="Editar"><span class="label label-info">Editar</span></a>*@
-  <a href="@Url.Action("Index", "Produtos", new { id = Model.PedidoId })" title="Index"><span class="label label-info">Continuar Venda</span></a>
-  <a href="@Url.Action("FinalizarPedido", "Pedido",new { id = Model.PedidoId })" title="Index"><span class="label label-info">Finalizar</span></a>
-</p>
