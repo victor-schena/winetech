@@ -8,17 +8,15 @@
   ViewBag.Title = "Details";
 }
 <script type="text/javascript">
+  function enviarItem(PedidoId, ProdutoId) {
+    $.post('/Pedido/RemoverItem',
+      { PedidoId: PedidoId, ProdutoId: ProdutoId },
+      function (data) {
+        success:
+        location.reload();
+      }, 'json');
+  }
   $(document).ready(function () {
-
-    function enviarItem(PedidoId, ProdutoId) {
-      $.post('/Pedido/RemoverItem',
-        { PedidoId: PedidoId, ProdutoId: ProdutoId },
-        function (data) {
-          success:
-          location.reload();
-        }, 'json');
-    }
-
     $("#doc").blur(function () {
       $("#Nome").val("");
       if ($('#doc').val() == null || $('#doc').val() == "")
@@ -229,12 +227,7 @@
       </div>
     </div>
     <p>
-      @if (Model.Pedido.isEmitido != null && Model.Pedido.isEmitido == false)
-      {
-        <a href="@Url.Action("Index", "Produtos", new { id = Model.PedidoId })" title="Index" class="btn btn-warning"> Continuar Venda</a>
-        <input type="submit" value="Finalizar" class="btn btn-success">
-      }
-      else
+      @if (Model.Pedido.isEmitido != null && !Model.Pedido.isEmitido == true || Model.Pedido.isEmitido == null)
       {
         <a href="@Url.Action("Index", "Produtos", new { id = Model.PedidoId })" title="Index" class="btn btn-warning"> Continuar Venda</a>
         <input type="submit" value="Finalizar" class="btn btn-success">

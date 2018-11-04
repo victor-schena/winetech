@@ -402,8 +402,6 @@ namespace Admin.Controllers
     }
     public int RemoverItem(int PedidoId, int ProdutoId)
     {
-
-
       Produto produto = db.Produtos.Find(ProdutoId);
       CarrinhoViewModel.RemoveLine(produto);
       var pedido = db.Pedidos.Find(PedidoId);
@@ -425,41 +423,18 @@ namespace Admin.Controllers
       db.SaveChanges();
       db.Dispose();
       return PedidoId;
-
-
-
-      //Produto produto = db.Produtos.Find(ProdutoId);
-      //CarrinhoViewModel.RemoveLine(produto);
-
-      //// return one instance each entity by primary key
-      //var _produto = db.Produtos.FirstOrDefault(p => p.Id == ProdutoId);
-      //var pedido = db.Pedidos.FirstOrDefault(s => s.Id == PedidoId);
-      //pedido.Total = CarrinhoViewModel.ComputeTotalValue();
-      //pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i => i.Quantidade);
-      //// call Remove method from navigation property for any instance
-      //pedido.Produtos.Remove(_produto);
-      //// also works
-      ////product.Pedidos.Remove(supplier);
-
-      //// call SaveChanges from context
-      //db.SaveChanges();
-      //db.Dispose();
-      //return 1;
     }
-    public void Salvarmany(int idProduto, int idPedido)
+    public void Clear()
     {
-      Produto p = new Produto { Id = idProduto };
+      try
+      {
+        CarrinhoViewModel.Clear();
+      }
+      catch (Exception ex)
+      {
 
-      db.Produtos.Add(p);
-      db.Produtos.Attach(p);
-
-      Pedido pe = new Pedido { Id = idPedido };
-      db.Pedidos.Add(pe);
-      db.Pedidos.Attach(pe);
-
-      //p.Pedidos.Add(pe);
-
-      db.SaveChanges();
+        throw ex;
+      }
     }
     protected override void Dispose(bool disposing)
     {
