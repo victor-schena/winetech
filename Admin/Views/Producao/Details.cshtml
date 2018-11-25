@@ -46,7 +46,7 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.DataCriacao)
+            @String.Format("{0:dd/MM/yyyy}", Model.DataCriacao)
           </dd>
 
 
@@ -55,7 +55,7 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.Volume)
+            @Html.DisplayFor(model => model.Volume) L
           </dd>
 
           <dt>
@@ -63,7 +63,7 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.KgUva)
+            @String.Format("{0:c} ",Model.KgUva)
           </dd>
 
           <dt>
@@ -71,7 +71,7 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.KgAcucar)
+            @String.Format("{0:c} ", Model.KgAcucar)
           </dd>
 
           <dt>
@@ -79,7 +79,7 @@
           </dt>
 
           <dd>
-            @Html.DisplayFor(model => model.Vasilhame)
+            @String.Format("{0:c} ", Model.Vasilhame)
           </dd>
 
         </dl>
