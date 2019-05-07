@@ -63,12 +63,12 @@ namespace Entities.Contexts
                  .WithMany(sa => sa.Produtos)
                  .HasForeignKey(sa => sa.TipoId);
 
-      //one-to-many (Produto/HistoricoEstoque)
+      //one - to - many(Produto / HistoricoEstoque)
       modelBuilder.Entity<HistoricoEstoque>()
                     .HasRequired<Produto>(he => he.Produto)
                     .WithMany(p => p.HistoricoEstoque)
                     .HasForeignKey(he => he.ProdutoId);
-      //many-to-many(Produto/Pedido)
+      //many - to - many(Produto / Pedido)
       modelBuilder.Entity<Pedido>()
                 .HasMany<Produto>(p => p.Produtos)
                 .WithMany(u => u.Pedidos)
@@ -103,7 +103,7 @@ namespace Entities.Contexts
       modelBuilder.Entity<Producao>()
                 .HasRequired<Uva>(pr => pr.Uva)
                 .WithMany(sa => sa.Producoes)
-                .HasForeignKey(sa => sa.ClasseId);
+                .HasForeignKey(sa => sa.UvaId);
 
       base.OnModelCreating(modelBuilder);
     }

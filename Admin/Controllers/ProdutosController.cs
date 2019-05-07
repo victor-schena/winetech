@@ -112,7 +112,7 @@ namespace Admin.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create([Bind(Include = "Id,Arquivo,Imagem,Nome,Descricao,Uva,ClasseId,Teor_Alcolico,Tipo,CustoUnitario,Quantidade,PrecoVenda,Volume,DataValidade,Status,PaisId,SafraId,Uvas,TipoId")] Produto produto, int[] selectedUvas)
+    public ActionResult Create([Bind(Include = "Id,Arquivo,Imagem,Nome,Descricao,Uva,ClasseId,Teor_Alcolico,Tipo,CustoUnitario,Quantidade,PrecoVenda,Volume,DataValidade,Status,PaisId,SafraId,Uvas,TipoId,selectedUvas")] Produto produto)
     {
       //VALIDAR CAMPOS OBRIGATORIOS()
       var img = Request.Files["Imagem"];
@@ -132,13 +132,21 @@ namespace Admin.Controllers
           produto.Imagem = FileManager.UploadSingleFile(img, Path.Combine(Server.MapPath("~/Uploads/Produtos")));
 
         produto.Status = true;
+        //produto.selectedUvas = selectedUvas;
+
+
         db.Produtos.Add(produto);
         db.SaveChanges();
+
+        var hist = db.HistoricoEstoque.Add(new HistoricoEstoque {Ajuste = produto.Quantidade,Quantidade = produto.Quantidade,CriadoEm=DateTime.Now});
+        db.HistoricoEstoque.Add(hist);
+        db.SaveChanges();
+
 
         db.Produtos.Add(produto);
         db.Produtos.Attach(produto);
 
-        foreach (var UvaID in selectedUvas)
+        foreach (var UvaID in produto.selectedUvas)
         {
           Uva uva = new Uva { Id = UvaID };
           db.Uvas.Attach(uva);
@@ -370,6 +378,11 @@ namespace Admin.Controllers
         ModelState.AddModelError("Nome", "O campo nome é obrigatório!");
         validacao = false;
       }
+      if (produto.selectedUvas == null || produto.selectedUvas.Count() == 0)
+      {
+        ModelState.AddModelError("selectedUvas", "Selecione ao menos uma uva!!");
+        validacao = false;
+      }
       if (produto.CustoUnitario <= 0)
       {
         ModelState.AddModelError("CustoUnitario", "O campo Preço de Venda é obrigatório!");
@@ -412,10 +425,10 @@ namespace Admin.Controllers
     {
       try
       {
-        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Nome), "Id", "Nome");
-        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Ano), "Id", "Ano");
-        ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao");
-        ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao");
+        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Nome), "Id", "Nome",new { Id=0,Nome="Selecione"});
+        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Ano), "Id", "Ano", new { Id = 0, Nome = "Selecione" });
+        ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", new { Id = 0, Descricao = "Selecione" });
+        ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", new { Id = 0, Descricao = "Selecione" });
         ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().OrderBy(u => u.Descricao).ToList(), "Id", "Descricao");
       }
       catch (Exception ex)

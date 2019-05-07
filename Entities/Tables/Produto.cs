@@ -87,14 +87,14 @@ namespace Entities.Tables
 
     public virtual Tipo Tipo { get; set; }
 
-    public int HistoricoEstoqueId { get; set; }
+    public int? HistoricoEstoqueId { get; set; }
     public virtual ICollection<HistoricoEstoque> HistoricoEstoque { get; set; }
   }
 
-  public class PresentationProduto
-  {
-    public int Id { get; set; }
-    public string Nome { get; set; }
-    public int Quantidade { get; set; }
-  }
+  //public class PresentationProduto
+  //{
+  //  public int Id { get; set; }
+  //  public string Nome { get; set; }
+  //  public int Quantidade { get; set; }
+  //}
 }

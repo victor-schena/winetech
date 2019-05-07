@@ -15,5 +15,8 @@ namespace Entities.Tables
     public int ProdutoId { get; set; }
     [Key, Column(Order = 1)]
     public int PedidoId { get; set; }
+    public decimal CustoUnitario { get; set; }
+    public decimal PrecoUnitário { get; set; }
+    public int Quantidade { get; set; }
   }
 }

@@ -171,9 +171,13 @@
     <Compile Include="Migrations\201811041311350_CreateFlagForIssuedOrders.Designer.cs">
       <DependentUpon>201811041311350_CreateFlagForIssuedOrders.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811041915082_CreateProductionTable.cs" />
-    <Compile Include="Migrations\201811041915082_CreateProductionTable.Designer.cs">
-      <DependentUpon>201811041915082_CreateProductionTable.cs</DependentUpon>
+    <Compile Include="Migrations\201904131217322_CreateProductionTable.cs" />
+    <Compile Include="Migrations\201904131217322_CreateProductionTable.Designer.cs">
+      <DependentUpon>201904131217322_CreateProductionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904160010209_OhThatsBULLSHIT.cs" />
+    <Compile Include="Migrations\201904160010209_OhThatsBULLSHIT.Designer.cs">
+      <DependentUpon>201904160010209_OhThatsBULLSHIT.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -275,8 +279,11 @@
     <EmbeddedResource Include="Migrations\201811041311350_CreateFlagForIssuedOrders.resx">
       <DependentUpon>201811041311350_CreateFlagForIssuedOrders.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811041915082_CreateProductionTable.resx">
-      <DependentUpon>201811041915082_CreateProductionTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904131217322_CreateProductionTable.resx">
+      <DependentUpon>201904131217322_CreateProductionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904160010209_OhThatsBULLSHIT.resx">
+      <DependentUpon>201904160010209_OhThatsBULLSHIT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

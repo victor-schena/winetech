@@ -261,6 +261,10 @@
     <Compile Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.Designer.cs">
       <DependentUpon>201705251940294_AlterTablesAddColumnStatusToAll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904062319318_FixedColumnNameAtProductionTable.cs" />
+    <Compile Include="Migrations\201904062319318_FixedColumnNameAtProductionTable.Designer.cs">
+      <DependentUpon>201904062319318_FixedColumnNameAtProductionTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CarrinhoViewModel.cs" />
@@ -679,6 +683,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.resx">
       <DependentUpon>201705251940294_AlterTablesAddColumnStatusToAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904062319318_FixedColumnNameAtProductionTable.resx">
+      <DependentUpon>201904062319318_FixedColumnNameAtProductionTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -213,7 +213,7 @@
                         @String.Format("{0:c} ", item.Produto.PrecoVenda)
                       </td>
                       <td>
-                        @Html.EditorFor(model => item.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1" } })
+                        @Html.EditorFor(model => item.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1",@disabled="disabled" } })
                         @*@item.Produto.Quantidade*@
                       </td>
                     </tr>

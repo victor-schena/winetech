@@ -28,8 +28,8 @@ namespace Admin.Controllers
         {
           return RedirectToAction("Index", "Home");
         }
-        var pedidos = db.Pedidos.Include(p => p.Pessoa).Include(pr => pr.Produtos);
-        return View(pedidos.ToList());
+        var pedidos = db.Pedidos.Include(p => p.Pessoa).Include(pr => pr.Produtos).ToList();
+        return View(pedidos);
       }
       catch (Exception ex)
       {
@@ -207,8 +207,8 @@ namespace Admin.Controllers
         ViewBag.PessoaId = new SelectList(db.Pessoas.Where(p => p.PapelPessoaId == 1)
           .Where(p => p.TipoPessoaId == 1)
           .Where(x => x.Status == true)
-          .OrderBy(x => x.NomeCompleto), "Id", "NomeCompleto", pedido.PessoaId);
-        ViewBag.ProdutoId = new SelectList(db.Produtos.Where(x => x.Status == true).OrderBy(x => x.Nome), "Id", "Nome");
+          .OrderBy(x => x.NomeCompleto), "Id", "NomeCompleto", pedido.PessoaId).FirstOrDefault();
+        ViewBag.ProdutoId = new SelectList(db.Produtos.Where(x => x.Status == true).OrderBy(x => x.Nome), "Id", "Nome").FirstOrDefault();
         return View(pedidoViewModel);
       }
       catch (Exception ex)
@@ -367,25 +367,25 @@ namespace Admin.Controllers
 
         var pedidodb = db.Pedidos.Include(r => r.Produtos).Single(r => r.Id == model.PedidoId);
         db.Entry(pedidodb).CurrentValues.SetValues(pedido);
-        pedidodb.Produtos.Clear();
-        pedidodb.HistoricoEstoque.Clear();
+        //pedidodb.Produtos.Clear();
+        //pedidodb.HistoricoEstoque.Clear();
 
-        foreach (FilaCarrinho item in CarrinhoViewModel.Lines)
-        {
-          produto = db.Produtos.Find(item.Produto.Id);
-          HistoricoEstoque he = new HistoricoEstoque();
-          he.ProdutoId = item.Produto.Id;
-          he.CriadoEm = DateTime.Now;
-          he.Quantidade = item.Produto.Quantidade;
-          he.Ajuste = item.Produto.Quantidade - item.Quantidade;
-          he.PedidoId = pedido.Id;
-          db.HistoricoEstoque.Add(he);
-          produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
-          pedido.Produtos.Add(produto);
-        }
+        //foreach (FilaCarrinho item in CarrinhoViewModel.Lines)
+        //{
+        //  produto = db.Produtos.Find(item.Produto.Id);
+        //  HistoricoEstoque he = new HistoricoEstoque();
+        //  he.ProdutoId = item.Produto.Id;
+        //  he.CriadoEm = DateTime.Now;
+        //  he.Quantidade = item.Produto.Quantidade;
+        //  he.Ajuste = item.Produto.Quantidade - item.Quantidade;
+        //  he.PedidoId = pedido.Id;
+        //  db.HistoricoEstoque.Add(he);
+        //  produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
+        //  pedido.Produtos.Add(produto);
+        //}
 
-        db.SaveChanges();
-        db.Dispose();
+        //db.SaveChanges();
+        //db.Dispose();
         CarrinhoViewModel.Clear();
 
         return RedirectToActionPermanent("Index", "Produtos");
@@ -424,7 +424,7 @@ namespace Admin.Controllers
       db.Dispose();
       return PedidoId;
     }
-    public void Clear()
+    public void Clear(int PedidoId)
     {
       try
       {
