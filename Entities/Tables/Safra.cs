@@ -20,7 +20,7 @@ namespace Entities.Tables
     [StringLength(4)]
     [Display(Name = "Safra")]
     public string Ano { get; set; }
-    public bool Status { get; set; }
+    //public bool Status { get; set; }
     public virtual ICollection<Produto> Produtos { get; set; }
 
     #endregion

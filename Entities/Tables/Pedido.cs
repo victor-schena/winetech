@@ -14,6 +14,7 @@ namespace Entities.Tables
     public Pedido()
     {
       this.Produtos = new HashSet<Produto>();
+      this.PedidosProdutos = new HashSet<PedidoProduto>();
     }
     public Pedido(bool isVenda,bool isPessoaFisica,DateTime dataPedido)
     {
@@ -42,8 +43,10 @@ namespace Entities.Tables
 
     public virtual ICollection<Produto> Produtos { get; set; }
 
-    public int? HistoricoEstoqueId { get; set; }
-    public virtual ICollection<HistoricoEstoque> HistoricoEstoque { get; set; }
+    //public int? HistoricoEstoqueId { get; set; }//talvez nem use isso
+    //public virtual ICollection<HistoricoEstoque> HistoricoEstoque { get; set; }//nem isso
+
+    public virtual ICollection<PedidoProduto> PedidosProdutos { get; set; }
 
   }
 }

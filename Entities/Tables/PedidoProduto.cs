@@ -8,15 +8,18 @@ using System.Threading.Tasks;
 
 namespace Entities.Tables
 {
-  [Table("ProdutoPedido")]
-  public class ProdutoPedido
+  //[Table("ProdutoPedido")]
+  public class PedidoProduto
   {
     [Key, Column(Order = 0)]
-    public int ProdutoId { get; set; }
-    [Key, Column(Order = 1)]
+    [ForeignKey("Pedido")]
     public int PedidoId { get; set; }
-    public decimal CustoUnitario { get; set; }
-    public decimal PrecoUnitário { get; set; }
+    public  Pedido Pedido { get; set; }
+    [Key, Column(Order = 1)]
+    [ForeignKey("Produto")]
+    public int ProdutoId { get; set; }
+    public  Produto Produto { get; set; }
+    public decimal PrecoVenda { get; set; }
     public int Quantidade { get; set; }
   }
 }

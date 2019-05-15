@@ -28,7 +28,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
 
@@ -55,7 +58,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
 
     // GET: Pais/Create
@@ -70,7 +76,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
 
@@ -85,7 +94,7 @@ namespace Admin.Controllers
       {
         if (ModelState.IsValid)
         {
-          pais.Status = true;
+          //pais.Status = true;
           db.Paises.Add(pais);
           db.SaveChanges();
           TempData["Success"] = "Registro salvo com sucesso.";
@@ -98,9 +107,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
 
     // GET: Pais/Edit/5
@@ -124,9 +135,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
 
     // POST: Pais/Edit/5
@@ -151,9 +164,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
 
     // GET: Pais/Delete/5
@@ -177,9 +192,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
 
     // POST: Pais/Delete/5
@@ -190,7 +207,7 @@ namespace Admin.Controllers
       try
       {
         Pais pais = db.Paises.Find(id);
-        pais.Status = false;
+        //pais.Status = false;
         db.SaveChanges();
         TempData["Success"] = "Registro excluído com sucesso.";
         return RedirectToAction("Index");
@@ -199,7 +216,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
 

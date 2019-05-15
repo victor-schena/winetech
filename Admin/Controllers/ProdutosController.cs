@@ -138,9 +138,9 @@ namespace Admin.Controllers
         db.Produtos.Add(produto);
         db.SaveChanges();
 
-        var hist = db.HistoricoEstoque.Add(new HistoricoEstoque {Ajuste = produto.Quantidade,Quantidade = produto.Quantidade,CriadoEm=DateTime.Now});
-        db.HistoricoEstoque.Add(hist);
-        db.SaveChanges();
+        //var hist = db.HistoricoEstoque.Add(new HistoricoEstoque {Ajuste = produto.Quantidade,Quantidade = produto.Quantidade,CriadoEm=DateTime.Now});
+        //db.HistoricoEstoque.Add(hist);
+        //db.SaveChanges();
 
 
         db.Produtos.Add(produto);
@@ -425,8 +425,8 @@ namespace Admin.Controllers
     {
       try
       {
-        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Nome), "Id", "Nome",new { Id=0,Nome="Selecione"});
-        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status == true).AsNoTracking().OrderBy(x => x.Ano), "Id", "Ano", new { Id = 0, Nome = "Selecione" });
+        ViewBag.PaisId = new SelectList(db.Paises.AsNoTracking().OrderBy(x => x.Nome), "Id", "Nome",new { Id=0,Nome="Selecione"});
+        ViewBag.SafraId = new SelectList(db.Safras.AsNoTracking().OrderBy(x => x.Ano), "Id", "Ano", new { Id = 0, Nome = "Selecione" });
         ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", new { Id = 0, Descricao = "Selecione" });
         ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", new { Id = 0, Descricao = "Selecione" });
         ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().OrderBy(u => u.Descricao).ToList(), "Id", "Descricao");
@@ -445,8 +445,8 @@ namespace Admin.Controllers
     {
       try
       {
-        ViewBag.PaisId = new SelectList(db.Paises.Where(x => x.Status != false), "Id", "Nome", produto.PaisId);
-        ViewBag.SafraId = new SelectList(db.Safras.Where(x => x.Status != false), "Id", "Ano", produto.SafraId);
+        ViewBag.PaisId = new SelectList(db.Paises.ToList(), "Id", "Nome", produto.PaisId);
+        ViewBag.SafraId = new SelectList(db.Safras.ToList(), "Id", "Ano", produto.SafraId);
         ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", produto.ClasseId);
         ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", produto.TipoId);
         ViewBag.UvaId = new MultiSelectList(db.Uvas.AsNoTracking().OrderBy(u => u.Descricao), "Id", "Descricao", produto.Uvas.Select(u => u.Id));

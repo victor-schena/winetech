@@ -22,18 +22,18 @@
               @Html.HiddenFor(model => model.Pessoa.PapelPessoaId, new { Value = 1 })
               @Html.HiddenFor(model => model.Pessoa.Id)
               <div class="form-group">
-                @Html.LabelFor(model => model.Pessoa.RazaoSocial, "Razão Social:", htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Pessoa.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Pessoa.RazaoSocial, "Razão Social:", htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
+                @Html.EditorFor(model => model.Pessoa.RazaoSocial, new { htmlAttributes = new { @class = "form-control required" } })
                 @Html.ValidationMessageFor(model => model.Pessoa.RazaoSocial, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
-                @Html.LabelFor(model => model.Pessoa.NomeFantasia, "Nome Fantasia:", htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Pessoa.NomeFantasia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.LabelFor(model => model.Pessoa.NomeFantasia, "Nome Fantasia:", htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
+                @Html.EditorFor(model => model.Pessoa.NomeFantasia, new { htmlAttributes = new { @class = "form-control required" } })
                 @Html.ValidationMessageFor(model => model.Pessoa.NomeFantasia, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
-                @Html.LabelFor(model => model.Pessoa.CNPJ, "CNPJ:", htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Pessoa.CNPJ, new { htmlAttributes = new { @class = "form-control cnpj" } })
+                @Html.LabelFor(model => model.Pessoa.CNPJ, "CNPJ:", htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
+                @Html.EditorFor(model => model.Pessoa.CNPJ, new { htmlAttributes = new { @class = "form-control cnpj required" } })
                 @Html.ValidationMessageFor(model => model.Pessoa.CNPJ, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
@@ -71,28 +71,28 @@
             <div class="box-body">
               @Html.HiddenFor(model => model.Endereco.PessoaId, new { Value = ViewBag.idCliente })
               <div class="form-group">
-                @Html.LabelFor(model => model.Endereco.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Endereco.CEP, new { htmlAttributes = new { @class = "form-control", id = "cep" } })
+                @Html.LabelFor(model => model.Endereco.CEP, htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
+                @Html.EditorFor(model => model.Endereco.CEP, new { htmlAttributes = new { @class = "form-control required", id = "cep" } })
                 @Html.ValidationMessageFor(model => model.Endereco.CEP, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
-                @Html.LabelFor(model => model.Endereco.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Endereco.Estado, new { htmlAttributes = new { @class = "form-control", id = "uf" } })
+                @Html.LabelFor(model => model.Endereco.Estado, htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
+                @Html.EditorFor(model => model.Endereco.Estado, new { htmlAttributes = new { @class = "form-control required", id = "uf" } })
                 @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
-                @Html.LabelFor(model => model.Endereco.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Endereco.Cidade, new { htmlAttributes = new { @class = "form-control", id = "cidade" } })
+                @Html.LabelFor(model => model.Endereco.Cidade, htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
+                @Html.EditorFor(model => model.Endereco.Cidade, new { htmlAttributes = new { @class = "form-control required", id = "cidade" } })
                 @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
-                @Html.LabelFor(model => model.Endereco.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control", id = "bairro" } })
+                @Html.LabelFor(model => model.Endereco.Bairro, htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
+                @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control required", id = "bairro" } })
                 @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">
-                @Html.LabelFor(model => model.Endereco.Rua, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Endereco.Rua, new { htmlAttributes = new { @class = "form-control", id = "rua" } })
+                @Html.LabelFor(model => model.Endereco.Rua, htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
+                @Html.EditorFor(model => model.Endereco.Rua, new { htmlAttributes = new { @class = "form-control required", id = "rua" } })
                 @Html.ValidationMessageFor(model => model.Endereco.Rua, "", new { @class = "text-danger" })
               </div>
               <div class="form-group">

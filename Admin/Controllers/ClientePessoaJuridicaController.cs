@@ -32,20 +32,35 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
     public ActionResult Create()
     {
-      if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Cliente Pessoa Juridica"))
+      try
       {
-        return RedirectToAction("Index", "Home");
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Cliente Pessoa Juridica"))
+        {
+          return RedirectToAction("Index", "Home");
+        }
+        return View();
       }
-      return View();
+      catch (Exception ex)
+      {
+        TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
+        return RedirectToAction("Index");
+      }
+      finally
+      {
+        db.Dispose();
+      }
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(ClienteEnderecoViewModel Cliente, string botao, FormCollection colecao,int? idEndereco)
+    public ActionResult Create(ClienteEnderecoViewModel Cliente, string botao, FormCollection colecao, int? idEndereco)
     {
       try
       {
@@ -90,7 +105,7 @@ namespace Admin.Controllers
         if (botao == "finalizarCadastro")
         {
           TempData["Success"] = "Registro salvo com sucesso.";
-          return RedirectToAction("Index","ClientePessoaJuridica");
+          return RedirectToAction("Index", "ClientePessoaJuridica");
         }
         if (botao == "deletarEndereco")
         {
@@ -116,7 +131,7 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-      
+
     }
     //GET:
     public ActionResult Edit(int? id)
@@ -146,7 +161,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -211,7 +229,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
 
     }
@@ -240,7 +261,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
     [HttpPost, ActionName("Delete")]
@@ -266,7 +290,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
 
     }
     public ActionResult Details(int? id)
@@ -296,7 +323,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     public bool ValidaCamposPessoaJuridica(Pessoa pessoa)
     {
@@ -317,7 +347,7 @@ namespace Admin.Controllers
         ModelState.AddModelError("Pessoa.CNPJ", "O campo CNPF é obrgatório! ");
         validacao = false;
       }
-      if (!string.IsNullOrEmpty(pessoa.CNPJ)&&!Validations.IsCnpj(pessoa.CNPJ))
+      if (!string.IsNullOrEmpty(pessoa.CNPJ) && !Validations.IsCnpj(pessoa.CNPJ))
       {
         ModelState.AddModelError("Pessoa.CNPJ", "O CNPJ informado é inválido!");
         validacao = false;
@@ -354,7 +384,7 @@ namespace Admin.Controllers
         ModelState.AddModelError("Endereco.Rua", "O campo rua é Obrigatório!");
         validacao = false;
       }
-      if (string.IsNullOrEmpty(endereco.Numero)|| endereco.Numero == " ")
+      if (string.IsNullOrEmpty(endereco.Numero) || endereco.Numero == " ")
         endereco.Numero = "Sem número";
 
       return validacao;

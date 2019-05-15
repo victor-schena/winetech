@@ -17,6 +17,7 @@ namespace Entities.Tables
     public Produto()
     {
       this.Uvas = new HashSet<Uva>().ToList();
+      this.PedidosProdutos = new HashSet<PedidoProduto>();
     }
     [Key]
     public int Id { get; set; }
@@ -51,7 +52,7 @@ namespace Entities.Tables
     [StringLength(100)]
     [Display(Name = "Volume")]
     public string Volume { get; set; }
-
+    //[DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
     [Required(ErrorMessage = "O campo Preco de venda é obrigatório.")]
     public decimal PrecoVenda { get; set; }
 
@@ -71,7 +72,7 @@ namespace Entities.Tables
 
     public int? PedidoId { get; set; }
     public virtual ICollection<Pedido> Pedidos { get; set; }
-    
+
     public virtual ICollection<Uva> Uvas
     {
       get;
@@ -87,14 +88,9 @@ namespace Entities.Tables
 
     public virtual Tipo Tipo { get; set; }
 
-    public int? HistoricoEstoqueId { get; set; }
-    public virtual ICollection<HistoricoEstoque> HistoricoEstoque { get; set; }
-  }
+    //public int? HistoricoEstoqueId { get; set; }//talvez nem precise disso
+    //public virtual ICollection<HistoricoEstoque> HistoricoEstoque { get; set; }//nem disso
 
-  //public class PresentationProduto
-  //{
-  //  public int Id { get; set; }
-  //  public string Nome { get; set; }
-  //  public int Quantidade { get; set; }
-  //}
+    public virtual ICollection<PedidoProduto> PedidosProdutos { get; set; }
+  }
 }

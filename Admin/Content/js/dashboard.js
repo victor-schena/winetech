@@ -72,8 +72,7 @@ $(function () {
   $('.cpf').mask('999.999.999-99', { reverse: true });
   $('.rg').mask('99.999.999-9', { reverse: true });
   $('.datas').mask('99/99/9999', { reverse: true });
-  
-  
+  $('.preco').mask('000.000.000.000.000,00', { reverse: true });
 
 
   /*

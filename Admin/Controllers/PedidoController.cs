@@ -35,15 +35,17 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     public ActionResult Details(int? id)
     {
       try
       {
-        Pedido pedido = db.Pedidos.Include("Produtos").Include("Pessoa").Include("HistoricoEstoque").Where(p => p.Id == id).FirstOrDefault();
+        Pedido pedido = db.Pedidos.Include("Produtos").Include("Pessoa").Where(p => p.Id == id).FirstOrDefault();
 
         PedidoItemViewModel pedidoViewModel = new PedidoItemViewModel();
         if (pedido.Pessoa == null)
@@ -54,8 +56,8 @@ namespace Admin.Controllers
 
         foreach (var item in pedidoViewModel.Produtos)
         {
-          var historicoEstoque = db.HistoricoEstoque.Where(he => he.ProdutoId == item.ID && he.PedidoId == pedido.Id).FirstOrDefault();
-          item.Quantidade = historicoEstoque.Quantidade - historicoEstoque.Ajuste;
+          //var historicoEstoque = db.HistoricoEstoque.Where(he => he.ProdutoId == item.ID && he.PedidoId == pedido.Id).FirstOrDefault();
+          //item.Quantidade = historicoEstoque.Quantidade - historicoEstoque.Ajuste;
         }
         pedidoViewModel.PessoaId = pedido.PessoaId;
         pedidoViewModel.PedidoId = (int)id;
@@ -69,7 +71,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
     public ActionResult Create()
@@ -90,16 +95,25 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     [HttpPost]
     public ActionResult Create(int? PedidoId, int? ProdutoId, int? Quantidade = 1)
     {
-      Produto produto = db.Produtos.Find(ProdutoId);
       try
       {
+        Produto produto = db.Produtos.Find(ProdutoId);
+
+        if (PedidoId == 0 || PedidoId == null)
+        {
+          CarrinhoViewModel.AddItem(produto, (int)Quantidade);
+          return Json(CreatePedido(ProdutoId));
+        }
+
         if (PedidoId > 0)
         {
           CarrinhoViewModel.AddItem(produto, (int)Quantidade);
@@ -115,13 +129,7 @@ namespace Admin.Controllers
 
           foreach (FilaCarrinho item in CarrinhoViewModel.Lines)
           {
-            HistoricoEstoque he = new HistoricoEstoque();
-            he.ProdutoId = item.Produto.Id;
-            he.CriadoEm = DateTime.Now;
-            he.Quantidade = item.Produto.Quantidade;
-            he.Ajuste = item.Produto.Quantidade - item.Quantidade;
-            he.PedidoId = pedido.Id;
-            db.HistoricoEstoque.Add(he);
+
             produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
             pedido.Produtos.Add(db.Produtos.Find(item.Produto.Id));
           }
@@ -149,14 +157,6 @@ namespace Admin.Controllers
           db.Pedidos.Attach(pedido);
           foreach (var item in CarrinhoViewModel.Lines)
           {
-            produto = item.Produto;
-            HistoricoEstoque he = new HistoricoEstoque();
-            he.ProdutoId = item.Produto.Id;
-            he.CriadoEm = DateTime.Now;
-            he.Quantidade = item.Produto.Quantidade;
-            he.Ajuste = item.Produto.Quantidade - item.Quantidade;
-            he.PedidoId = pedido.Id;
-            db.HistoricoEstoque.Add(he);
             produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
             db.Produtos.Attach(produto);
             pedido.Produtos.Add(produto);
@@ -165,8 +165,8 @@ namespace Admin.Controllers
           db.SaveChanges();
           db.Dispose();
           var data = pedido.Id;
-          return Json(data);
         }
+        return Json("");
       }
       catch (Exception ex)
       {
@@ -174,7 +174,10 @@ namespace Admin.Controllers
         RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     public ActionResult Edit(int? id)
     {
@@ -215,9 +218,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -245,9 +250,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     public ActionResult Delete(int? id)
     {
@@ -268,9 +275,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
@@ -287,44 +296,50 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
 
     }
-    [HttpPost]
-    public JsonResult TestePost(int Id, int qtde)
-    {
-      try
-      {
-        //buscar produto pelo id
-        Produto produto = db.Produtos.Find(Id);
-        if (produto != null && produto.Quantidade >= qtde)
-        {
-          CarrinhoViewModel.AddItem(produto, qtde);
+    //[HttpPost]
+    //public JsonResult TestePost(int Id, int qtde)
+    //{
+    //  try
+    //  {
+    //    //buscar produto pelo id
+    //    Produto produto = db.Produtos.Find(Id);
+    //    if (produto != null && produto.Quantidade >= qtde)
+    //    {
+    //      CarrinhoViewModel.AddItem(produto, qtde);
 
-          var produtos = CarrinhoViewModel.Lines.Select(p =>
-          new
-          {
-            qtde = CarrinhoViewModel.Lines.Count,
-            nome = p.Produto.Nome,
-          }).ToList();
+    //      var produtos = CarrinhoViewModel.Lines.Select(p =>
+    //      new
+    //      {
+    //        qtde = CarrinhoViewModel.Lines.Count,
+    //        nome = p.Produto.Nome,
+    //      }).ToList();
 
-          return Json(produtos
-            , JsonRequestBehavior.AllowGet);
-        }
-        else
-        {
-          //var soma = idProduto + qtde;
-          return Json("Falha ao adicionar!", JsonRequestBehavior.AllowGet);
-        }
-      }
-      catch (Exception ex)
-      {
-        TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
-        // return RedirectToAction("Index");
-        throw ex;
-      }
-    }
+    //      return Json(produtos
+    //        , JsonRequestBehavior.AllowGet);
+    //    }
+    //    else
+    //    {
+    //      //var soma = idProduto + qtde;
+    //      return Json("Falha ao adicionar!", JsonRequestBehavior.AllowGet);
+    //    }
+    //  }
+    //  catch (Exception ex)
+    //  {
+    //    TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
+    //    // return RedirectToAction("Index");
+    //  }
+    //  finally
+    //  {
+    //    db.Dispose();
+    //  }
+    //}
     [HttpPost]
     public JsonResult PegarFilaCarrinho(int acionar)
     {
@@ -443,6 +458,39 @@ namespace Admin.Controllers
         db.Dispose();
       }
       base.Dispose(disposing);
+    }
+
+    public int CreatePedido(int? ProdutoId)
+    {
+      try
+      {
+        var produto = db.Produtos.Find(ProdutoId);
+        Pedido pedido = new Pedido();
+        pedido.DataPedido = DateTime.Now;
+        pedido.isVenda = true;
+        pedido.isPessoaFisica = true;
+        pedido.isEmitido = false;
+        foreach (var prod in CarrinhoViewModel.Lines)
+        {
+          pedido.Produtos.Add(prod.Produto);
+
+        }
+        pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i => i.Quantidade);
+        pedido.Total = CarrinhoViewModel.ComputeTotalValue();
+
+        db.Pedidos.Add(pedido);
+        db.SaveChanges();
+        return pedido.Id;
+      }
+      catch (Exception)
+      {
+
+        throw;
+      }
+      finally
+      {
+        db.Dispose();
+      }
     }
   }
 }

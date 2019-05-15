@@ -8,7 +8,7 @@
 <section class="content-header">
   <h1>
     Países
-    <a class="btn btn-default btn-flat" href="@Url.Action("Create", "Pais")" role="button" title="Novo País">Novo País</a>
+   @* <a class="btn btn-default btn-flat" href="@Url.Action("Create", "Pais")" role="button" title="Novo País">Novo País</a>*@
   </h1>
 </section>
 @if (TempData["Success"] != null)
@@ -33,33 +33,28 @@
               <th>
                 Nome:
               </th>
-              <th>
-                Status:
-              </th>
-              <th>
+             
+              @*<th>
                 <i class="fa fa-gear fa-fw"></i>
-              </th>
+              </th>*@
             </tr>
           </thead>
           <tbody>
             @foreach (var item in Model)
             {
-                if (item.Status != false)
-                {
+               
                   <tr>
                     <td>
                       @Html.DisplayFor(modelItem => item.Nome)
                     </td>
-                    <td width="15%">
-                      @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td width="15%">
+                   
+                    @*<td width="15%">
                       <a href="@Url.Action("Edit", "Pais", new { id = item.Id })" title="Editar"><span class="label label-info">Editar</span></a>
                       <a href="@Url.Action("Details", "Pais", new { id = item.Id })" title="Detalhes do produto"><span class="label label-warning"><i class="fa fa-unlock fa-fw"></i></span></a>
                       <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Pais", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="deletar"><span class="label label-danger">DEL</span></a>
-                    </td>
+                    </td>*@
                   </tr>
-                }
+                
             }
             </tbody>
           </table>
