@@ -3,11 +3,11 @@
     //Mostrar loading
     $.post('/ClientePessoaFisica/Search', { Nome: $("#searchName").val() },
       function (data) {
-        if (data !== [] ) {
+        var mySelect = $('#selectClient').empty();
+        mySelect.append($('<option></option>')).val(0).text("------------------------------");
+        if (data !== [] && data.length > 0) {
           console.log(data);
           //ocultar loading
-          var mySelect = $('#selectClient').empty();
-          mySelect.append("<option></option>").val(0).text("------------------------------");
           for (var i = 0; i < data.length; i++) {
             if (data[i].PapelPessoaId === 1 && data[i].TipoPessoaId === 1) {
               var myOptions = { val: data[i].NomeCompleto };
@@ -31,7 +31,7 @@
         }
         else {
           //exibir msg na tela
-          mySelect.append("<option></option>").val(0).text("Usuário não encontrado!");
+          mySelect.append($('<option></option>').val(0).text("Cliente não encontrado!"));
           console.log("Cliente não encontrado!");
         }
         mySelect.show();
@@ -39,4 +39,7 @@
       , 'json');
   }
   );
+
+
+
 });
