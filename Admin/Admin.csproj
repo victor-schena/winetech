@@ -269,26 +269,6 @@
     <Compile Include="Migrations\201607071425386_FixUserProfile.Designer.cs">
       <DependentUpon>201607071425386_FixUserProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705230121074_Fix Produtos Table.cs" />
-    <Compile Include="Migrations\201705230121074_Fix Produtos Table.Designer.cs">
-      <DependentUpon>201705230121074_Fix Produtos Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705230151352_Fix Produto.cs" />
-    <Compile Include="Migrations\201705230151352_Fix Produto.Designer.cs">
-      <DependentUpon>201705230151352_Fix Produto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705232139350_Produtos.cs" />
-    <Compile Include="Migrations\201705232139350_Produtos.Designer.cs">
-      <DependentUpon>201705232139350_Produtos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.cs" />
-    <Compile Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.Designer.cs">
-      <DependentUpon>201705251940294_AlterTablesAddColumnStatusToAll.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904062319318_FixedColumnNameAtProductionTable.cs" />
-    <Compile Include="Migrations\201904062319318_FixedColumnNameAtProductionTable.Designer.cs">
-      <DependentUpon>201904062319318_FixedColumnNameAtProductionTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CarrinhoViewModel.cs" />
@@ -457,6 +437,7 @@
     <Content Include="Content\js\vendor\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
+    <Content Include="Content\js\vendor\pedido.js" />
     <Content Include="Content\js\vendor\spectrum.js" />
     <Content Include="Content\js\vendor\spectrum.min.js">
       <DependentUpon>spectrum.js</DependentUpon>
@@ -703,21 +684,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607071425386_FixUserProfile.resx">
       <DependentUpon>201607071425386_FixUserProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705230121074_Fix Produtos Table.resx">
-      <DependentUpon>201705230121074_Fix Produtos Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705230151352_Fix Produto.resx">
-      <DependentUpon>201705230151352_Fix Produto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705232139350_Produtos.resx">
-      <DependentUpon>201705232139350_Produtos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.resx">
-      <DependentUpon>201705251940294_AlterTablesAddColumnStatusToAll.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904062319318_FixedColumnNameAtProductionTable.resx">
-      <DependentUpon>201904062319318_FixedColumnNameAtProductionTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

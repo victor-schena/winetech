@@ -357,6 +357,21 @@ namespace Admin.Controllers
       }
 
     }
+    public ActionResult Search(string Nome)
+    {
+      try
+      {
+
+        List<Pessoa> Pessoas = new List<Pessoa>();
+
+        Pessoas = db.Pessoas.Where(p => (p.NomeCompleto.Contains(Nome) || p.NomeFantasia.Contains(Nome)) && p.PapelPessoaId == 1).ToList();
+        return Json(Pessoas);
+      }
+      catch (Exception ex)
+      {
+        throw ex;
+      }
+    }
     public bool ValidaCamposPessoaFisica(Pessoa pessoa)
     {
       ModelState.Clear();

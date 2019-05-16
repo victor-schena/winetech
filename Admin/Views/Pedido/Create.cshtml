@@ -5,11 +5,14 @@
   //buscar os itens de um pedido via id do cliente
 }
 <script>
-  $(document).ready(function zerar() {
+  @*$(document).ready(
+  );
+    function zerar() {
     //$('#idPessoa').val("");
     //$('#idProduto').selectedValue("");
     $("#idProduto")[0].selectedIndex = 0;
-  });
+  }
+
 
   function enviarClienteItem() {
     $.post('/Pedido/Create', { IdCliente: $('#Pessoa_Id').val(), idProduto: $('#Produto').val(), qtde: $('#Produto_Quantidade').val() },
@@ -54,6 +57,7 @@
       , 'json');
   }
 
+    *@
 </script>
 <section class="content-header">
   <h1>
@@ -67,63 +71,55 @@
       <div class="box box-primary">
         @using (Html.BeginForm("Create", "Pedido", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-          <div class="box-body">
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <br />
-            @Html.HiddenFor(model => model.Pedido, new { Value = ViewBag.idPedido })
-            <div class="form-group">
-              @Html.LabelFor(model => model.Pedido.DataPedido, "Data de Validade:", htmlAttributes: new { @class = "control-label col-md-2 asterisk" })
-              @Html.EditorFor(model => model.Pedido.DataPedido, new { htmlAttributes = new { @class = "form-control data required" } })
-              @Html.ValidationMessageFor(model => model.Pedido.DataPedido, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-              
-                @Html.LabelFor(model => model.Pessoa.Id, "Cliente:", htmlAttributes: new { @class = "control-label col-md-2" })
-              
-                @Html.TextBoxFor(model => model.Pessoa.NomeCompleto, new { @class = "form-control" })
-                @*@Html.DropDownList("PessoaId", null, htmlAttributes: new { @class = "form-control" })*@
-                @*@Html.DropDownListFor(model => model.PessoaId, (SelectList)ViewBag.PessoaId, "Selecione")*@
-                @Html.ValidationMessageFor(model => model.Pessoa.NomeCompleto, "", new { @class = "text-danger" })
-              
-            </div>
-            <br />
-
-            @*<div class="form-group">
+          <div class="form-horizontal">
+            <div class="box-body">
+              @Html.AntiForgeryToken()
+              @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              <br />
+              @Html.HiddenFor(model => model.Pedido, new { Value = ViewBag.idPedido })
+              <div class="form-group">
                 <div class="col-md-2">
-                  @Html.Label("Quantidade:", htmlAttributes: new { @class = "control-label col-md-2" })
+                  @Html.LabelFor(model => model.Pedido.DataPedido, "Data de Validade:", htmlAttributes: new { @class = "control-label" })
                 </div>
                 <div class="col-md-4">
-                  @Html.TextBoxFor(model => model.Quantidade, new { @class = "form-control", id = "Produto_Quantidade", @type = "number"})
-                  @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
+                  @Html.EditorFor(model => model.Pedido.DataPedido, new { htmlAttributes = new { @class = "form-control datas required" } })
+                  @Html.ValidationMessageFor(model => model.Pedido.DataPedido, "", new { @class = "text-danger" })
                 </div>
-              </div>*@
-            <br />
-
-            @*<div class="form-group">
+                <div class="col-md-2">
+                  @Html.LabelFor(model => model.Pessoa.Id, "Usuário:", htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-4">
+                  @Html.DropDownList("User", (SelectList)ViewBag.Users, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-2">
+                  @Html.LabelFor(model => model.Pessoa.Id, "Cliente:", htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-md-8">
+                  @Html.TextBoxFor(model => model.Pessoa.NomeCompleto, new { @class = "form-control", @id = "searchName" })
+                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                  <select id="selectClient" class="dropdown"><option value="0">------------------------------</option>  </select>
+                  <br />
+                  @Html.ValidationMessageFor(model => model.Pessoa.NomeCompleto, "", new { @class = "text-danger" })
+                </div>
+              </div>
+              <br />
+              <div class="form-group">
                 <div class="col-md-2">
                   @Html.Label("Produto:", htmlAttributes: new { @class = "control-label col-md-2" })
                 </div>
+                <div class="col-md-10">
+                  @Html.TextBoxFor(model => model.Produto.Nome, new { @class = "form-control" })
+                  @Html.ValidationMessageFor(model => model.Produto.Nome, "", new { @class = "text-danger" })
+                </div>
+              </div>
+              <br />
+              <div class="form-group">
                 <div class="col-md-4">
-                  @Html.DropDownListFor(model => model.ProdutoId, (SelectList)ViewBag.ProdutoId, "Selecione")
-                  @Html.ValidationMessageFor(model => model.idProduto, "", new { @class = "text-danger" })
+                  <input type="button" class="btn btn-default" value="Adicionar Produto" />
                 </div>
-              </div>*@
-            <br />
-            @*<div class="form-group">
-                <div class="col-md-2">
-                  @Html.Label("Total:", htmlAttributes: new { @class = "control-label col-md-2" })
-                </div>
-                <div class="col-md-3">
-                  @Html.TextBoxFor(model => model.Total , new { @class = "form-control", id = "total", @readonly = "readonly"})
-                  @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
-                </div>
-              </div>*@
-
-            <div class="form-group">
-              <input type="button" class="btn btn-default" value="Adicionar Produto" />
-              @*<a class="btn btn-default" onclick="enviarClienteItem();">Adicionar Produto</a>
-                <a onclick="finalizarPedido();" class="btn btn-default">Finalizar Pedido</a>*@
+              </div>
             </div>
           </div>
         }
@@ -183,9 +179,8 @@
           </div>
           <div class="form-group">
             <a class="btn btn-default btn-flat" href="@Url.Action("Index", "Pedido")"> Voltar</a>
-            <div class="btn btn-default btn-flat" onclick="finalizarPedido();">
-              Finalizar pedido!
-            </div>
+            <input type="submit" class="btn btn-default btn-flat" onclick="finalizarPedido();"
+              Finalizar pedido/>
           </div>
         </div>
       </div>

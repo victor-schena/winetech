@@ -87,7 +87,10 @@ namespace Admin.Controllers
           .Where(p => p.TipoPessoaId == 1)
           .Where(x => x.Status == true)
           .OrderBy(x => x.NomeCompleto), "Id", "NomeCompleto");
+
         var users = new IdentityDb().Users.OrderBy(u => u.Name).ToList();
+        ViewBag.Users = new SelectList(new IdentityDb().Users.AsNoTracking().OrderBy(x => x.Name), "Id", "Name", new { Id = 0, Nome = "Selecione" });
+
         ViewBag.ProdutoId = new SelectList(db.Produtos.Where(x => x.Status == true).OrderBy(x => x.Nome), "Id", "Nome");
         ViewBag.idPedido = 0;
         CarrinhoViewModel.Clear();

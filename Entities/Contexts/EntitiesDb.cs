@@ -39,6 +39,11 @@ namespace Entities.Contexts
                   .WithMany(pes => pes.Pedidos)
                   .HasForeignKey(ped => ped.PessoaId);
 
+      //modelBuilder.Entity<Pedido>()
+      //            .HasRequired<ApplicationUser>(pr => pr.User)
+      //            .WithMany(pa => pa.Produtos)
+      //            .HasForeignKey(pr => pr.PaisId);
+
       //one - to - many(Produto / Pais)
       modelBuilder.Entity<Produto>()
                   .HasRequired<Pais>(pr => pr.Pais)

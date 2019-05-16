@@ -16,7 +16,7 @@ namespace Entities.Tables
       this.Produtos = new HashSet<Produto>();
       this.PedidosProdutos = new HashSet<PedidoProduto>();
     }
-    public Pedido(bool isVenda,bool isPessoaFisica,DateTime dataPedido)
+    public Pedido(bool isVenda, bool isPessoaFisica, DateTime dataPedido)
     {
       this.Produtos = new HashSet<Produto>();
       this.isVenda = isVenda;
@@ -30,7 +30,7 @@ namespace Entities.Tables
 
     public bool? isPessoaFisica { get; set; }
 
-    public bool? isEmitido { get; set;}
+    public bool? isEmitido { get; set; }
 
     public DateTime DataPedido { get; set; }
 
@@ -43,8 +43,7 @@ namespace Entities.Tables
 
     public virtual ICollection<Produto> Produtos { get; set; }
 
-    //public int? HistoricoEstoqueId { get; set; }//talvez nem use isso
-    //public virtual ICollection<HistoricoEstoque> HistoricoEstoque { get; set; }//nem isso
+    public string UserId { get; set; }
 
     public virtual ICollection<PedidoProduto> PedidosProdutos { get; set; }
 
