@@ -23,5 +23,7 @@ namespace Admin.Models
 
     public int Quantidade { get; set; }
     public decimal Total{ get; set; }
+
+    public List<Admin.Models.ApplicationUser> Users { get; set; }
   }
 }

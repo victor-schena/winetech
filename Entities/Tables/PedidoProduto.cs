@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Tables
 {
-  //[Table("ProdutoPedido")]
+  [Table("ProdutoPedido")]
   public class PedidoProduto
   {
     [Key, Column(Order = 0)]

@@ -13,6 +13,7 @@ using Newtonsoft;
 using Newtonsoft.Json;
 using Admin.Functions;
 using Microsoft.AspNet.Identity;
+using Admin.DataContexts;
 
 namespace Admin.Controllers
 {
@@ -24,7 +25,7 @@ namespace Admin.Controllers
     {
       try
       {
-        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Index", "Pedido"))
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Index", "Pedidos de Venda"))
         {
           return RedirectToAction("Index", "Home");
         }
@@ -86,6 +87,7 @@ namespace Admin.Controllers
           .Where(p => p.TipoPessoaId == 1)
           .Where(x => x.Status == true)
           .OrderBy(x => x.NomeCompleto), "Id", "NomeCompleto");
+        var users = new IdentityDb().Users.OrderBy(u => u.Name).ToList();
         ViewBag.ProdutoId = new SelectList(db.Produtos.Where(x => x.Status == true).OrderBy(x => x.Nome), "Id", "Nome");
         ViewBag.idPedido = 0;
         CarrinhoViewModel.Clear();

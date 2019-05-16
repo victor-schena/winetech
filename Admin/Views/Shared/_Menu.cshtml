@@ -93,7 +93,7 @@
       <a id="a-safras" href="@Url.Action("Index", "Safras")"><i class="fa fa-calendar"></i> Safras</a>
     </li>
   }
-  @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Pedido"))
+  @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Pedidos de Venda"))
   {
 
     <li class="treeview">
