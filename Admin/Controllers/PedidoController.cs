@@ -53,7 +53,7 @@ namespace Admin.Controllers
           pedidoViewModel.Pessoa = new Pessoa();
         else
           pedidoViewModel.Pessoa = pedido.Pessoa;
-        pedidoViewModel.Produtos = pedido.Produtos.Select(p => new FilaCarrinho { ID = p.Id, Produto = p }).ToList();
+        //pedidoViewModel.Produtos = pedido.Produtos.Select(p => new FilaCarrinho { ID = p.Id, Produto = p }).ToList();
 
         foreach (var item in pedidoViewModel.Produtos)
         {
@@ -82,19 +82,15 @@ namespace Admin.Controllers
     {
       try
       {
-        ViewBag.PessoaId = new SelectList(db.Pessoas
-          .Where(p => p.PapelPessoaId == 1)
-          .Where(p => p.TipoPessoaId == 1)
-          .Where(x => x.Status == true)
-          .OrderBy(x => x.NomeCompleto), "Id", "NomeCompleto");
-
-        var users = new IdentityDb().Users.OrderBy(u => u.Name).ToList();
+        Pedido pedido = new Pedido { DataPedido = DateTime.Now, isVenda = true, isEmitido = false };
         ViewBag.Users = new SelectList(new IdentityDb().Users.AsNoTracking().OrderBy(x => x.Name), "Id", "Name", new { Id = 0, Nome = "Selecione" });
-
-        ViewBag.ProdutoId = new SelectList(db.Produtos.Where(x => x.Status == true).OrderBy(x => x.Nome), "Id", "Nome");
-        ViewBag.idPedido = 0;
+        db.Pedidos.Add(pedido);
+        db.SaveChanges();
+        ViewBag.PedidoId = pedido.Id;
+        PedidoItemViewModel pedidoViewModel = new PedidoItemViewModel();
+        pedidoViewModel.Pedido = pedido;
         CarrinhoViewModel.Clear();
-        return View();
+        return View(pedidoViewModel);
       }
       catch (Exception ex)
       {
@@ -107,71 +103,38 @@ namespace Admin.Controllers
       }
     }
     [HttpPost]
-    public ActionResult Create(int? PedidoId, int? ProdutoId, int? Quantidade = 1)
+    public ActionResult AddItem(int PedidoId, string UserId, int PessoaId, int ProdutoId, int Quantidade = 1)
     {
       try
       {
-        Produto produto = db.Produtos.Find(ProdutoId);
+        Produto produto = new Produto();
+        Pedido pedido = new Pedido();
+        PedidoItemViewModel pedidoItemviewModel = new PedidoItemViewModel();
+        //busca o cliente e adiciona ao pedido
+        Pessoa pessoa = new Pessoa();
+        pessoa = db.Pessoas.Find(PessoaId);
 
-        if (PedidoId == 0 || PedidoId == null)
-        {
-          CarrinhoViewModel.AddItem(produto, (int)Quantidade);
-          return Json(CreatePedido(ProdutoId));
-        }
+        //busca o produto e adiciona ao carrinho
+        produto = db.Produtos.Find(ProdutoId);
+        CarrinhoViewModel.AddItem(produto,Quantidade);
 
-        if (PedidoId > 0)
-        {
-          CarrinhoViewModel.AddItem(produto, (int)Quantidade);
-          var pedido = db.Pedidos.Find(PedidoId);
+        //busca a pessoa e adiciona ao pedido - atualiza o pedido
+        pedido.Id = PedidoId;
+        pedido.PessoaId = PessoaId;
+        pedido.Quantidade = CarrinhoViewModel.Lines.Sum(e=>e.Quantidade);
+        pedido.Produtos = CarrinhoViewModel.Lines.Select(p=>new Produto {Id =p.Produto.Id,Nome=p.Produto.Nome,Quantidade = p.Quantidade,PrecoVenda = p.Produto.PrecoVenda}).ToList();
+        pedido.Total = CarrinhoViewModel.ComputeTotalValue();
+        pedido.UserId = UserId;
 
-          pedido.DataPedido = DateTime.Now;
-          pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i => i.Quantidade);
-          pedido.Total = CarrinhoViewModel.ComputeTotalValue();
+        pedidoItemviewModel.Pedido = pedido;
+        pedidoItemviewModel.PessoaId = PessoaId;
+        pedidoItemviewModel.Pessoa = pessoa;
+        pedidoItemviewModel.Produtos = pedido.Produtos.ToList();
+        pedidoItemviewModel.Pedido.UserId = UserId;
 
-          pedido = db.Pedidos.Include(r => r.Produtos).Single(r => r.Id == PedidoId);
-          db.Entry(pedido).CurrentValues.SetValues(pedido);
-          pedido.Produtos.Clear();
 
-          foreach (FilaCarrinho item in CarrinhoViewModel.Lines)
-          {
-
-            produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
-            pedido.Produtos.Add(db.Produtos.Find(item.Produto.Id));
-          }
-
-          db.SaveChanges();
-          db.Dispose();
-          return Json(data: PedidoId);
-        }
-        else
-        {
-          //produto = new Produto();
-          Pedido pedido = new Pedido();
-          CarrinhoViewModel.AddItem(produto, (int)Quantidade);
-
-          pedido.DataPedido = DateTime.Now;
-          pedido.isVenda = true;
-          pedido.isPessoaFisica = true;
-          pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i => i.Quantidade);
-          pedido.Total = CarrinhoViewModel.ComputeTotalValue();
-
-          db.Pedidos.Add(pedido);
-          db.SaveChanges();
-
-          db.Pedidos.Add(pedido);
-          db.Pedidos.Attach(pedido);
-          foreach (var item in CarrinhoViewModel.Lines)
-          {
-            produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
-            db.Produtos.Attach(produto);
-            pedido.Produtos.Add(produto);
-          }
-
-          db.SaveChanges();
-          db.Dispose();
-          var data = pedido.Id;
-        }
-        return Json("");
+        ViewBag.Users = new SelectList(new IdentityDb().Users.AsNoTracking().OrderBy(x => x.Name), "Id", "Name", new { Id = 0, Nome = "Selecione" });
+        return Json(pedidoItemviewModel);
       }
       catch (Exception ex)
       {
@@ -203,7 +166,7 @@ namespace Admin.Controllers
                         Produto = pr
                       }).ToList();
         PedidoItemViewModel pedidoViewModel = new PedidoItemViewModel();
-        pedidoViewModel.Produtos = result;
+        //pedidoViewModel.Produtos = result;
         pedidoViewModel.PessoaId = pedido.PessoaId;
         pedidoViewModel.Total = (decimal)pedido.Total;
 
@@ -372,43 +335,13 @@ namespace Admin.Controllers
       }
 
     }
-    public ActionResult FinalizarPedido(PedidoItemViewModel model, FormCollection form)
+    public ActionResult FinalizarPedido(int PedidoId, string UserId, int PessoaId)
     {
       Produto produto = new Produto();
       try
       {
-        var pedido = db.Pedidos.Find(model.PedidoId);
-        if (model.Pessoa.CPF != null)
-          pedido.Pessoa = db.Pessoas.Where(p => p.CPF == model.Pessoa.CPF || p.CNPJ == model.Pessoa.CPF).FirstOrDefault();
-        pedido.DataPedido = DateTime.Now;
-        pedido.Quantidade = CarrinhoViewModel.Lines.Sum(i => i.Quantidade);
-        pedido.Total = CarrinhoViewModel.ComputeTotalValue();
-        pedido.isEmitido = true;
-
-        var pedidodb = db.Pedidos.Include(r => r.Produtos).Single(r => r.Id == model.PedidoId);
-        db.Entry(pedidodb).CurrentValues.SetValues(pedido);
-        //pedidodb.Produtos.Clear();
-        //pedidodb.HistoricoEstoque.Clear();
-
-        //foreach (FilaCarrinho item in CarrinhoViewModel.Lines)
-        //{
-        //  produto = db.Produtos.Find(item.Produto.Id);
-        //  HistoricoEstoque he = new HistoricoEstoque();
-        //  he.ProdutoId = item.Produto.Id;
-        //  he.CriadoEm = DateTime.Now;
-        //  he.Quantidade = item.Produto.Quantidade;
-        //  he.Ajuste = item.Produto.Quantidade - item.Quantidade;
-        //  he.PedidoId = pedido.Id;
-        //  db.HistoricoEstoque.Add(he);
-        //  produto.Quantidade = item.Produto.Quantidade - item.Quantidade;
-        //  pedido.Produtos.Add(produto);
-        //}
-
-        //db.SaveChanges();
-        //db.Dispose();
-        CarrinhoViewModel.Clear();
-
-        return RedirectToActionPermanent("Index", "Produtos");
+       
+        return Json(string.Empty);
       }
       catch (Exception ex)
       {

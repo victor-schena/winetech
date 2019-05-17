@@ -369,6 +369,35 @@ namespace Admin.Controllers
       }
 
     }
+
+    public ActionResult Search(string Nome)
+    {
+      try
+      {
+        List<Produto> Produtos = new List<Produto>();
+        var produtos = db.Produtos.Include(uv => uv.Uvas).
+          Include(p => p.Pais).
+          Include(p => p.Safra).
+          Include(cl => cl.Classe).
+          Include(p => p.Tipo)
+          .Where(p => (p.Nome.Contains(Nome) && p.Status == true)).ToList();
+        foreach (var item in produtos)
+        {
+          Produto prod = new Produto();
+          prod.Id = item.Id;
+          prod.Nome = item.Nome;
+          Produtos.Add(prod);
+        }
+
+
+        return Json(Produtos, JsonRequestBehavior.AllowGet);
+      }
+      catch (Exception ex)
+      {
+
+        throw ex;
+      }
+    }
     public bool ValidaCampos(Produto produto)
     {
       ModelState.Clear();
@@ -425,7 +454,7 @@ namespace Admin.Controllers
     {
       try
       {
-        ViewBag.PaisId = new SelectList(db.Paises.AsNoTracking().OrderBy(x => x.Nome), "Id", "Nome",new { Id=0,Nome="Selecione"});
+        ViewBag.PaisId = new SelectList(db.Paises.AsNoTracking().OrderBy(x => x.Nome), "Id", "Nome", new { Id = 0, Nome = "Selecione" });
         ViewBag.SafraId = new SelectList(db.Safras.AsNoTracking().OrderBy(x => x.Ano), "Id", "Ano", new { Id = 0, Nome = "Selecione" });
         ViewBag.ClasseId = new SelectList(db.Classes.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", new { Id = 0, Descricao = "Selecione" });
         ViewBag.TipoId = new SelectList(db.Tipos.AsNoTracking().OrderBy(c => c.Descricao), "Id", "Descricao", new { Id = 0, Descricao = "Selecione" });

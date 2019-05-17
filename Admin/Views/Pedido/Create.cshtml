@@ -76,7 +76,7 @@
               @Html.AntiForgeryToken()
               @Html.ValidationSummary(true, "", new { @class = "text-danger" })
               <br />
-              @Html.HiddenFor(model => model.Pedido, new { Value = ViewBag.idPedido })
+              @Html.HiddenFor(model => model.Pedido, new { Value = ViewBag.PedidoId, Id = "PedidoId" })
               <div class="form-group">
                 <div class="col-md-2">
                   @Html.LabelFor(model => model.Pedido.DataPedido, "Data de Validade:", htmlAttributes: new { @class = "control-label" })
@@ -98,8 +98,7 @@
                 </div>
                 <div class="col-md-8">
                   @Html.TextBoxFor(model => model.Pessoa.NomeCompleto, new { @class = "form-control", @id = "searchName" })
-                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                  <select id="selectClient" class="dropdown"><option value="0">------------------------------</option>  </select>
+                  <select id="selectClient" class="dropdown"><option value="0">------------------------------</option></select>
                   <br />
                   @Html.ValidationMessageFor(model => model.Pessoa.NomeCompleto, "", new { @class = "text-danger" })
                 </div>
@@ -109,15 +108,20 @@
                 <div class="col-md-2">
                   @Html.Label("Produto:", htmlAttributes: new { @class = "control-label col-md-2" })
                 </div>
-                <div class="col-md-10">
-                  @Html.TextBoxFor(model => model.Produto.Nome, new { @class = "form-control" })
+                <div class="col-md-6">
+                  @Html.TextBoxFor(model => model.Produto.Nome, new { @class = "form-control", @id = "searchProduct" })
+                  <select id="selectProduct" class="dropdown"><option value="0">------------------------------</option> </select>
                   @Html.ValidationMessageFor(model => model.Produto.Nome, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                  @Html.TextBoxFor(model => model.Produto.Quantidade, new { @class = "form-control numberonly", @id = "qtdeProduto", @placeholder = "Quantidade" })
                 </div>
               </div>
               <br />
               <div class="form-group">
                 <div class="col-md-4">
-                  <input type="button" class="btn btn-default" value="Adicionar Produto" />
+                  <input type="button" class="btn btn-default" id="enviarProduto" value="Adicionar Produto" />
+                  <input class="form-control" disabled="disabled" type="text" id="total"/>
                 </div>
               </div>
             </div>
@@ -125,7 +129,7 @@
         }
         <div class="box-body">
           <div class="table">
-            <table class="table table-striped table-bordered table-hover">
+            <table class="table table-striped table-bordered table-hover" id="itemTable">
               <thead>
                 <tr>
                   <th class="text-center">
@@ -154,19 +158,19 @@
                   <tbody>
                     <tr>
                       <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.Produto.Id)
+                        @Html.DisplayFor(modelItem => item.Id)
                       </td>
                       <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.Produto.Nome)
+                        @Html.DisplayFor(modelItem => item.Nome)
                       </td>
                       <td class="text-center">
                         @Html.DisplayFor(modelItem => item.Quantidade)
                       </td>
                       <td class="text-center">
-                        R$ @Html.DisplayFor(modelItem => item.Produto.PrecoVenda)
+                        R$ @Html.DisplayFor(modelItem => item.PrecoVenda)
                       </td>
                       <td class="text-center">
-                        <div class="btn btn-default btn-flat" onclick="removerItem(@item.Produto.Id);">
+                        <div class="btn btn-default btn-flat" onclick="removerItem(@item.Id);">
                           Deletar
                         </div>
                       </td>
@@ -179,8 +183,8 @@
           </div>
           <div class="form-group">
             <a class="btn btn-default btn-flat" href="@Url.Action("Index", "Pedido")"> Voltar</a>
-            <input type="submit" class="btn btn-default btn-flat" onclick="finalizarPedido();"
-              Finalizar pedido/>
+            <input type="submit" class="btn btn-default btn-flat" id="finalizarPedido" value="Finalizar pedido" />
+            
           </div>
         </div>
       </div>

@@ -8,10 +8,13 @@ namespace Admin.Models
 {
   public class PedidoItemViewModel
   {
-    //public PedidoItemViewModel()
-    //{
-    //  this.Produtos = new List<FilaCarrinho>();
-    //}
+    public PedidoItemViewModel()
+    {
+      this.Produtos = new List<Produto>();
+      this.Pessoa = new Pessoa();
+      this.Pedido = new Pedido();
+
+    }
 
     public int? PessoaId { get; set; }
     public Pessoa Pessoa { get; set; }
@@ -19,7 +22,7 @@ namespace Admin.Models
     public int PedidoId { get; set; }
     public Pedido Pedido { get; set; }
     public Produto Produto { get; set; }
-    public List<FilaCarrinho> Produtos { get; set; }
+    public List<Produto> Produtos { get; set; }
 
     public int Quantidade { get; set; }
     public decimal Total{ get; set; }
