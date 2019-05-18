@@ -89,7 +89,7 @@
                   @Html.LabelFor(model => model.Pessoa.Id, "Usuário:", htmlAttributes: new { @class = "control-label" })
                 </div>
                 <div class="col-md-4">
-                  @Html.DropDownList("User", (SelectList)ViewBag.Users, new { htmlAttributes = new { @class = "form-control" } })
+                  @Html.DropDownList("User", (SelectList)ViewBag.Users, new { htmlAttributes = new { @class = "btn btn-default dropdown-toggle" } })
                 </div>
               </div>
               <div class="form-group">
@@ -98,8 +98,8 @@
                 </div>
                 <div class="col-md-8">
                   @Html.TextBoxFor(model => model.Pessoa.NomeCompleto, new { @class = "form-control", @id = "searchName" })
-                  <select id="selectClient" class="dropdown"><option value="0">------------------------------</option></select>
                   <br />
+                  <select id="selectClient" class="form-control"><option value="0">Busca de clientes - resultados</option></select>
                   @Html.ValidationMessageFor(model => model.Pessoa.NomeCompleto, "", new { @class = "text-danger" })
                 </div>
               </div>
@@ -110,18 +110,21 @@
                 </div>
                 <div class="col-md-6">
                   @Html.TextBoxFor(model => model.Produto.Nome, new { @class = "form-control", @id = "searchProduct" })
-                  <select id="selectProduct" class="dropdown"><option value="0">------------------------------</option> </select>
+                  <br />
+                  <select id="selectProduct" class="form-control"><option value="0">Busca de produtos - resultados</option> </select>
                   @Html.ValidationMessageFor(model => model.Produto.Nome, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2">
-                  @Html.TextBoxFor(model => model.Produto.Quantidade, new { @class = "form-control numberonly", @id = "qtdeProduto", @placeholder = "Quantidade" })
+                  @Html.EditorFor(model => model.Produto.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1",placeholder="Quantidade" } })
                 </div>
               </div>
               <br />
               <div class="form-group">
                 <div class="col-md-4">
                   <input type="button" class="btn btn-default" id="enviarProduto" value="Adicionar Produto" />
-                  <input class="form-control" disabled="disabled" type="text" id="total"/>
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control" disabled="disabled" placeholder="Total" type="text" id="total"/>
                 </div>
               </div>
             </div>
@@ -170,9 +173,9 @@
                         R$ @Html.DisplayFor(modelItem => item.PrecoVenda)
                       </td>
                       <td class="text-center">
-                        <div class="btn btn-default btn-flat" onclick="removerItem(@item.Id);">
+                        @*<div class="btn btn-default btn-flat" onclick="removerItem(@item.Id)">
                           Deletar
-                        </div>
+                        </div>*@
                       </td>
                     </tr>
                   </tbody>

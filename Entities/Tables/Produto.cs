@@ -70,8 +70,8 @@ namespace Entities.Tables
     public int SafraId { get; set; }
     public Safra Safra { get; set; }
 
-    public int? PedidoId { get; set; }
-    public virtual ICollection<Pedido> Pedidos { get; set; }
+    //public int? PedidoId { get; set; }
+    //public virtual ICollection<Pedido> Pedidos { get; set; }
 
     public virtual ICollection<Uva> Uvas
     {

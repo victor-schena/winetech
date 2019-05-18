@@ -13,12 +13,12 @@ namespace Entities.Tables
   {
     public Pedido()
     {
-      this.Produtos = new HashSet<Produto>();
+      //this.Produtos = new HashSet<Produto>();
       this.PedidosProdutos = new HashSet<PedidoProduto>();
     }
     public Pedido(bool isVenda, bool isPessoaFisica, DateTime dataPedido)
     {
-      this.Produtos = new HashSet<Produto>();
+      //this.Produtos = new HashSet<Produto>();
       this.isVenda = isVenda;
       this.isPessoaFisica = isPessoaFisica;
       this.DataPedido = dataPedido;
@@ -40,7 +40,7 @@ namespace Entities.Tables
 
     public int? PessoaId { get; set; }
     public virtual Pessoa Pessoa { get; set; }
-
+    [NotMapped]
     public virtual ICollection<Produto> Produtos { get; set; }
 
     public string UserId { get; set; }

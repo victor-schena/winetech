@@ -100,7 +100,7 @@
             tr.append("<td class='text-center'>" + data.Produtos[i].Nome + "</td>");
             tr.append("<td class='text-center'>" + data.Produtos[i].Quantidade + "</td>");
             tr.append("<td class='text-center'>" + data.Produtos[i].PrecoVenda + "</td>");
-            tr.append("<td class='text-center'><div class='btn btn-default btn-flat' onclick = removerItem(" + data.Produtos[i].Id + ");'>Deletar</div></td></tr>");
+            tr.append("<td class='text-center'><div class='btn btn-default btn-flat' onclick = 'removerItem(" + data.Produtos[i].Id + ");' >Deletar</div></td></tr>");
             $('#itemTable').append(tr);
           }
           var mySelect = $('#selectProduct').empty();
@@ -115,9 +115,34 @@
   $("#finalizarPedido").click(function () {
     $.post('/Pedido/FinalizarPedido', { PedidoId: $('#PedidoId').val(), UserId: $('#User').val(), PessoaId: $('#selectClient').val() },
       function (data) {
-        console.log("finaliza o pedido");
+        window.location.href = data;
       }
       , 'json');
   }
   );
+
+
+
 });
+function removerItem(Id) {
+  $.post('/Pedido/RemoverItem', { PedidoId: $('#PedidoId').val(), ProdutoId: Id },
+    function (data) {
+      console.log(data);
+      $("#itemTable > tbody").html("");
+      if (data.Produtos.length > 0) {
+        for (var i = 0; i < data.Produtos.length; i++) {
+          var tr = $('<tr>');
+          tr.append("<td class='text-center'>" + data.Produtos[i].Id + "</td>");
+          tr.append("<td class='text-center'>" + data.Produtos[i].Nome + "</td>");
+          tr.append("<td class='text-center'>" + data.Produtos[i].Quantidade + "</td>");
+          tr.append("<td class='text-center'>" + data.Produtos[i].PrecoVenda + "</td>");
+          tr.append("<td class='text-center'><div class='btn btn-default btn-flat' onclick = 'removerItem(" + data.Produtos[i].Id + ");' >Deletar</div></td></tr>");
+          $('#itemTable').append(tr);
+        }
+      }
+      else {
+        $('.dataTables_empty').hide();
+      }
+    }
+    , 'json');
+}

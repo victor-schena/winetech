@@ -68,19 +68,19 @@ namespace Entities.Contexts
                  .WithMany(sa => sa.Produtos)
                  .HasForeignKey(sa => sa.TipoId);
 
-      modelBuilder.Entity<Pedido>().HasKey(x => x.Id);
-      modelBuilder.Entity<Produto>().HasKey(x => x.Id);
-      modelBuilder.Entity<PedidoProduto>().HasKey(x =>
-          new
-          {
-            x.PedidoId,
-            x.ProdutoId
-          });
+      //modelBuilder.Entity<Pedido>().HasKey(x => x.Id);
+      //modelBuilder.Entity<Produto>().HasKey(x => x.Id);
+      //modelBuilder.Entity<PedidoProduto>().HasKey(x =>
+      //    new
+      //    {
+      //      x.PedidoId,
+      //      x.ProdutoId
+      //    });
 
-      modelBuilder.Entity<PedidoProduto>()
-          .HasRequired(x => x.Pedido)
-          .WithMany(x => x.PedidosProdutos)
-          .HasForeignKey(x => x.PedidoId);
+      //modelBuilder.Entity<PedidoProduto>()
+      //    .HasRequired(x => x.Pedido)
+      //    .WithMany(x => x.PedidosProdutos)
+      //    .HasForeignKey(x => x.PedidoId);
 
       //modelBuilder.Entity<PedidoProduto>()
       //    .HasRequired(x => x.Produto)

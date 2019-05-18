@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201905162138189_AddUserIdToOrder.Designer.cs">
       <DependentUpon>201905162138189_AddUserIdToOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905171538332_FixproductOrderTableName.cs" />
+    <Compile Include="Migrations\201905171538332_FixproductOrderTableName.Designer.cs">
+      <DependentUpon>201905171538332_FixproductOrderTableName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\Classe.cs" />
@@ -95,6 +99,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905162138189_AddUserIdToOrder.resx">
       <DependentUpon>201905162138189_AddUserIdToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905171538332_FixproductOrderTableName.resx">
+      <DependentUpon>201905171538332_FixproductOrderTableName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
