@@ -18,9 +18,5 @@ namespace Admin.Functions
       get { return Convert.ToInt32(ConfigurationManager.AppSettings["ImageFileSize"]); }
     }
 
-    //public static int DocumentFileSize
-    //{
-    //  get { return Convert.ToInt32(ConfigurationManager.AppSettings["DocumentFileSize"]); }
-    //}
   }
 }

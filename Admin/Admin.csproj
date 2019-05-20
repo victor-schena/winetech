@@ -250,7 +250,6 @@
     <Compile Include="DataContexts\IdentityDb.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Functions\Pagination.cs" />
     <Compile Include="Functions\Text.cs" />
     <Compile Include="Functions\Validations.cs" />
     <Compile Include="Migrations\201607061807519_InitialCreate.cs" />
@@ -286,7 +285,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tables\Credential.cs" />
-    <Content Include="App_Code\Helper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -545,6 +543,7 @@
     <Content Include="Views\Producao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Carrinho\" />
     <Folder Include="Views\PedidoVenda\" />

@@ -14,31 +14,6 @@ namespace Admin.Models
     public bool BrowserRemembered { get; set; }
   }
 
-  //public class ManageLoginsViewModel
-  //{
-  //  public IList<UserLoginInfo> CurrentLogins { get; set; }
-  //  public IList<AuthenticationDescription> OtherLogins { get; set; }
-  //}
-
-  //public class FactorViewModel
-  //{
-  //  public string Purpose { get; set; }
-  //}
-
-  //public class SetPasswordViewModel
-  //{
-  //  [Required]
-  //  [StringLength(100, ErrorMessage = "A senha deve ter no mínimo 6 dígitos.", MinimumLength = 6)]
-  //  [DataType(DataType.Password)]
-  //  [Display(Name = "Nova senha")]
-  //  public string NewPassword { get; set; }
-
-  //  [DataType(DataType.Password)]
-  //  [Display(Name = "Confirmar nova senha")]
-  //  [Compare("NewPassword", ErrorMessage = "A nova senha e a confirmação devem ser iguais.")]
-  //  public string ConfirmPassword { get; set; }
-  //}
-
   public class ChangePasswordViewModel
   {
     [Required]
@@ -57,30 +32,4 @@ namespace Admin.Models
     [Compare("NewPassword", ErrorMessage = "A nova senha e a confirmação devem ser iguais.")]
     public string ConfirmPassword { get; set; }
   }
-
-  //public class AddPhoneNumberViewModel
-  //{
-  //  [Required]
-  //  [Phone]
-  //  [Display(Name = "Telefone")]
-  //  public string Number { get; set; }
-  //}
-
-  //public class VerifyPhoneNumberViewModel
-  //{
-  //  [Required]
-  //  [Display(Name = "Código")]
-  //  public string Code { get; set; }
-
-  //  [Required]
-  //  [Phone]
-  //  [Display(Name = "Telefone")]
-  //  public string PhoneNumber { get; set; }
-  //}
-
-  //public class ConfigureTwoFactorViewModel
-  //{
-  //  public string SelectedProvider { get; set; }
-  //  public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-  //}
 }

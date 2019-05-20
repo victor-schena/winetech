@@ -29,7 +29,7 @@ namespace Admin.Controllers
         {
           return RedirectToAction("Index", "Home");
         }
-        var pedidos = db.Pedidos.Include(p => p.Pessoa).OrderByDescending(p=>p.Id).ToList();
+        var pedidos = db.Pedidos.Include(p => p.Pessoa).OrderByDescending(p => p.Id).ToList();
         return View(pedidos);
       }
       catch (Exception ex)
@@ -52,7 +52,9 @@ namespace Admin.Controllers
 
         foreach (var item in pedido.PedidosProdutos)
         {
-          produtos.Add(db.Produtos.Find(item.ProdutoId));
+          Produto prod = db.Produtos.Find(item.ProdutoId);
+          prod.Quantidade = item.Quantidade;
+          produtos.Add(prod);
         }
 
         PedidoItemViewModel pedidoViewModel = new PedidoItemViewModel();
@@ -113,7 +115,8 @@ namespace Admin.Controllers
         PedidoItemViewModel pedidoItemviewModel = new PedidoItemViewModel();
         //busca o cliente e adiciona ao pedido
         Pessoa pessoa = new Pessoa();
-        pessoa = db.Pessoas.AsNoTracking().Where(p => p.Id == PessoaId).FirstOrDefault();
+        if (PessoaId != 0)
+          pessoa = db.Pessoas.AsNoTracking().Where(p => p.Id == PessoaId).FirstOrDefault();
 
         //busca o produto e adiciona ao carrinho
         produto = db.Produtos.Find(ProdutoId);
@@ -121,7 +124,10 @@ namespace Admin.Controllers
 
         //busca a pessoa e adiciona ao pedido - atualiza o pedido
         pedido.Id = PedidoId;
-        pedido.PessoaId = PessoaId;
+        if (PessoaId == 0) pedido.PessoaId = db.Pessoas.Where(p => p.NomeCompleto.Contains("Desconhecido")).FirstOrDefault().Id;
+        else
+          pedido.PessoaId = PessoaId;
+
         pedido.Quantidade = CarrinhoViewModel.Lines.Sum(e => e.Quantidade);
         pedido.Produtos = CarrinhoViewModel.Lines.Select(p => new Produto { Id = p.Produto.Id, Nome = p.Produto.Nome, Quantidade = p.Quantidade, PrecoVenda = p.Produto.PrecoVenda }).ToList();
         pedido.Total = CarrinhoViewModel.ComputeTotalValue();
@@ -129,11 +135,12 @@ namespace Admin.Controllers
         pedido.DataPedido = DateTime.Now;
         pedido.isEmitido = false;
         pedido.isVenda = true;
-        pedido.isPessoaFisica = pessoa.TipoPessoaId == 1 ? true : false;
+        if (pessoa != null)
+          pedido.isPessoaFisica = pessoa.TipoPessoaId == 1 ? true : false;
         db.Entry(pedido).State = EntityState.Modified;
         db.SaveChanges();
         pedidoItemviewModel.Pedido = pedido;
-        pedidoItemviewModel.PessoaId = PessoaId;
+        pedidoItemviewModel.PessoaId = pedido.PessoaId;
         //pedidoItemviewModel.Pessoa = pessoa;
         pedidoItemviewModel.Produtos = pedido.Produtos.ToList();
         pedidoItemviewModel.Pedido.UserId = UserId;
@@ -405,6 +412,46 @@ namespace Admin.Controllers
       {
 
         throw ex;
+      }
+    }
+    public ActionResult DevolverItem(int PedidoId, int ProdutoId)
+    {
+      try
+      {
+        Pedido pedido = db.Pedidos.AsNoTracking().Include("PedidosProdutos").Include("Pessoa").Where(p => p.Id == PedidoId).FirstOrDefault();
+
+        List<Produto> produtos = new List<Produto>();
+
+        //foreach (var item in pedido.PedidosProdutos.Where(p => p.ProdutoId == ProdutoId).ToList())
+        //{
+        //  pedido.PedidosProdutos.Remove(item);
+        //}
+        //foreach (var item in pedido.PedidosProdutos)
+        //{
+        //  produtos.Add(db.Produtos.Find(item.ProdutoId));
+        //}
+
+        db.Entry(pedido).State = EntityState.Modified;
+        db.SaveChanges();
+
+        pedido.PedidosProdutos = null;
+        PedidoItemViewModel pedidoViewModel = new PedidoItemViewModel();
+        if (pedido.Pessoa == null)
+          pedidoViewModel.Pessoa = new Pessoa();
+        else
+          pedidoViewModel.Pessoa = new Pessoa() { Id = pedido.Pessoa.Id, NomeCompleto = pedido.Pessoa.NomeCompleto, NomeFantasia = pedido.Pessoa.NomeFantasia };
+        pedidoViewModel.Produtos = produtos.Select(p => new Produto { Id = p.Id, Nome = p.Nome, Quantidade = p.Quantidade, PrecoVenda = p.PrecoVenda }).ToList();
+        pedidoViewModel.PessoaId = pedido.PessoaId;
+        pedidoViewModel.PedidoId = (int)PedidoId;
+        //pedidoViewModel.Pedido = pedido;
+        pedidoViewModel.Total = (decimal)pedido.Total;
+        pedidoViewModel.Quantidade = pedido.Quantidade;
+        return Json(pedidoViewModel);
+      }
+      catch (Exception)
+      {
+
+        throw;
       }
     }
     public void Clear(int PedidoId)

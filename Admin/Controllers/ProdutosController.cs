@@ -230,15 +230,15 @@ namespace Admin.Controllers
           produto.Status = true;
           int id = produto.Id;
           //load recipe with ingredients from the database
-          var recipeItem = db.Produtos.Include(r => r.Uvas).Single(r => r.Id == id);
+          var _produto = db.Produtos.Include(r => r.Uvas).Single(r => r.Id == id);
           //apply the values that have changed
-          db.Entry(recipeItem).CurrentValues.SetValues(produto);
+          db.Entry(_produto).CurrentValues.SetValues(produto);
           //clear the ingredients to let the framework know they have to be processed
-          recipeItem.Uvas.Clear();
+          _produto.Uvas.Clear();
           //now reload the ingredients again, but from the list of selected ones as per model provided by the view
           foreach (int ingId in selectedUvas)
           {
-            recipeItem.Uvas.Add(db.Uvas.Find(ingId));
+            _produto.Uvas.Add(db.Uvas.Find(ingId));
           }
           //finally, save changes as usual
           db.SaveChanges();

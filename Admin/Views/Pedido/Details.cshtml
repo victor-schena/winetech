@@ -59,7 +59,7 @@
             <div class="form-horizontal">
               <div class="form-group">
                 @Html.HiddenFor(model => model.PessoaId, new { htmlAttributes = new { @id = "PessoaId" } })
-                @Html.HiddenFor(model => model.PedidoId)
+                @Html.HiddenFor(model => model.PedidoId, new { htmlAttributes = new { @id = "PedidoId" } })
                 @if (Model.Pessoa.Id == 0)
                 {
                   <div class="col-md-2">
@@ -171,12 +171,12 @@
               </div>
             </div>
             <div class="table">
-              <table class="table table-striped table-bordered table-hover">
+              <table class="table table-striped table-bordered table-hover" id="itemTable">
                 <thead>
                   <tr>
-                    @*<th>
+                    <th>
                       Remover:
-                    </th>*@
+                    </th>
                     <th>
                       Nome:
                     </th>
@@ -196,9 +196,9 @@
                   {
                     <tr>
                       @Html.HiddenFor(model => item.Id)
-                      @*<td>
-                        <a class="btn btn-danger" onclick="enviarItem(@Model.PedidoId,@item.Id)" title="Remover">Remover</a>
-                      </td>*@
+                      <td>
+                        <a class="btn btn-danger" onclick="devolverItem(@Model.PedidoId,@item.Id)" title="Remover">Remover</a>
+                      </td>
                       <td title="@item.Nome">
                         @if (item.Nome.Length > 130)
                         {

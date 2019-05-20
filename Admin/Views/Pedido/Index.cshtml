@@ -85,7 +85,7 @@
 
                   <a href="@Url.Action("Details", "Pedido", new { id = item.Id})" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
 
-                  <a href="#" data-action="@Url.Action("Delete","Pedido",new {id=item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>
+                  <a href="#" class="btn-delete" data-action="@Url.Action("Delete","Pedido",new {id=item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>
 
                 </td>
               </tr>

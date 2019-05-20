@@ -10,12 +10,6 @@ namespace Admin.Functions
 {
   public class Text
   {
-    //public static string RemoveHtmlTags(string s)
-    //{
-    //  string withoutHtml = Regex.Replace(s, @"<[^>]+>|&nbsp;", "").Trim();
-    //  return Regex.Replace(withoutHtml, @"\s{2,}", " ");
-    //}
-
     public static string RemoveDiacritics(string s)
     {
       if (string.IsNullOrWhiteSpace(s))
@@ -39,10 +33,5 @@ namespace Admin.Functions
       else
         return str5;
     }
-
-    //public static string ToTitleCase(string str)
-    //{
-    //  return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
-    //}
   }
 }

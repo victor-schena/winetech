@@ -147,8 +147,4 @@ namespace Admin.Functions
     }
 
   }
-  public class Credenciais
-  {
-
-  }
 }
