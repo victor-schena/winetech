@@ -175,7 +175,7 @@
                 <thead>
                   <tr>
                     <th>
-                      Remover:
+                      Devolver:
                     </th>
                     <th>
                       Nome:
@@ -197,7 +197,7 @@
                     <tr>
                       @Html.HiddenFor(model => item.Id)
                       <td>
-                        <a class="btn btn-danger" onclick="devolverItem(@Model.PedidoId,@item.Id)" title="Remover">Remover</a>
+                        <a class="btn btn-danger" onclick="devolverItem(@Model.PedidoId,@item.Id)" title="Remover">Devolver</a>
                       </td>
                       <td title="@item.Nome">
                         @if (item.Nome.Length > 130)

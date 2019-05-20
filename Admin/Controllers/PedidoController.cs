@@ -422,15 +422,16 @@ namespace Admin.Controllers
 
         List<Produto> produtos = new List<Produto>();
 
-        //foreach (var item in pedido.PedidosProdutos.Where(p => p.ProdutoId == ProdutoId).ToList())
-        //{
-        //  pedido.PedidosProdutos.Remove(item);
-        //}
-        //foreach (var item in pedido.PedidosProdutos)
-        //{
-        //  produtos.Add(db.Produtos.Find(item.ProdutoId));
-        //}
-
+        foreach (var item in pedido.PedidosProdutos.Where(p => p.ProdutoId == ProdutoId).ToList())
+        {
+          //pedido.PedidosProdutos.Remove(item);
+          db.PedidosProdutos.Attach(item);
+          db.Entry(item).State = EntityState.Deleted;
+          db.SaveChanges();
+        }
+        pedido.Total = pedido.PedidosProdutos.Sum(e => e.PrecoVenda * e.Quantidade);
+        pedido.isVenda = true;
+        pedido.Quantidade = pedido.PedidosProdutos.Sum(e => e.Quantidade);
         db.Entry(pedido).State = EntityState.Modified;
         db.SaveChanges();
 
@@ -439,7 +440,7 @@ namespace Admin.Controllers
         if (pedido.Pessoa == null)
           pedidoViewModel.Pessoa = new Pessoa();
         else
-          pedidoViewModel.Pessoa = new Pessoa() { Id = pedido.Pessoa.Id, NomeCompleto = pedido.Pessoa.NomeCompleto, NomeFantasia = pedido.Pessoa.NomeFantasia };
+          pedidoViewModel.Pessoa = new Pessoa() { Id = pedido.Pessoa.Id, NomeCompleto = pedido.Pessoa.NomeCompleto, NomeFantasia = pedido.Pessoa.NomeFantasia,CPF=pedido.Pessoa.CPF,CNPJ=pedido.Pessoa.CNPJ };
         pedidoViewModel.Produtos = produtos.Select(p => new Produto { Id = p.Id, Nome = p.Nome, Quantidade = p.Quantidade, PrecoVenda = p.PrecoVenda }).ToList();
         pedidoViewModel.PessoaId = pedido.PessoaId;
         pedidoViewModel.PedidoId = (int)PedidoId;
