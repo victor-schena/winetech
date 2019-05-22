@@ -229,6 +229,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Helper.cs" />
     <Compile Include="Attributes\RestrictAttribute.cs" />
     <Compile Include="Classes\PessoaFisica.cs" />
     <Compile Include="Classes\PessoaJuridica.cs" />
@@ -543,7 +544,6 @@
     <Content Include="Views\Producao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Carrinho\" />
     <Folder Include="Views\PedidoVenda\" />

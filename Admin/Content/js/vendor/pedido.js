@@ -53,7 +53,7 @@
             console.log(data);
             //ocultar loading
             for (var i = 0; i < data.length; i++) {
-              var myOptions = { val: data[i].Nome +" - "+ data[i].PrecoVenda };
+              var myOptions = { val: data[i].Nome + " - " + data[i].PrecoVenda.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) };
               $.each(myOptions, function (val, text) {
                 mySelect.append(
                   $('<option></option>').val(data[i].Id).html(text)
@@ -71,7 +71,7 @@
         }
         , 'json');
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
   );
@@ -145,6 +145,6 @@ function removerItem(Id) {
 }
 function devolverItem(Pedido_Id,Produto_Id) {
   $.post('/Pedido/DevolverItem', { PedidoId: Pedido_Id, ProdutoId: Produto_Id }, function (data) {
-    console.log(data);
+    window.location.reload();
   } ,"json");  
 }

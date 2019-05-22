@@ -360,13 +360,18 @@ namespace Admin.Controllers
         pedido.PessoaId = PessoaId;
         db.Entry(pedido).State = EntityState.Modified;
         db.SaveChanges();
-        foreach (var item in CarrinhoViewModel.Lines.Select(p => new Produto { Id = p.Produto.Id, Nome = p.Produto.Nome, Descricao = p.Produto.Descricao, ClasseId = p.Produto.ClasseId, TipoId = p.Produto.TipoId, PaisId = p.Produto.PaisId, SafraId = p.Produto.SafraId, Quantidade = p.Quantidade, PrecoVenda = p.Produto.PrecoVenda }).ToList())
+        foreach (var item in CarrinhoViewModel.Lines) //.Select(p => new Produto { Id = p.Produto.Id, Nome = p.Produto.Nome, Descricao = p.Produto.Descricao, ClasseId = p.Produto.ClasseId, TipoId = p.Produto.TipoId, PaisId = p.Produto.PaisId, SafraId = p.Produto.SafraId, Quantidade = p.Produto.Quantidade - p.Quantidade, PrecoVenda = p.Produto.PrecoVenda }).ToList())
         {
-          db.Produtos.Add(item);
-          db.Produtos.Attach(item);
+
+          item.Produto.Quantidade -= item.Quantidade;
+          db.Entry(item.Produto).State = EntityState.Modified;
+          db.SaveChanges();
+
+          db.Produtos.Add(item.Produto);
+          db.Produtos.Attach(item.Produto);
           db.Pedidos.Add(pedido);
           db.Pedidos.Attach(pedido);
-          pedido.PedidosProdutos.Add(new PedidoProduto { PedidoId = pedido.Id, ProdutoId = item.Id, Quantidade = item.Quantidade, PrecoVenda = item.PrecoVenda });
+          pedido.PedidosProdutos.Add(new PedidoProduto { PedidoId = pedido.Id, ProdutoId = item.Produto.Id, Quantidade = item.Quantidade, PrecoVenda = item.Produto.PrecoVenda });
           db.SaveChanges();
         }
         return Json("/Pedido/Index");

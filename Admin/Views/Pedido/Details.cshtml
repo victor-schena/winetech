@@ -3,8 +3,6 @@
 
 
 @{
-  /**/
-
   ViewBag.Title = "Details";
 }
 <script type="text/javascript">
@@ -105,36 +103,6 @@
                     @Html.EditorFor(model => model.Pessoa.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Nome" } })
                   </div>
                 }
-                @*@if (Model.Pessoa != null && Model.Pessoa.TipoPessoaId == 1 && string.IsNullOrEmpty(Model.Pessoa.CPF) && string.IsNullOrEmpty(Model.Pessoa.NomeCompleto))
-                  {
-                    <div class="col-md-2">
-                      @Html.Label("CPF ou CNPJ:")
-                    </div>
-                    <div class=" col-md-2">
-                      @Html.EditorFor(model => model.Pessoa.CPF, new { htmlAttributes = new { @class = "form-control", @id = "doc" } })
-                    </div>
-                    <div class="col-md-2">
-                      @Html.Label("Nome ou Razão social:")
-                    </div>
-                    <div class="col-md-5">
-                      @Html.EditorFor(model => model.Pessoa.NomeCompleto, new { htmlAttributes = new { @class = "form-control", @id = "Nome" } })
-                    </div>
-                  }*@
-                @*@if (Model.Pessoa != null && Model.Pessoa.TipoPessoaId == 2 && string.IsNullOrEmpty(Model.Pessoa.CNPJ) && string.IsNullOrEmpty(Model.Pessoa.NomeFantasia))
-                  {
-                    <div class="col-md-2">
-                      @Html.Label("CPF ou CNPJ:")
-                    </div>
-                    <div class=" col-md-2">
-                      @Html.EditorFor(model => model.Pessoa.CNPJ, new { htmlAttributes = new { @class = "form-control",  @id = "doc" } })
-                    </div>
-                    <div class="col-md-2">
-                      @Html.Label("Nome ou Razão social:")
-                    </div>
-                    <div class="col-md-5">
-                      @Html.EditorFor(model => model.Pessoa.NomeFantasia, new { htmlAttributes = new { @class = "form-control", @id = "Nome" } })
-                    </div>
-                  }*@
               </div>
               <br />
             </div>
