@@ -8,8 +8,8 @@
 
 <section class="content-header">
   <h1>
-    Pedido de Venda
-    <a class="btn btn-default btn-flat" href="@Url.Action("Create", "Pedido")" role="button" title="Novo Pedido">Novo Pedido</a>
+    Pedido de Compra
+    <a class="btn btn-default btn-flat" href="@Url.Action("Create", "PedidoCompra")" role="button" title="Novo Pedido">Novo Pedido</a>
   </h1>
 </section>
 @if (TempData["Success"] != null)
@@ -81,11 +81,11 @@
                   R$ @Html.DisplayFor(modelItem => item.Total)
                 </td>
                 <td>
-                  @*<a href="@Url.Action("Edit", "Pedido", new { id = item.Id })" title="Editar"><span class="label label-info"><i class="fa fa-pencil-square-o "></i></span></a>*@
+                  @*<a href="@Url.Action("Edit", "PedidoCompra", new { id = item.Id })" title="Editar"><span class="label label-info"><i class="fa fa-pencil-square-o "></i></span></a>*@
 
-                  <a href="@Url.Action("Details", "Pedido", new { id = item.Id})" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
+                  <a href="@Url.Action("Details", "PedidoCompra", new { id = item.Id})" title="Detalhes"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
 
-                  @*<a href="#" class="btn-delete" data-action="@Url.Action("Delete","Pedido",new {id=item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>*@
+                  @*<a href="#" class="btn-delete" data-action="@Url.Action("Delete","PedidoCompra",new {id=item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="Deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>*@
 
                 </td>
               </tr>

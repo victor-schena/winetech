@@ -59,18 +59,7 @@
     </ul>
   </li>
 
-  @*@if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Endereco"))
-    {
-      <li>
-        <a id="a-enderecos" href="@Url.Action("Index", "Enderecoes")"><i class="fa fa-building"></i> Endereços</a>
-      </li>
-    }*@
-  @*@if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Pais"))
-    {
-      <li>
-        <a id="a-paises" href="@Url.Action("Index", "Pais")"><i class="fa fa-globe"></i> Paises</a>
-      </li>
-    }*@
+
   @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Safra"))
   {
     <li>
@@ -84,7 +73,7 @@
       <a id="a-pedidos" href="@Url.Action("Index", "Pedido")"><i class="fa fa-money"></i><span class="pull-right container"><i class="fa fa-angle-left pull-right"></i></span> Pedidos</a>
       <ul class="treeview-menu">
         <li>
-          <a href="#"><i class="fa fa-shopping-bag"></i>Pedidos de Compra</a>
+          <a href="@Url.Action("Index","PedidoCompra")"><i class="fa fa-shopping-bag"></i>Pedidos de Compra</a>
         </li>
         <li>
           <a href="@Url.Action("Index","Pedido")"><i class="fa fa-shopping-cart"></i>Pedidos de Venda</a>

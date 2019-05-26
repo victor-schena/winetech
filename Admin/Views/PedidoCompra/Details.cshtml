@@ -41,7 +41,7 @@
 </script>
 <section class="content-header">
   <h1>
-    Pedidos de Venda
+    Pedidos de Compra
     <small>Detalhes</small>
   </h1>
 </section>
@@ -52,7 +52,7 @@
       <div class="col-lg-12">
         <div class="box box-primary">
           <div class="box box-body">
-            <h4>Dados do cliente</h4>
+            <h4>Dados do fornecedor</h4>
             <hr />
             <div class="form-horizontal">
               <div class="form-group">
@@ -197,7 +197,7 @@
     <p>
       @if (Model.Pedido.isEmitido != null && !Model.Pedido.isEmitido == true || Model.Pedido.isEmitido == null)
       {
-        <a href="@Url.Action("Index", "Produtos", new { id = Model.PedidoId })" title="Index" class="btn "> Voltar</a>
+        <a href="@Url.Action("Index", "Produtos", new { id = Model.PedidoId })" title="Index" class="btn"> Voltar</a>
         @*<input type="submit" value="Finalizar" class="btn btn-success">*@
       }
     </p>

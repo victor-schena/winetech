@@ -239,9 +239,8 @@
     <Compile Include="Controllers\FornecedorPessoaFisicaController.cs" />
     <Compile Include="Controllers\FornecedorPessoaJuridicaController.cs" />
     <Compile Include="Controllers\PaisController.cs" />
+    <Compile Include="Controllers\PedidoCompraController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
-    <Compile Include="Controllers\PedidoVendaController.cs" />
-    <Compile Include="Controllers\PedidoVendaPessoaFisicaController.cs" />
     <Compile Include="Controllers\PessoasController.cs" />
     <Compile Include="Controllers\ProducaoController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
@@ -542,6 +541,11 @@
     <Content Include="Views\Producao\Details.cshtml" />
     <Content Include="Views\Producao\Edit.cshtml" />
     <Content Include="Views\Producao\Index.cshtml" />
+    <Content Include="Views\PedidoCompra\Index.cshtml" />
+    <Content Include="Views\PedidoCompra\Edit.cshtml" />
+    <Content Include="Views\PedidoCompra\Details.cshtml" />
+    <Content Include="Views\PedidoCompra\Delete.cshtml" />
+    <Content Include="Views\PedidoCompra\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />
