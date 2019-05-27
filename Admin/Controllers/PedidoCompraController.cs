@@ -29,7 +29,7 @@ namespace Admin.Controllers
         {
           return RedirectToAction("Index", "Home");
         }
-        var pedidos = db.Pedidos.Include(p => p.Pessoa).OrderByDescending(p => p.Id).ToList();
+        var pedidos = db.Pedidos.Include(p => p.Pessoa).OrderByDescending(p => p.Id).Where(p=>p.isVenda==false).ToList();
         return View(pedidos);
       }
       catch (Exception ex)
@@ -85,7 +85,7 @@ namespace Admin.Controllers
     {
       try
       {
-        Pedido pedido = new Pedido { DataPedido = DateTime.Now, isVenda = true, isEmitido = false };
+        Pedido pedido = new Pedido { DataPedido = DateTime.Now, isVenda = false, isEmitido = false };
         ViewBag.Users = new SelectList(new IdentityDb().Users.AsNoTracking().OrderBy(x => x.Name), "Id", "Name", new { Id = 0, Nome = "Selecione" });
         db.Pedidos.Add(pedido);
         db.SaveChanges();
@@ -129,12 +129,12 @@ namespace Admin.Controllers
           pedido.PessoaId = PessoaId;
 
         pedido.Quantidade = CarrinhoViewModel.Lines.Sum(e => e.Quantidade);
-        pedido.Produtos = CarrinhoViewModel.Lines.Select(p => new Produto { Id = p.Produto.Id, Nome = p.Produto.Nome, Quantidade = p.Quantidade, PrecoVenda = p.Produto.PrecoVenda }).ToList();
-        pedido.Total = CarrinhoViewModel.ComputeTotalValue();
+        pedido.Produtos = CarrinhoViewModel.Lines.Select(p => new Produto { Id = p.Produto.Id, Nome = p.Produto.Nome, Quantidade = p.Quantidade, CustoUnitario = p.Produto.CustoUnitario }).ToList();
+        pedido.Total = CarrinhoViewModel.ComputeBuyingTotalValue();
         pedido.UserId = UserId;
         pedido.DataPedido = DateTime.Now;
         pedido.isEmitido = false;
-        pedido.isVenda = true;
+        pedido.isVenda = false;
         if (pessoa != null)
           pedido.isPessoaFisica = pessoa.TipoPessoaId == 1 ? true : false;
         db.Entry(pedido).State = EntityState.Modified;
@@ -326,9 +326,9 @@ namespace Admin.Controllers
         foreach (var item in CarrinhoViewModel.Lines) //.Select(p => new Produto { Id = p.Produto.Id, Nome = p.Produto.Nome, Descricao = p.Produto.Descricao, ClasseId = p.Produto.ClasseId, TipoId = p.Produto.TipoId, PaisId = p.Produto.PaisId, SafraId = p.Produto.SafraId, Quantidade = p.Produto.Quantidade - p.Quantidade, PrecoVenda = p.Produto.PrecoVenda }).ToList())
         {
 
-          item.Produto.Quantidade -= item.Quantidade;
-          db.Entry(item.Produto).State = EntityState.Modified;
-          db.SaveChanges();
+          //item.Produto.Quantidade -= item.Quantidade;
+          //db.Entry(item.Produto).State = EntityState.Modified;
+          //db.SaveChanges();
 
           db.Produtos.Add(item.Produto);
           db.Produtos.Attach(item.Produto);
@@ -337,7 +337,7 @@ namespace Admin.Controllers
           pedido.PedidosProdutos.Add(new PedidoProduto { PedidoId = pedido.Id, ProdutoId = item.Produto.Id, Quantidade = item.Quantidade, PrecoVenda = item.Produto.PrecoVenda });
           db.SaveChanges();
         }
-        return Json("/Pedido/Index");
+        return Json("/PedidoCompra/Index");
       }
       catch (Exception ex)
       {

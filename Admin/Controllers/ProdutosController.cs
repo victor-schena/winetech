@@ -387,6 +387,7 @@ namespace Admin.Controllers
           prod.Id = item.Id;
           prod.Nome = item.Nome;
           prod.PrecoVenda = item.PrecoVenda;
+          prod.CustoUnitario = item.CustoUnitario;
           Produtos.Add(prod);
         }
 

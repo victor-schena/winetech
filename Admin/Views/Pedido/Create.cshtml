@@ -4,6 +4,7 @@
   ViewBag.Title = "Create";
   //buscar os itens de um pedido via id do cliente
 }
+<script src="@Url.Content("~/Content/js/vendor/pedido.js")"></script>
 <section class="content-header">
   <h1>
     Pedido de Vendas
@@ -79,7 +80,7 @@
                   @Html.ValidationMessageFor(model => model.Produto.Nome, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2">
-                  @Html.EditorFor(model => model.Produto.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1", placeholder = "Quantidade" } })
+                  @Html.EditorFor(model => model.Produto.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1", placeholder = "Quantidade", id = "qtdeProduto" } })
                 </div>
               </div>
               <br />

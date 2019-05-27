@@ -412,7 +412,20 @@ namespace Admin.Controllers
       }
       return false;
     }
+    public ActionResult Search(string Nome)
+    {
+      try
+      {
+        List<Pessoa> Pessoas = new List<Pessoa>();
 
+        Pessoas = db.Pessoas.Where(p => (p.NomeCompleto.Contains(Nome) || p.NomeFantasia.Contains(Nome)) && p.PapelPessoaId == 2).ToList();
+        return Json(Pessoas);
+      }
+      catch (Exception ex)
+      {
+        throw ex;
+      }
+    }
     protected override void Dispose(bool disposing)
     {
       if (disposing)

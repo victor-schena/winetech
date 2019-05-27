@@ -39,6 +39,7 @@
 
 
 </script>
+<script src="@Url.Content("~/Content/js/vendor/pedidocompra.js")"></script>
 <section class="content-header">
   <h1>
     Pedidos de Compra
@@ -143,7 +144,7 @@
                 <thead>
                   <tr>
                     <th>
-                      Devolver:
+                      Atualizar:
                     </th>
                     <th>
                       Nome:
@@ -151,9 +152,9 @@
                     <th>
                       Descrição:
                     </th>
-                    <th>
+                    @*<th>
                       Preço Unitário:
-                    </th>
+                    </th>*@
                     <th>
                       Quantidade:
                     </th>
@@ -165,7 +166,7 @@
                     <tr>
                       @Html.HiddenFor(model => item.Id)
                       <td>
-                        <a class="btn btn-danger" onclick="devolverItem(@Model.PedidoId,@item.Id)" title="Remover">Devolver</a>
+                        <a class="btn btn-danger" onclick="atualizarItem(@Model.PedidoId,@item.Id)" title="Remover">Atualizar</a>
                       </td>
                       <td title="@item.Nome">
                         @if (item.Nome.Length > 130)
@@ -177,12 +178,11 @@
                       <td title="@item.Descricao">
                         @Html.DisplayFor(modelItem => item.Descricao)
                       </td>
-                      <td id="tdPrecoProduto">
+                      @*<td id="tdPrecoProduto">
                         @String.Format("{0:c} ", item.PrecoVenda)
-                      </td>
+                      </td>*@
                       <td>
                         @Html.DisplayFor(model => item.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1",@disabled="disabled" } })
-                        
                       </td>
                     </tr>
                   }

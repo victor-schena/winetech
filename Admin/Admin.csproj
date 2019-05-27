@@ -436,6 +436,7 @@
       <DependentUpon>moment.js</DependentUpon>
     </Content>
     <Content Include="Content\js\vendor\pedido.js" />
+    <Content Include="Content\js\vendor\pedidocompra.js" />
     <Content Include="Content\js\vendor\spectrum.js" />
     <Content Include="Content\js\vendor\spectrum.min.js">
       <DependentUpon>spectrum.js</DependentUpon>

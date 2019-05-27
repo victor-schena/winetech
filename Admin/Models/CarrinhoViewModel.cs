@@ -30,6 +30,8 @@ namespace Admin.Models
     //calcula valor total
     public static decimal ComputeTotalValue() 
       =>lineCollection.Sum(e => e.Produto.PrecoVenda * e.Quantidade);
+    public static decimal ComputeBuyingTotalValue()
+      => lineCollection.Sum(e => e.Produto.CustoUnitario * e.Quantidade);
     //limpa carrinho
     public static void Clear() 
       => lineCollection.Clear();

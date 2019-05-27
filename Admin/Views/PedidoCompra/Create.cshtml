@@ -4,6 +4,7 @@
   ViewBag.Title = "Create";
   //buscar os itens de um pedido via id do cliente
 }
+<script src="@Url.Content("~/Content/js/vendor/pedidocompra.js")"></script>
 <section class="content-header">
   <h1>
     Pedido de Compra
@@ -27,7 +28,7 @@
                 <div class="col-md-8">
                   @Html.TextBoxFor(model => model.Pessoa.NomeCompleto, new { @class = "form-control", @id = "searchName" })
                   <br />
-                  <select id="selectClient" class="form-control"><option value="0">Busca de clientes - resultados</option></select>
+                  <select id="selectClient" class="form-control"><option value="0">Busca de fornecedores - resultados</option></select>
                   @Html.ValidationMessageFor(model => model.Pessoa.NomeCompleto, "", new { @class = "text-danger" })
                 </div>
               </div>
@@ -79,7 +80,7 @@
                   @Html.ValidationMessageFor(model => model.Produto.Nome, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2">
-                  @Html.EditorFor(model => model.Produto.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1", placeholder = "Quantidade" } })
+                  @Html.EditorFor(model => model.Produto.Quantidade, new { htmlAttributes = new { @class = "form-control", min = "1", placeholder = "Quantidade",id= "qtdeProduto" } })
                 </div>
               </div>
               <br />
@@ -109,7 +110,7 @@
                       Quantidade
                     </th>
                     <th class="text-center">
-                      Valor unitário
+                      Preço compra
                     </th>
                     <th class="text-center">
                       Deletar
@@ -134,7 +135,7 @@
                           @Html.DisplayFor(modelItem => item.Quantidade)
                         </td>
                         <td class="text-center">
-                          R$ @Html.DisplayFor(modelItem => item.PrecoVenda)
+                          R$ @Html.DisplayFor(modelItem => item.CustoUnitario)
                         </td>
                         <td class="text-center">
                           @*<div class="btn btn-default btn-flat" onclick="removerItem(@item.Id)">

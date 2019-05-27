@@ -29,7 +29,7 @@ namespace Admin.Controllers
         {
           return RedirectToAction("Index", "Home");
         }
-        var pedidos = db.Pedidos.Include(p => p.Pessoa).OrderByDescending(p => p.Id).ToList();
+        var pedidos = db.Pedidos.Include(p => p.Pessoa).OrderByDescending(p => p.Id).Where(p=> p.isVenda == true).ToList();
         return View(pedidos);
       }
       catch (Exception ex)
@@ -356,6 +356,7 @@ namespace Admin.Controllers
         //buscar o pedido na base
         Pedido pedido = db.Pedidos.Find(PedidoId);
         pedido.isEmitido = true;
+        pedido.isVenda = true;
         pedido.UserId = UserId;
         pedido.PessoaId = PessoaId;
         db.Entry(pedido).State = EntityState.Modified;
