@@ -1,6 +1,6 @@
-﻿@using Admin.App_Code;
-@using Entities.Classes;
-@using Microsoft.AspNet.Identity;
+﻿@using Admin.App_Code
+@using Entities.Classes
+@using Microsoft.AspNet.Identity
 
 @if (Request.IsAuthenticated)
 {
@@ -10,22 +10,7 @@
     <small>Dashboard</small>
   </h1>
 </section>
-
-<script language=javascript>
-    function janelaSecundaria(URL) {
-        var popup = window.open("/Relatorio/Relat.aspx", "Relatorio", "width=1300, height=800, toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no")
-        popup.addEventListener("DOMContentLoaded", function () {
-            var pu_width = popup.outerWidth;
-            var pu_height = popup.outerHeight;
-            popup.onresize = function () {
-                popup.resizeTo(pu_width, pu_height);
-                popup.focus();
-            }
-        });
-    }
-
-</script>
-
+@*<a href="~/Views/Home/Index.cshtml">~/Views/Home/Index.cshtml</a>*@
 <section class="content">
   <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -50,7 +35,7 @@
         </div>
       </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    @*<div class="col-md-3 col-sm-6 col-xs-12">
       <a href="#">
         <div class="info-box ui-sortable-handle">
           <span class="info-box-icon bg-3"><i class="fa fa fa-shopping-bag"></i></span>
@@ -60,7 +45,7 @@
           </div>
         </div>
       </a>
-    </div>
+    </div>*@
    
   </div>
  
@@ -68,7 +53,7 @@
     @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
     {
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="#">
+        <a href="@Url.Action("Index","Producao")">
           <div class="info-box">
             <span class="info-box-icon bg-4"><i class="fa fa fa-industry" aria-hidden="true"></i></span>
             <div class="info-box-content">
@@ -81,21 +66,21 @@
     }
 @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
 {
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="javascript:janelaSecundaria()">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Relatório Financeiro</span>
-                    <span class="info-box-number">Gerenciar</span>
-                </div>
-            </div>
-        </a>
-    </div>
+    @*@<div class="col-md-3 col-sm-6 col-xs-12">
+      <a href="#" >
+        <div class="info-box">
+          <span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Relatório Financeiro</span>
+            <span class="info-box-number">Gerenciar</span>
+          </div>
+        </div>
+      </a>
+    </div>*@
 }
    @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
    {
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    @*@<div class="col-md-3 col-sm-6 col-xs-12">
       <a href="#">
         <div class="info-box">
           <span class="info-box-icon bg-gray"><i class="fa fa-shopping-cart"></i></span>
@@ -105,10 +90,10 @@
           </div>
         </div>
       </a>
-    </div>
+    </div>*@
    }
   </div>
-  @*<div class="row">
+  @*@<div class="row">
 
     <section class="col-lg-7 connectedSortable ui-sortable">
       <!-- Custom tabs (Charts with tabs)-->

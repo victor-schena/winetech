@@ -55,7 +55,7 @@ namespace Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                safra.Status = true;
+                //safra.Status = true;
                 db.Safras.Add(safra);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -118,7 +118,7 @@ namespace Admin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Safra safra = db.Safras.Find(id);
-            safra.Status = false;
+            //safra.Status = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

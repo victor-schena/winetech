@@ -44,10 +44,10 @@
                       @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td align="center">
-                      <a href="@Url.Action("Edit", "Roles", new { id = item.Id })" title="editar"><span class="label label-info">EDIT</span></a>
-                      <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Roles", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="deletar"><span class="label label-danger">DEL</span></a>
+                      <a href="@Url.Action("Edit", "Roles", new { id = item.Id })" title="editar"><span class="label label-info"><i class="fa fa-pencil-square-o "></i></span></a>
+                      <a class="btn-delete" href="#" data-action="@Url.Action("Delete", "Roles", new { id = item.Id })" data-toggle="modal" data-target="#confirmation-delete-modal" title="deletar"><span class="label label-danger"><i class="fa fa-trash"></i></span></a>
                       <a href="@Url.Action("Credentials", "Roles", new { id = item.Id })" title="credenciais do perfil"><span class="label label-success"><i class="fa fa-fw fa-key"></i></span></a>
-                      <a href="@Url.Action("Details", "Roles", new { id = item.Id })" title="usuários cadastrados no perfil"><span class="label label-warning"><i class="fa fa-fw fa-user"></i></span></a>
+                      <a href="@Url.Action("Details", "Roles", new { id = item.Id })" title="usuários cadastrados no perfil"><span class="label label-warning"><i class="fa fa-info-circle"></i></span></a>
                     </td>
                   </tr>
                 }

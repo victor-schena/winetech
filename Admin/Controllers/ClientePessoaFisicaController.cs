@@ -64,8 +64,6 @@ namespace Admin.Controllers
     {
       try
       {
-        int IdCliente = 0;
-
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Create", "Cliente Pessoa Fisica"))
         {
           return RedirectToAction("Index", "Home");
@@ -149,6 +147,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
+      finally
+      {
+        db.Dispose();
+      }
 
     }
     //GET:
@@ -179,7 +181,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
 
     }
     [HttpPost]
@@ -188,7 +193,6 @@ namespace Admin.Controllers
     {
       try
       {
-
         if (!Validations.HasCredentials(User.Identity.GetUserName(), "Edit", "Cliente Pessoa Fisica"))
         {
           return RedirectToAction("Index", "Home");
@@ -254,20 +258,17 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
+      finally
+      {
+        db.Dispose();
+      }
 
-    }
-    [HttpPost]
-    public JsonResult EditEndereco(int Id)
-    {
-      var db = new EntitiesDb();
-      var endereco = db.Enderecos.AsNoTracking().Where(x => x.Id == Id).FirstOrDefault();
-      return Json(endereco, JsonRequestBehavior.AllowGet);
     }
     public ActionResult Delete(int? id)
     {
       try
       {
-        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Delete", "ClientePessoaFisica"))
+        if (!Validations.HasCredentials(User.Identity.GetUserName(), "Delete", "Cliente Pessoa Fisica"))
         {
           return RedirectToAction("Index", "Home");
         }
@@ -287,6 +288,10 @@ namespace Admin.Controllers
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
         throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
 
     }
@@ -313,7 +318,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
 
     }
     public ActionResult Details(int? id)
@@ -343,7 +351,26 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
+      finally
+      {
+        db.Dispose();
+      }
 
+    }
+    public ActionResult Search(string Nome)
+    {
+      try
+      {
+
+        List<Pessoa> Pessoas = new List<Pessoa>();
+
+        Pessoas = db.Pessoas.Where(p => (p.NomeCompleto.Contains(Nome) || p.NomeFantasia.Contains(Nome)) && p.PapelPessoaId == 1).ToList();
+        return Json(Pessoas);
+      }
+      catch (Exception ex)
+      {
+        throw ex;
+      }
     }
     public bool ValidaCamposPessoaFisica(Pessoa pessoa)
     {

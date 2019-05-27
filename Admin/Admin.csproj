@@ -105,6 +105,30 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Runtime.WebForms.12.0.2402.15\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Reporting.WinForms.v11.1.0.0.0\lib\Microsoft.ReportViewer.WinForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Reporting.WinForms.v11.1.0.0.0\lib\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
       <Private>True</Private>
@@ -142,6 +166,7 @@
     <Reference Include="System.Runtime">
       <HintPath>..\packages\System.Runtime.4.1.0\ref\net462\System.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -206,11 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\RestrictAttribute.cs" />
-    <Compile Include="bDS1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>bDS.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Classes\PessoaFisica.cs" />
     <Compile Include="Classes\PessoaJuridica.cs" />
     <Compile Include="Controllers\ClientePessoaFisicaController.cs" />
@@ -223,6 +243,7 @@
     <Compile Include="Controllers\PedidoVendaController.cs" />
     <Compile Include="Controllers\PedidoVendaPessoaFisicaController.cs" />
     <Compile Include="Controllers\PessoasController.cs" />
+    <Compile Include="Controllers\ProducaoController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\SafrasController.cs" />
@@ -249,37 +270,32 @@
     <Compile Include="Migrations\201607071425386_FixUserProfile.Designer.cs">
       <DependentUpon>201607071425386_FixUserProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705230121074_Fix Produtos Table.cs" />
-    <Compile Include="Migrations\201705230121074_Fix Produtos Table.Designer.cs">
-      <DependentUpon>201705230121074_Fix Produtos Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705230151352_Fix Produto.cs" />
-    <Compile Include="Migrations\201705230151352_Fix Produto.Designer.cs">
-      <DependentUpon>201705230151352_Fix Produto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705232139350_Produtos.cs" />
-    <Compile Include="Migrations\201705232139350_Produtos.Designer.cs">
-      <DependentUpon>201705232139350_Produtos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.cs" />
-    <Compile Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.Designer.cs">
-      <DependentUpon>201705251940294_AlterTablesAddColumnStatusToAll.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CarrinhoViewModel.cs" />
     <Compile Include="Models\ClienteEnderecoViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PedidoItemViewModel.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="Relatorio\Relat.aspx.cs">
-      <DependentUpon>Relat.aspx</DependentUpon>
+    <Compile Include="Relatorio\Relatorio2.aspx.cs">
+      <DependentUpon>Relatorio2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Relatorio\Relat.aspx.designer.cs">
-      <DependentUpon>Relat.aspx</DependentUpon>
+    <Compile Include="Relatorio\Relatorio2.aspx.designer.cs">
+      <DependentUpon>Relatorio2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorio\Relatorio1.aspx.cs">
+      <DependentUpon>Relatorio1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Relatorio\Relatorio1.aspx.designer.cs">
+      <DependentUpon>Relatorio1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorio\Relatorio.aspx.cs">
+      <DependentUpon>Relatorio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Relatorio\Relatorio.aspx.designer.cs">
+      <DependentUpon>Relatorio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs">
       <SubType>Code</SubType>
@@ -309,49 +325,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\initial-credentials-config.sql" />
-    <Content Include="bin\Admin.dll" />
-    <Content Include="bin\Admin.pdb" />
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Entities.dll" />
-    <Content Include="bin\Entities.pdb" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
-    <Content Include="bin\Microsoft.AspNetCore.Http.dll" />
-    <Content Include="bin\Microsoft.AspNetCore.Mvc.dll" />
-    <Content Include="bin\Microsoft.Owin.dll" />
-    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Facebook.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Google.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Twitter.dll" />
-    <Content Include="bin\Microsoft.Threading.Tasks.dll" />
-    <Content Include="bin\Microsoft.Threading.Tasks.Extensions.Desktop.dll" />
-    <Content Include="bin\Microsoft.Threading.Tasks.Extensions.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Owin.dll" />
-    <Content Include="bin\SendGrid.dll" />
-    <Content Include="bin\SendGrid.SmtpApi.dll" />
-    <Content Include="bin\SendGridMail.dll" />
-    <Content Include="bin\Swashbuckle.AspNetCore.dll" />
-    <Content Include="bin\System.Diagnostics.Tracing.dll" />
-    <Content Include="bin\System.Runtime.dll" />
-    <Content Include="bin\System.Runtime.InteropServices.dll" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\WebActivator.dll" />
-    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -479,6 +452,7 @@
     <Content Include="Content\js\vendor\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
+    <Content Include="Content\js\vendor\pedido.js" />
     <Content Include="Content\js\vendor\spectrum.js" />
     <Content Include="Content\js\vendor\spectrum.min.js">
       <DependentUpon>spectrum.js</DependentUpon>
@@ -500,32 +474,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="obj\Release\Admin.csproj.CoreCompileInputs.cache" />
-    <Content Include="obj\Release\Admin.csprojAssemblyReference.cache" />
-    <Content Include="bDS.xsc">
-      <DependentUpon>bDS.xsd</DependentUpon>
-    </Content>
-    <None Include="bDS.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>bDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="bDS.xss">
-      <DependentUpon>bDS.xsd</DependentUpon>
-    </Content>
-    <Content Include="bin\Admin.dll.config" />
-    <Content Include="bin\Entities.dll.config" />
     <None Include="Properties\PublishProfiles\Victor.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Relatorio\ChartPic_000001.png" />
-    <Content Include="Relatorio\ChartPic_000002.png" />
-    <Content Include="Relatorio\ChartPic_000003.png" />
-    <Content Include="Relatorio\ChartPic_000004.png" />
-    <Content Include="Relatorio\ChartPic_000005.png" />
-    <Content Include="Relatorio\ChartPic_000006.png" />
-    <Content Include="Relatorio\ChartPic_000007.png" />
-    <Content Include="Relatorio\ChartPic_000008.png" />
-    <Content Include="Relatorio\Relat.aspx" />
+    <Content Include="Relatorio\Relatorio2.aspx" />
+    <Content Include="Relatorio\Relatorio1.aspx" />
+    <Content Include="Relatorio\Relatorio.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -602,6 +555,11 @@
     <Content Include="Views\Uvas\Edit.cshtml" />
     <Content Include="Views\Uvas\Index.cshtml" />
     <Content Include="Views\Shared\_ShoppingCart.cshtml" />
+    <Content Include="Views\Producao\Create.cshtml" />
+    <Content Include="Views\Producao\Delete.cshtml" />
+    <Content Include="Views\Producao\Details.cshtml" />
+    <Content Include="Views\Producao\Edit.cshtml" />
+    <Content Include="Views\Producao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />
@@ -744,18 +702,6 @@
     <EmbeddedResource Include="Migrations\201607071425386_FixUserProfile.resx">
       <DependentUpon>201607071425386_FixUserProfile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705230121074_Fix Produtos Table.resx">
-      <DependentUpon>201705230121074_Fix Produtos Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705230151352_Fix Produto.resx">
-      <DependentUpon>201705230151352_Fix Produto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705232139350_Produtos.resx">
-      <DependentUpon>201705232139350_Produtos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705251940294_AlterTablesAddColumnStatusToAll.resx">
-      <DependentUpon>201705251940294_AlterTablesAddColumnStatusToAll.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -771,7 +717,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>36049</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:18896/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

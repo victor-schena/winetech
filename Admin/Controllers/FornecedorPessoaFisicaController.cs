@@ -32,7 +32,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
     public ActionResult Create()
@@ -50,7 +53,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
     [HttpPost]
@@ -125,9 +131,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
 
     public ActionResult Edit(int? id)
@@ -156,7 +164,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
 
     }
@@ -220,9 +231,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     public ActionResult Delete(int? id)
     {
@@ -247,9 +260,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
@@ -273,9 +288,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
     public ActionResult Details(int? id)
     {
@@ -302,9 +319,11 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
 
     }
     public bool ValidaCamposPessoaFisica(Pessoa pessoa)

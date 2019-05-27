@@ -29,7 +29,10 @@ namespace Admin.Controllers
       {
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
-        throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
 
@@ -56,7 +59,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
 
     // GET: Enderecoes/Create
@@ -73,6 +79,10 @@ namespace Admin.Controllers
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
         throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
     }
 
@@ -102,6 +112,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
+      finally
+      {
+        db.Dispose();
+      }
 
     }
 
@@ -129,6 +143,10 @@ namespace Admin.Controllers
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
         throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
 
     }
@@ -158,6 +176,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
+      finally
+      {
+        db.Dispose();
+      }
 
     }
 
@@ -184,7 +206,10 @@ namespace Admin.Controllers
         return RedirectToAction("Index");
         throw ex;
       }
-
+      finally
+      {
+        db.Dispose();
+      }
     }
 
     // POST: Enderecoes/Delete/5
@@ -205,6 +230,10 @@ namespace Admin.Controllers
         TempData["Error"] = "Ocorreu um erro,entre em contato com o administrador do sistema!";
         return RedirectToAction("Index");
         throw ex;
+      }
+      finally
+      {
+        db.Dispose();
       }
 
     }

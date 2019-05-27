@@ -1,0 +1,103 @@
+﻿@model Entities.Tables.Producao
+
+@{
+  ViewBag.Title = "Details";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content-header">
+  <h1>
+    Produção
+    <small>detalhes da produção</small>
+  </h1>
+</section>
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-body">
+      <div>
+        <h4>Produção</h4>
+        <hr />
+        <dl class="dl-horizontal">
+          <dt>
+            Classe:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Classe.Descricao)
+          </dd>
+
+          <dt>
+            Tipo:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Tipo.Descricao)
+          </dd>
+
+          <dt>
+            Uva:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Uva.Descricao)
+          </dd>
+
+          <dt>
+            Data de Fabricação:
+          </dt>
+
+          <dd>
+            @String.Format("{0:dd/MM/yyyy}", Model.DataCriacao)
+          </dd>
+
+
+          <dt>
+            Volume:
+          </dt>
+
+          <dd>
+            @Html.DisplayFor(model => model.Volume) L
+          </dd>
+
+          <dt>
+            Preço/Kg Uva:
+          </dt>
+
+          <dd>
+            @String.Format("{0:c} ",Model.KgUva)
+          </dd>
+
+          <dt>
+            Preço/Kg Açucar:
+          </dt>
+
+          <dd>
+            @String.Format("{0:c} ", Model.KgAcucar)
+          </dd>
+
+          <dt>
+            Preço garrafa:
+          </dt>
+
+          <dd>
+            @String.Format("{0:c} ", Model.Vasilhame)
+          </dd>
+
+        </dl>
+      </div>
+      <div>
+        <pre> Ingredientes
+              Unidades:                            Preço: 
+              1600 Kg de Uva                      RS 3680,00 
+               320 Kg de açucar                   R$  640,00
+              1067 Garrafas com rolha e rótulo.   R$ 1760,00
+                                                
+                                           Total: R$ 6080,00     
+        </pre>
+      </div>
+    </div>
+  </div>
+</section>
+<p>
+  <a href="@Url.Action("Edit", "Producao", new { id = Model.Id })" title="Editar"><span class="label label-info">Editar</span></a>
+  <a href="@Url.Action("Index", "Producao")" title="Index"><span class="label label-info">Listar</span></a>
+</p>
