@@ -4,39 +4,39 @@
 @{
   Layout = null;
 }
-<ul class="sidebar-menu">
-  <li class="header" style="font-size:24px;">Áreas</li>
-  @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
+    <ul class="sidebar-menu">
+        <li class="header" style="font-size:24px;">Áreas</li>
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
   {
-    <li>
-      <a id="a-users" title="Usuários" href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i> Usuários</a>
-    </li>
+        <li>
+            <a id="a-users" title="Usuários" href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i> Usuários</a>
+        </li>
   }
-  @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Roles"))
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Roles"))
   {
-    <li>
-      <a id="a-roles" href="@Url.Action("Index", "Roles")"><i class="fa fa-lock"></i> Perfis</a>
-    </li>
+        <li>
+            <a id="a-roles" href="@Url.Action("Index", "Roles")"><i class="fa fa-lock"></i> Perfis</a>
+        </li>
   }
-  @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Produtos"))
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Produtos"))
   {
-    <li>
-      <a id="a-produtos" href="@Url.Action("Index", "Produtos")"><i class="fa fa-glass"></i> Produtos</a>
-    </li>
+        <li>
+            <a id="a-produtos" href="@Url.Action("Index", "Produtos")"><i class="fa fa-glass"></i> Produtos</a>
+        </li>
   }
-  <li class="treeview">
-    <a id="a-pessoas" href="@Url.Action("Index", "Pessoas")"><i class="fa fa-user"></i><span class="pull-right container"><i class="fa fa-angle-left pull-right"></i></span> Clientes</a>
-    <ul class="treeview-menu">
-      <li>
-        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Cliente Pessoa Fisica"))
+        <li class="treeview">
+            <a id="a-pessoas" href="@Url.Action("Index", "Pessoas")"><i class="fa fa-user"></i><span class="pull-right container"><i class="fa fa-angle-left pull-right"></i></span> Clientes</a>
+            <ul class="treeview-menu">
+                <li>
+                    @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Cliente Pessoa Fisica"))
         {
-          <a id="a-clientepessoafisica" href="@Url.Action("Index", "ClientePessoaFisica")"><i class="fa fa-user"></i> Cliente Pessoa Fisica</a>
+                    <a id="a-clientepessoafisica" href="@Url.Action("Index", "ClientePessoaFisica")"><i class="fa fa-user"></i> Cliente Pessoa Fisica</a>
         }
       </li>
       <li>
         @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Cliente Pessoa Juridica"))
         {
-          <a id="a-clientepessoajuridica" href="@Url.Action("Index", "ClientePessoaJuridica")"><i class="fa fa-handshake-o"></i> Cliente Pessoa Juridica</a>
+                    <a id="a-clientepessoajuridica" href="@Url.Action("Index", "ClientePessoaJuridica")"><i class="fa fa-handshake-o"></i> Cliente Pessoa Juridica</a>
         }
       </li>
     </ul>
@@ -47,13 +47,13 @@
       <li>
         @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Fornecedor Pessoa Fisica"))
         {
-          <a id="a-fornecedorpessoafisica" href="@Url.Action("Index", "FornecedorPessoaFisica")"><i class="fa fa-user"></i> Fornecedor Pessoa Física</a>
+                    <a id="a-fornecedorpessoafisica" href="@Url.Action("Index", "FornecedorPessoaFisica")"><i class="fa fa-user"></i> Fornecedor Pessoa Física</a>
         }
       </li>
       <li>
         @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Fornecedor Pessoa Juridica"))
         {
-          <a id="a-fornecedorpessoajuridica" href="@Url.Action("Index","FornecedorPessoaJuridica")"><i class="fa fa-handshake-o"></i> Fornecedor Pessoa Juridica</a>
+                    <a id="a-fornecedorpessoajuridica" href="@Url.Action("Index","FornecedorPessoaJuridica")"><i class="fa fa-handshake-o"></i> Fornecedor Pessoa Juridica</a>
         }
       </li>
     </ul>
@@ -62,9 +62,9 @@
 
   @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Safra"))
   {
-    <li>
-      <a id="a-safras" href="@Url.Action("Index", "Safras")"><i class="fa fa-calendar"></i> Safras</a>
-    </li>
+        <li>
+            <a id="a-safras" href="@Url.Action("Index", "Safras")"><i class="fa fa-calendar"></i> Safras</a>
+        </li>
   }
   @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Pedidos de Venda"))
   {
@@ -81,7 +81,22 @@
       </ul>
     </li>
   }
-  <li>
-    <a id="a-uvas" href="@Url.Action("Index","Uvas")" ><i class="fa fa-leaf"></i> Uvas</a>
-  </li>
-</ul>
+        <li>
+            <a id="a-uvas" href="@Url.Action("Index","Uvas")"><i class="fa fa-leaf"></i> Uvas</a>
+        </li>
+
+        <li class="treeview">
+            <a id="a-relatorios" href="#"><i class="fa fa-money"></i><span class="pull-right container"><i class="fa fa-angle-left pull-right"></i></span> Relatórios</a>
+            <ul class="treeview-menu">
+                <li>
+                    <a id="a-relatorio1" onclick="window.open('/Relatorio/Relatorio.aspx','Janela','resizable=no, width=640,height=480'); return false;"><i class="fa fa-money"></i> Relatório de Estoque</a>
+                </li>
+                <li>
+                    <a id="a-relatorio2" onclick="window.open('/Relatorio/Relatorio1.aspx','Janela','resizable=no, width=640,height=480'); return false;"><i class="fa fa-money"></i> Relatório Financeiro</a>
+                </li>
+                <li>
+                    <a id="a-relatorio3" onclick="window.open('/Relatorio/Relatorio2.aspx','Janela','resizable=no, width=640,height=480'); return false;"><i class="fa fa-money"></i> Relatório de Pedidos</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
