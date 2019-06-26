@@ -15,6 +15,7 @@ namespace Entities.Tables
     public int Id { get; set; }
     [Display(Name = "Uva")]
     public string Descricao { get; set; }
+    public bool Status { get; set; }
 
     public ICollection<Produto> Produtos { get; set; }
     public ICollection<Producao> Producoes { get; set; }

@@ -166,7 +166,7 @@
                     <tr>
                       @Html.HiddenFor(model => item.Id)
                       <td>
-                        <a class="btn btn-danger" onclick="atualizarItem(@Model.PedidoId,@item.Id)" title="Remover">Atualizar</a>
+                        <a class="btn btn-danger" onclick="atualizarItem(@Model.PedidoId,@item.Id)" title="Atualizar">Atualizar</a>
                       </td>
                       <td title="@item.Nome">
                         @if (item.Nome.Length > 130)

@@ -80,6 +80,7 @@ namespace Admin.Controllers
       {
         if (ModelState.IsValid)
         {
+          uva.Status = true;
           db.Uvas.Add(uva);
           await db.SaveChangesAsync();
           return RedirectToAction("Index");
@@ -172,8 +173,10 @@ namespace Admin.Controllers
       try
       {
         Uva uva = await db.Uvas.FindAsync(id);
-        db.Uvas.Remove(uva);
+        uva.Status = false;
+        db.Entry(uva).State= EntityState.Modified;
         await db.SaveChangesAsync();
+        TempData["Error"] = "Não é possível deletar esse registro! Esta Uva já está vinculada a um produto.";
         return RedirectToAction("Index");
       }
       catch (Exception ex)

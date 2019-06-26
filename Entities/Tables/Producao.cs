@@ -22,6 +22,6 @@ namespace Entities.Tables
     public decimal KgUva { get; set; }
     public decimal KgAcucar { get; set; }
     public decimal Vasilhame { get; set; }
-    //public bool Status { get; set; }
+    public bool Status { get; set; }
   }
 }

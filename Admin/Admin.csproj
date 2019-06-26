@@ -565,6 +565,16 @@
     <Content Include="Views\PedidoCompra\Details.cshtml" />
     <Content Include="Views\PedidoCompra\Delete.cshtml" />
     <Content Include="Views\PedidoCompra\Create.cshtml" />
+    <Content Include="Views\Pessoas\Create.cshtml" />
+    <Content Include="Views\Pessoas\Delete.cshtml" />
+    <Content Include="Views\Pessoas\Details.cshtml" />
+    <Content Include="Views\Pessoas\Edit.cshtml" />
+    <Content Include="Views\Pessoas\EditCF.cshtml" />
+    <Content Include="Views\Pessoas\EditCJ.cshtml" />
+    <Content Include="Views\Pessoas\Index.cshtml" />
+    <Content Include="Views\Pessoas\IndexFF.cshtml" />
+    <Content Include="Views\Pessoas\IndexFJ.cshtml" />
+    <Content Include="Views\Pessoas\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

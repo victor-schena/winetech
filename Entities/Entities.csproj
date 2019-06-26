@@ -78,6 +78,14 @@
     <Compile Include="Migrations\201905171538332_FixproductOrderTableName.Designer.cs">
       <DependentUpon>201905171538332_FixproductOrderTableName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905282353024_CreateStatusFlagOnGrapesTable.cs" />
+    <Compile Include="Migrations\201905282353024_CreateStatusFlagOnGrapesTable.Designer.cs">
+      <DependentUpon>201905282353024_CreateStatusFlagOnGrapesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906231217244_AddStatusToProduction.cs" />
+    <Compile Include="Migrations\201906231217244_AddStatusToProduction.Designer.cs">
+      <DependentUpon>201906231217244_AddStatusToProduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -112,6 +120,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905171538332_FixproductOrderTableName.resx">
       <DependentUpon>201905171538332_FixproductOrderTableName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905282353024_CreateStatusFlagOnGrapesTable.resx">
+      <DependentUpon>201905282353024_CreateStatusFlagOnGrapesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906231217244_AddStatusToProduction.resx">
+      <DependentUpon>201906231217244_AddStatusToProduction.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
