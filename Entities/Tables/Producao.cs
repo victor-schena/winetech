@@ -23,5 +23,7 @@ namespace Entities.Tables
     public decimal KgAcucar { get; set; }
     public decimal Vasilhame { get; set; }
     public bool Status { get; set; }
+    [NotMapped]//por enquanto
+    public int PesoDeUvas { get; set; }
   }
 }
