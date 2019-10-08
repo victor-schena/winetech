@@ -241,7 +241,7 @@ namespace Admin.Controllers
       List<int> roleCredId = role.Credentials.Select(c => c.Id).ToList();
       ViewBag.Credentials = _db.Credentials.ToList().OrderBy(c => c.Controller).ThenBy(c => c.Action).Select(x => new SelectListItem
       {
-        Text = string.Format("{0} - {1}", x.Controller, x.Descr, (x.Param != null ? " - " + x.Param : "")),
+        Text = string.Format("{0}  {1}", x.Descr, (x.Param != null ? " - " + x.Param : "")),
         Value = x.Id.ToString(),
         Selected = roleCredId.Contains(x.Id)
       });

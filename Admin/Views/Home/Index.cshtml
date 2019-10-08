@@ -12,45 +12,57 @@
 </section>
 @*<a href="~/Views/Home/Index.cshtml">~/Views/Home/Index.cshtml</a>*@
 <section class="content">
-  <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-      <a href="@Url.Action("Index", "Produtos")">
-        <div class="info-box">
-          <span class="info-box-icon bg-purple"><i class="fa fa fa-glass"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Produtos</span>
-            <span class="info-box-number">Gerenciar</span>
-          </div>
-        </div>
-      </a>
+    <div class="row">
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Produtos"))
+        {
+            <div class="col-md-3 col-sm-6 col-xs-12">
+
+                <a href="@Url.Action("Index", "Produtos")">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-purple"><i class="fa fa fa-glass"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Produtos</span>
+                            <span class="info-box-number">Gerenciar</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Pedidos de Venda"))
+        {
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="@Url.Action("Index", "Pedido")">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-2"><i class="fa fa-shopping-cart"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Vendas</span>
+                            <span class="info-box-number">Gerenciar</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Pedidos de Compra"))
+        {
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="#">
+                    <div class="info-box ui-sortable-handle">
+                        <span class="info-box-icon bg-3"><i class="fa fa fa-shopping-bag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Compras</span>
+                            <span class="info-box-number">Gerenciar</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-      <a href="@Url.Action("Index", "Pedido")">
-        <div class="info-box">
-          <span class="info-box-icon bg-2"><i class="fa fa-shopping-cart"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Vendas</span>
-            <span class="info-box-number">Gerenciar</span>
-          </div>
-        </div>
-      </a>
-    </div>
-    @*<div class="col-md-3 col-sm-6 col-xs-12">
-      <a href="#">
-        <div class="info-box ui-sortable-handle">
-          <span class="info-box-icon bg-3"><i class="fa fa fa-shopping-bag"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Compras</span>
-            <span class="info-box-number">Gerenciar</span>
-          </div>
-        </div>
-      </a>
-    </div>*@
-   
-  </div>
  
   <div class="row">
-    @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Users"))
+    @if (Helper.HasCredentials(User.Identity.GetUserName(), "Index", "Produção"))
     {
       <div class="col-md-3 col-sm-6 col-xs-12">
         <a href="@Url.Action("Index","Producao")">
